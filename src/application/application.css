@@ -1,0 +1,39 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+#login_Grid {
+ -fx-background-color:  linear-gradient(lightgray, gray);
+ -fx-border-color: white;
+ -fx-border-radius: 20.0;
+ -fx-padding: 10.0 10.0 10.0 10.0;
+ -fx-background-radius: 20.0;
+ 
+}
+#login-label {
+	-fx-font-size: 18.0pt ;
+	-fx-font-family: verdana ;
+	-fx-fill:  linear-gradient(orange , orangered);
+}
+#userName-label{
+	-fx-font-size: 15.0pt ;	
+	
+}
+#password-label{
+	
+	-fx-font-size: 15.0pt ;	
+}
+#error-label {
+	-fx-text-fill: red ;
+}
+#root {
+ -fx-background-color:  linear-gradient(gray,DimGrey );
+ 
+}
+#btnLogin {
+    -fx-background-radius: 30, 30, 29, 28;
+    -fx-padding: 3px 10px 3px 10px;
+    -fx-background-color: linear-gradient(orange, orangered );
+}
+#btnReset {
+    -fx-background-radius: 30, 30, 29, 28;
+    -fx-padding: 3px 10px 3px 10px;
+    -fx-background-color: linear-gradient(orange, orangered );
+}
