@@ -7,7 +7,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="653.0" prefWidth="1052.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MenuBarController">
    <top>
-      <HBox prefHeight="33.0" prefWidth="499.0" BorderPane.alignment="CENTER">
+      <HBox prefHeight="33.0" prefWidth="742.0" BorderPane.alignment="CENTER">
          <children>
             <MenuBar>
               <menus>
@@ -41,4 +41,11 @@
          </children>
       </HBox>
    </top>
+   <center>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <StackPane prefHeight="620.0" prefWidth="647.0" />
+         </children>
+      </HBox>
+   </center>
 </BorderPane>
