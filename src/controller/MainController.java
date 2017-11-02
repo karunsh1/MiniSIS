@@ -2,18 +2,12 @@ package controller;
 
 import controller.LoginController;
 import java.io.IOException;
-import java.net.URL;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Window;
-import model.User;
+
 
 public class MainController {
     @FXML

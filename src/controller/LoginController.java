@@ -63,11 +63,7 @@ public class LoginController
   }
   
   private void authenticate(String userName, String password) throws  IOException  {
-   /* if ((userName.isEmpty()) || (password.isEmpty())) {
-      return false;
-    }
-    return true;*/
-	  try{
+   	  try{
 			
 			MySQLAccess obj = new MySQLAccess();
 			Connection conn = null;
@@ -90,11 +86,11 @@ public class LoginController
 			//String errorMsg = "null";
 			//HttpSession session = request.getSession();
 			if(result.next()){
-				dbEmail = result.getString("userName");
+				dbEmail = result.getString("email");
 				dbPassword = result.getString("password");
 				type = result.getString("type");
 			
-				System.out.println(userName + password);
+				System.out.println(userName+" " + password);
 				System.out.println(dbEmail + dbPassword);
 				
 				if(type.equals("1")){
