@@ -9,7 +9,7 @@
    <top>
       <HBox prefHeight="33.0" prefWidth="742.0" BorderPane.alignment="CENTER">
          <children>
-            <MenuBar>
+            <MenuBar fx:id="menuBar">
               <menus>
                 <Menu mnemonicParsing="false" text="User Detail">
                   <items>
@@ -34,6 +34,8 @@
                      <items>
                         <MenuItem mnemonicParsing="false" text="View Schedule" />
                         <MenuItem mnemonicParsing="false" text="Add Term/Course" />
+                        <MenuItem mnemonicParsing="false" text="Select Class Schedule" />
+                        <MenuItem fx:id="addGrades" mnemonicParsing="false" onAction="#clickOnAddGrades" text="Add Grades" />
                      </items>
                   </Menu>
               </menus>
@@ -44,7 +46,7 @@
    <center>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <StackPane prefHeight="620.0" prefWidth="647.0" />
+            <StackPane fx:id="showItemPane" prefHeight="620.0" prefWidth="821.0" />
          </children>
       </HBox>
    </center>
