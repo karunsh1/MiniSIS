@@ -86,7 +86,7 @@ public class LoginController {
 			int userId;
 			String dbPassword = "null";
 			String type = "null";
-			String name = "null";
+			String name = "null";	
 			String userType = "null";
 			// String errorMsg = "null";
 			// HttpSession session = request.getSession();

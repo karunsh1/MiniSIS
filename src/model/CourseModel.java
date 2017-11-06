@@ -105,22 +105,22 @@ public class CourseModel {
 
 			ResultSet result = courseList.executeQuery();
 			ArrayList Rows = new ArrayList();
-			while (result.next()) {
-				// System.out.println(dbID + dbName + dbStatusClient);
-				ArrayList row = new ArrayList();
-				for (int i = 1; i <= 1; i++) {
-					row.add(result.getString("id"));
-					row.add(result.getString("course"));
-					row.add(result.getString("instructor"));
-					row.add(result.getString("term"));
-					row.add(result.getString("time"));
-					row.add(result.getString("location"));
-					row.add(result.getString("unit"));
-					row.add(result.getString("status"));
+				while (result.next()) {
+					// System.out.println(dbID + dbName + dbStatusClient);
+					ArrayList row = new ArrayList();
+					for (int i = 1; i <= 1; i++) {
+						row.add(result.getString("id"));
+						row.add(result.getString("course"));
+						row.add(result.getString("instructor"));
+						row.add(result.getString("term"));
+						row.add(result.getString("time"));
+						row.add(result.getString("location"));
+						row.add(result.getString("unit"));
+						row.add(result.getString("status"));
+					}
+					Rows.add(row);
+					enrollCourseList = Rows;
 				}
-				Rows.add(row);
-				enrollCourseList = Rows;
-			}
 
 		} catch (Exception e) {
 			System.out.println("Something went wrong. Please contact system admin.");

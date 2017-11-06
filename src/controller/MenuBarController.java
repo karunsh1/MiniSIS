@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
@@ -20,17 +21,26 @@ public class MenuBarController implements Initializable {
 	private StackPane showItemPane;
 	@FXML
 	private MenuItem addGrades;
+	@FXML
+	MenuBar menuBar;
 
 	@FXML
 	private void clickOnAddGrades() {
 		BorderPane newLoadedPane = null;
-		try {
-			newLoadedPane = FXMLLoader.load(getClass().getResource("/view/GradesDashboard.fxml"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (! addGrades.isDisable()) {
+
+			try {
+				newLoadedPane = FXMLLoader.load(getClass().getResource("/view/GradesDashboard.fxml"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			showItemPane.getChildren().add(newLoadedPane);
+			addGrades.disableProperty().set(true);
+			
 		}
-		showItemPane.getChildren().add(newLoadedPane);
+
 	}
 
 	@Override
