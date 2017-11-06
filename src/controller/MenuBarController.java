@@ -4,12 +4,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
@@ -22,8 +19,29 @@ public class MenuBarController implements Initializable {
 	@FXML
 	private MenuItem addGrades;
 	@FXML
-	MenuBar menuBar;
+	private MenuItem mItemViewCGPA;
+	@FXML
+	private MenuBar menuBar;
+	
+	@FXML
+	private void ClickOnViewCGPA() {
+		BorderPane newLoadedPane = null;
+		if (! mItemViewCGPA.isDisable()) {
 
+			try {
+				newLoadedPane = FXMLLoader.load(getClass().getResource("/view/ViewGradeDashBoard.fxml"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			showItemPane.getChildren().add(newLoadedPane);
+			mItemViewCGPA.disableProperty().set(true);
+			
+		}
+
+		
+	}
 	@FXML
 	private void clickOnAddGrades() {
 		BorderPane newLoadedPane = null;

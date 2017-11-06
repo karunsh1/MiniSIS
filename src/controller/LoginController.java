@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import DTO.Admin;
 import DTO.Student;
 import database.MySQLAccess;
-import javafx.beans.Observable;
 import javafx.beans.property.ObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -34,7 +33,7 @@ public class LoginController {
 	// return user;
 	// }
 	public final Users getUser() {
-		return (Users) userProperty().get();
+		return userProperty().get();
 	}
 
 	public final void setUser(Users user) {
