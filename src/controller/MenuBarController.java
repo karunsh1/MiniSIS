@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
@@ -22,11 +23,35 @@ public class MenuBarController implements Initializable {
 	private MenuItem mItemViewCGPA;
 	@FXML
 	private MenuBar menuBar;
+	@FXML
+	private MenuItem mItemViewTranscript;
 	
 	@FXML
-	private void ClickOnViewCGPA() {
+	private void clickOnViewTranscript(){
+		showItemPane.getChildren().clear();
 		BorderPane newLoadedPane = null;
-		if (! mItemViewCGPA.isDisable()) {
+		//if (!mItemViewCGPA.isDisable()) {
+
+			try {
+				newLoadedPane = FXMLLoader.load(getClass().getResource("/view/ViewTranscript.fxml"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			showItemPane.getChildren().add(newLoadedPane);
+			//mItemViewCGPA.disableProperty().set(true);
+
+		//}
+		
+	}
+	@FXML
+	private void ClickOnViewCGPA() {
+		
+		
+		showItemPane.getChildren().clear();
+		BorderPane newLoadedPane = null;
+		//if (!mItemViewCGPA.isDisable()) {
 
 			try {
 				newLoadedPane = FXMLLoader.load(getClass().getResource("/view/ViewGradeDashBoard.fxml"));
@@ -36,16 +61,18 @@ public class MenuBarController implements Initializable {
 			}
 
 			showItemPane.getChildren().add(newLoadedPane);
-			mItemViewCGPA.disableProperty().set(true);
-			
-		}
+			//mItemViewCGPA.disableProperty().set(true);
 
-		
+		//}
+
 	}
+
 	@FXML
 	private void clickOnAddGrades() {
+		
+		showItemPane.getChildren().clear();
 		BorderPane newLoadedPane = null;
-		if (! addGrades.isDisable()) {
+		//if (!addGrades.isDisable()) {
 
 			try {
 				newLoadedPane = FXMLLoader.load(getClass().getResource("/view/GradesDashboard.fxml"));
@@ -55,9 +82,9 @@ public class MenuBarController implements Initializable {
 			}
 
 			showItemPane.getChildren().add(newLoadedPane);
-			addGrades.disableProperty().set(true);
-			
-		}
+			//addGrades.disableProperty().set(true);
+
+		//}
 
 	}
 

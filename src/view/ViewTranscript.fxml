@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane prefHeight="594.0" prefWidth="872.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewTranscriptController">
+	<center>
+		<AnchorPane prefHeight="547.0" prefWidth="1151.0" BorderPane.alignment="CENTER">
+			<children>
+				<HBox fx:id="hBoxSearchStudent" alignment="CENTER" layoutX="14.0" prefHeight="106.0" prefWidth="779.0">
+					<children>
+						<GridPane prefHeight="110.0" prefWidth="487.0">
+							<columnConstraints>
+								<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+								<ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+							</columnConstraints>
+							<rowConstraints>
+								<RowConstraints maxHeight="144.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
+								<RowConstraints maxHeight="136.0" minHeight="10.0" prefHeight="54.0" vgrow="SOMETIMES" />
+							</rowConstraints>
+							<children>
+								<Label prefHeight="21.0" prefWidth="208.0" text="Search Student">
+									<font>
+										<Font size="20.0" />
+									</font>
+								</Label>
+								<TextField fx:id="txtSearchStudentID" prefHeight="45.0" prefWidth="143.0" promptText="Enter Student ID" GridPane.columnIndex="1">
+                           <font>
+                              <Font size="20.0" />
+                           </font></TextField>
+                        <Button fx:id="btnViewTranscript" mnemonicParsing="false" onAction="#ClickOnBtnViewTranscript" prefHeight="44.0" prefWidth="129.0" text="Search" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Button>
+							</children>
+							<HBox.margin>
+								<Insets />
+							</HBox.margin>
+							<padding>
+								<Insets left="10.0" />
+							</padding>
+						</GridPane>
+					</children>
+				</HBox>
+            <ScrollPane fx:id="ScrlPaneVewTranscript" layoutX="2.0" layoutY="116.0" prefHeight="425.0" prefWidth="866.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+              </content>
+            </ScrollPane>
+			</children>
+		</AnchorPane>
+	</center>
+	<top>
+		<HBox alignment="CENTER" prefHeight="58.0" prefWidth="777.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" prefHeight="33.0" prefWidth="246.0" text="View Transcript">
+               <font>
+                  <Font name="Arial Bold" size="29.0" />
+               </font>
+            </Label>
+         </children>
+		</HBox>
+	</top>
+</BorderPane>

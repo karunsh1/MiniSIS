@@ -27,7 +27,7 @@
                 <Menu mnemonicParsing="false" text="Result">
                   <items>
                     <MenuItem fx:id="mItemViewCGPA" mnemonicParsing="false" onAction="#ClickOnViewCGPA" text="View CGPA" />
-                        <MenuItem mnemonicParsing="false" text="View Trascript" />
+                        <MenuItem fx:id="mItemViewTranscript" mnemonicParsing="false" onAction="#clickOnViewTranscript" text="View Trascript" />
                   </items>
                 </Menu>
                   <Menu mnemonicParsing="false" text="Activity">

@@ -12,7 +12,7 @@
 	<center>
 		<AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
 			<children>
-				<HBox alignment="CENTER" prefHeight="119.0" prefWidth="763.0">
+				<HBox fx:id="hBoxSearchStudent" alignment="CENTER" prefHeight="119.0" prefWidth="763.0">
 					<children>
 						<GridPane prefHeight="110.0" prefWidth="487.0">
 							<columnConstraints>
@@ -33,7 +33,7 @@
                            <font>
                               <Font size="20.0" />
                            </font></TextField>
-                        <Button fx:id="btnSearchViewCGPA" mnemonicParsing="false" onAction="#clickOnBtnSearchViewCGPA" prefHeight="44.0" prefWidth="129.0" text="Search" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Button fx:id="btnSearchViewCGPA" mnemonicParsing="false" onAction="#ClickOnBtnSearchCGPADetail" prefHeight="44.0" prefWidth="129.0" text="Search" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <font>
                               <Font size="19.0" />
                            </font>
