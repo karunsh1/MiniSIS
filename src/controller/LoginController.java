@@ -72,8 +72,7 @@ public class LoginController {
 
 			MySQLAccess obj = new MySQLAccess();
 			Connection conn = null;
-			conn = obj.getConnection();
-
+			conn=obj.getConnection();
 			// SQL Query
 			PreparedStatement login = conn.prepareStatement(" select * from users where email=? and password=?");
 
@@ -94,11 +93,13 @@ public class LoginController {
 				dbEmail = result.getString("email");
 				dbPassword = result.getString("password");
 				type = result.getString("type");
+				
 				System.out.println(type);
 				System.out.println(userName + password);
 				System.out.println(dbEmail + dbPassword);
-
+				Users users=new Users(userName,password);
 				if (type.equals("1")) {
+					users.setType(1);
 					StudentModel studentModel = new StudentModel();
 					Student student = studentModel.selectStudent(dbEmail);
 					name = student.getFirst_name() + " " + student.getLast_name();
@@ -108,6 +109,7 @@ public class LoginController {
 
 					// session.setAttribute("studentId", userId);
 				} else {
+					users.setType(2);
 					AdminModel adminModel = new AdminModel();
 					Admin admin = adminModel.selectAdmin(dbEmail);
 					name = admin.getFirst_name() + " " + admin.getLast_name();

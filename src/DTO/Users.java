@@ -2,13 +2,17 @@ package DTO;
 
 public class Users {
 	private String email,password;
+	private int type;
 
 	public Users(String email, String password) {
 		super();
 		this.email = email;
 		this.password = password;
+		this.type=type;
 	}
-
+    public Users() {
+    	
+    }
 	public String getEmail() {
 		return email;
 	}
@@ -28,4 +32,11 @@ public class Users {
         return this.email;
     }
 	
+   public void setType(int type) {
+	   this.type=type;
+   }
+	
+   public int getType() {
+	   return this.type;
+   }
 }
