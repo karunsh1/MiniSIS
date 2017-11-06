@@ -15,15 +15,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 import model.TermInfoModel;
 
-public class GradeDashboardController implements Initializable {
+public class AddGradesController implements Initializable {
 	
 	private Desktop desktop = Desktop.getDesktop();
 	@FXML
     private ComboBox cbSelectTerm;
+	@FXML
+    private BorderPane addGrades;
 	@FXML
     private ComboBox cbDeptName;
 	@FXML
