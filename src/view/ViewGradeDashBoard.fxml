@@ -12,16 +12,15 @@
 	<center>
 		<AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
 			<children>
-				<HBox fx:id="hBoxSearchStudent" alignment="CENTER" prefHeight="119.0" prefWidth="763.0">
+				<HBox fx:id="hBoxSearchStudent" alignment="CENTER" prefHeight="61.0" prefWidth="763.0">
 					<children>
-						<GridPane prefHeight="110.0" prefWidth="487.0">
+						<GridPane prefHeight="53.0" prefWidth="487.0">
 							<columnConstraints>
 								<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
 								<ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
 							</columnConstraints>
 							<rowConstraints>
 								<RowConstraints maxHeight="144.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
-								<RowConstraints maxHeight="136.0" minHeight="10.0" prefHeight="54.0" vgrow="SOMETIMES" />
 							</rowConstraints>
 							<children>
 								<Label prefHeight="21.0" prefWidth="208.0" text="Search Student">
@@ -33,11 +32,6 @@
                            <font>
                               <Font size="20.0" />
                            </font></TextField>
-                        <Button fx:id="btnSearchViewCGPA" mnemonicParsing="false" onAction="#ClickOnBtnSearchCGPADetail" prefHeight="44.0" prefWidth="129.0" text="Search" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <font>
-                              <Font size="19.0" />
-                           </font>
-                        </Button>
 							</children>
 							<HBox.margin>
 								<Insets />
@@ -48,7 +42,7 @@
 						</GridPane>
 					</children>
 				</HBox>
-            <HBox fx:id="hBoxCGPADetail" layoutX="6.0" layoutY="172.0" prefHeight="235.0" prefWidth="755.0" visible="false">
+            <HBox fx:id="hBoxCGPADetail" layoutX="4.0" layoutY="236.0" prefHeight="235.0" prefWidth="755.0">
                <children>
       				<GridPane prefHeight="160.0" prefWidth="745.0">
       					<columnConstraints>
@@ -104,6 +98,15 @@
                         </Label>
                      </children>
       				</GridPane>
+               </children>
+            </HBox>
+            <HBox fx:id="hBoxShowCGPA" layoutX="16.0" layoutY="68.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="100.0" prefWidth="611.0" AnchorPane.bottomAnchor="304.0" AnchorPane.leftAnchor="16.0" AnchorPane.topAnchor="68.0">
+               <children>
+                  <Button fx:id="btnSearchViewCGPA" mnemonicParsing="false" onAction="#ClickOnBtnSearchCGPADetail" prefHeight="44.0" prefWidth="129.0" text="Search">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </Button>
                </children>
             </HBox>
 			</children>

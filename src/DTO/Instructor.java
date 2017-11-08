@@ -1,6 +1,6 @@
 package DTO;
 
-public class Admin {
+public class Instructor {
 	int id;
 	String first_name;
 	String last_name;
@@ -10,28 +10,26 @@ public class Admin {
 	String mobile;
 	
 
-	public Admin() {
+	public Instructor() {
 		super();
 	}
 	
 	
-	public Admin(String first_name,String last_name, String email, String mobile, int emp_id, String address) {
+	public Instructor(String first_name,String last_name, String email, int emp_id, String address) {
 		super();
 		this.first_name = first_name;
 		this.last_name = last_name;
-		this.email = email;
-		this.mobile = mobile;
+		this.email = email;		
 		this.emp_id = emp_id;
 		this.address = address;
 	}
 	
-	public Admin(int id, String first_name,String last_name, String email,String mobile, int emp_id, String address) {
+	public Instructor(int id, String first_name,String last_name, String email,int emp_id, String address) {
 		super();
 		this.id = id;
 		this.first_name = first_name;
 		this.last_name = last_name;
-		this.email = email;
-		this.mobile = mobile;
+		this.email = email;		
 		this.emp_id = emp_id;
 		this.address = address;
 	}
@@ -70,16 +68,7 @@ public class Admin {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	public String getMobile() {
-		return mobile;
-	}
-
-
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
-	
+		
 	public int getEmp_id() {
 		return emp_id;
 	}

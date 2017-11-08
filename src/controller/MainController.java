@@ -19,13 +19,16 @@ public class MainController {
     private LoginController loginController;
 
     public void initialize() {
-        this.loginController.userProperty().addListener((obs, oldUser, newUser) -> {
+        this.loginController.userProperty().addListener((obs, oldUser, newUser) -> { 
+        	
             if (newUser == null) {
                 this.root.setCenter(this.login);
                 this.root.getScene().getWindow().sizeToScene();
             } else {
-                if (this.mainView == null) {
+                if (this.mainView == null ) {
+                	
                     this.loadMainView();
+                     
                 	 
                 }
                 this.root.setCenter(this.mainView);

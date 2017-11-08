@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.control.Label?>
@@ -8,47 +13,60 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Button?>
 <?import javafx.geometry.Insets?>
-	
-<GridPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController" 
-	alignment="CENTER" hgap="5" vgap="5" fx:id="login_Grid">
+
+<GridPane fx:id="login_Grid" alignment="CENTER" hgap="5" vgap="5" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
 	
 	<padding>
-		<Insets top="5" bottom="5" left="5" right="5" />
+		<Insets bottom="5" left="5" right="5" top="5" />
 	</padding>
 	<columnConstraints>
-		<ColumnConstraints halignment="RIGHT" hgrow="NEVER"/>
-		<ColumnConstraints halignment="LEFT" hgrow="ALWAYS"/>
+		<ColumnConstraints halignment="RIGHT" hgrow="NEVER" />
+		<ColumnConstraints halignment="LEFT" hgrow="ALWAYS" />
 	</columnConstraints>
-	<Label text="Student Portal" id="login-label">
-		<GridPane.columnSpan>2</GridPane.columnSpan>
-		<GridPane.halignment>CENTER</GridPane.halignment>
-	</Label>
-	<Label text="User Name:" id="userName-label">
-		<GridPane.rowIndex>1</GridPane.rowIndex>
-		<GridPane.columnIndex>0</GridPane.columnIndex>
-	</Label>
-	<TextField fx:id="userNameField" onAction="#ok">
-		<GridPane.rowIndex>1</GridPane.rowIndex>
-		<GridPane.columnIndex>1</GridPane.columnIndex>
-	</TextField>
-	<Label text="Password:" id="password-label">
-		<GridPane.rowIndex>2</GridPane.rowIndex>
-		<GridPane.columnIndex>0</GridPane.columnIndex>
-	</Label>
-	<PasswordField fx:id="passwordField" onAction="#ok">
-		<GridPane.rowIndex>2</GridPane.rowIndex>
-		<GridPane.columnIndex>1</GridPane.columnIndex>
-	</PasswordField>
-	<Label fx:id="errorLabel" id="error-label">
-		<GridPane.rowIndex>3</GridPane.rowIndex>
-		<GridPane.columnSpan>2</GridPane.columnSpan>	
-		<GridPane.halignment>CENTER</GridPane.halignment>
-	</Label>
-	<HBox spacing="5" alignment="CENTER">
-		<GridPane.rowIndex>4</GridPane.rowIndex>
-		<GridPane.columnSpan>2</GridPane.columnSpan>
-		
-		<Button fx:id="btnLogin" onAction="#ok" text="Login"/>
-		<Button fx:id="btnReset" onAction="#cancel" text="Reset"/>
-	</HBox>
+   <children>
+   	<Label id="login-label" text="Student Portal">
+   		<GridPane.columnSpan>2</GridPane.columnSpan>
+   		<GridPane.halignment>CENTER</GridPane.halignment>
+   	</Label>
+   	<Label id="userName-label" text="User Name:">
+   		<GridPane.rowIndex>1</GridPane.rowIndex>
+   		<GridPane.columnIndex>0</GridPane.columnIndex>
+   	</Label>
+   	<TextField fx:id="userNameField" onAction="#ok">
+   		<GridPane.rowIndex>1</GridPane.rowIndex>
+   		<GridPane.columnIndex>1</GridPane.columnIndex>
+   	</TextField>
+   	<Label id="password-label" text="Password:">
+   		<GridPane.rowIndex>2</GridPane.rowIndex>
+   		<GridPane.columnIndex>0</GridPane.columnIndex>
+   	</Label>
+   	<PasswordField fx:id="passwordField" onAction="#ok">
+   		<GridPane.rowIndex>2</GridPane.rowIndex>
+   		<GridPane.columnIndex>1</GridPane.columnIndex>
+   	</PasswordField>
+   	<Label id="error-label" fx:id="errorLabel">
+   		<GridPane.rowIndex>3</GridPane.rowIndex>
+   		<GridPane.columnSpan>2</GridPane.columnSpan>	
+   		<GridPane.halignment>CENTER</GridPane.halignment>
+   	</Label>
+   	<HBox alignment="CENTER" spacing="5">
+   		<GridPane.rowIndex>4</GridPane.rowIndex>
+   		<GridPane.columnSpan>2</GridPane.columnSpan>
+      <children>
+      		
+      		<Button fx:id="btnLogin" onAction="#ok" text="Login" />
+      		<Button fx:id="btnReset" onAction="#cancel" text="Reset" />
+      </children>
+   	</HBox>
+      <Label fx:id="lblUserType" visible="false" GridPane.rowIndex="4" />
+      <Label fx:id="lblUserAccessID" visible="false" GridPane.rowIndex="4" />
+      <Label fx:id="lblUserRole" visible="false" GridPane.rowIndex="4" />
+   </children>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
 </GridPane>

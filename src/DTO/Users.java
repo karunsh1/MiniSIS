@@ -1,7 +1,7 @@
 package DTO;
 
 public class Users {
-	private String email,password;
+	private String email = null,password = null;
 
 	public Users(String email, String password) {
 		super();

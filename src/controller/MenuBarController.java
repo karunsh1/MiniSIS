@@ -12,6 +12,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import util.Singleton;
 
 public class MenuBarController implements Initializable {
 
@@ -91,6 +92,13 @@ public class MenuBarController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
+		
+		String userType = null;
+		
+	   userType = Singleton.getInstance().getUserType().getText();
+	    if(!userType.equals("3")){
+	    	addGrades.visibleProperty().set(false);
+	    }		
 
 	}
 

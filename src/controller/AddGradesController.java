@@ -18,7 +18,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
-import model.TermInfoModel;
+import model.DAO;
+import util.Singleton;
 
 public class AddGradesController implements Initializable {
 	
@@ -158,22 +159,28 @@ public class AddGradesController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		 
-		TermInfoModel termDetail = new TermInfoModel();
-		ArrayList temtermlist = termDetail.termList();
-		//System.out.println("Only term"+temtermlist.);
+		DAO dataAccess = new DAO();
+		ArrayList termListArray = dataAccess.termNames();
+		ArrayList departmentNames = dataAccess.departmentNames();
 		
-		//for()
+		String instructorID = Singleton.getInstance().getUserAcessID().getText();
+		ArrayList courseNames = dataAccess.Instructor_Courses(Integer.parseInt(instructorID));
 		
 		
-		ObservableList termlist = FXCollections.observableArrayList();
-		termlist.addAll("Summer 2017","Fall 2017");
+		
+		
+		
+		
+		
+		
+		
+		ObservableList termlist = FXCollections.observableArrayList(termListArray);
+		ObservableList DepartmentNamelist = FXCollections.observableArrayList(departmentNames);
+		ObservableList courseNamelist = FXCollections.observableArrayList(courseNames);
+		
 		cbSelectTerm.setItems(termlist);
-		System.out.println(temtermlist);
-		
-		
-		
-		
-		
+		cbDeptName.setItems(DepartmentNamelist);
+		cbCourseName.setItems(courseNamelist);
 		
 		
 		
