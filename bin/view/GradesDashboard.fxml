@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane fx:id="addGrades" prefHeight="437.0" prefWidth="628.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddGradesController">
+	<top>
+		<HBox alignment="CENTER" prefHeight="54.0" prefWidth="575.0" BorderPane.alignment="CENTER">
+			<children>
+				<Label text="Add Grades" textAlignment="CENTER">
+					<font>
+						<Font size="25.0" />
+					</font>
+				</Label>
+			</children>
+		</HBox>
+	</top>
+	<left>
+		<TabPane prefHeight="383.0" prefWidth="627.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+			<tabs>
+				<Tab fx:id="tbGradeTemplate" text="Grade Template">
+					<content>
+						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="329.0" prefWidth="630.0">
+							<children>
+								<HBox alignment="CENTER" layoutX="6.0" layoutY="14.0" prefHeight="41.0" prefWidth="567.0">
+									<children>
+										<Label alignment="CENTER" text="Download Templates">
+											<font>
+												<Font size="20.0" />
+											</font>
+										</Label>
+									</children>
+								</HBox>
+								<GridPane layoutX="2.0" layoutY="64.0" prefHeight="172.0" prefWidth="575.0">
+									<columnConstraints>
+										<ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="223.0" minWidth="10.0" prefWidth="212.0" />
+										<ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="371.0" minWidth="10.0" prefWidth="244.0" />
+									</columnConstraints>
+									<rowConstraints>
+										<RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES" />
+										<RowConstraints maxHeight="106.0" minHeight="4.0" prefHeight="45.0" vgrow="SOMETIMES" />
+										<RowConstraints maxHeight="147.0" minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES" />
+										<RowConstraints maxHeight="147.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
+									</rowConstraints>
+									<children>
+										<Label text="Term ">
+											<font>
+												<Font size="20.0" />
+											</font>
+										</Label>
+										<Label text="Department Name" GridPane.rowIndex="1">
+											<font>
+												<Font size="20.0" />
+											</font>
+										</Label>
+										<Label text="Course Name" GridPane.rowIndex="2">
+											<font>
+												<Font size="20.0" />
+											</font>
+										</Label>
+										<Label text="Career Name" GridPane.rowIndex="3">
+											<font>
+												<Font size="20.0" />
+											</font>
+										</Label>
+										<ComboBox fx:id="cbSelectTerm" onAction="#onSelectTerm" prefHeight="37.0" prefWidth="289.0" promptText="Please Select Term" GridPane.columnIndex="1" />
+										<ComboBox fx:id="cbDeptName" onAction="#onSelectDept" prefHeight="41.0" prefWidth="289.0" promptText="Please Select Term" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+										<ComboBox fx:id="cbCourseName" editable="true" onAction="#onSelectDeptName" prefHeight="37.0" prefWidth="289.0" promptText="Please Select Course" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+										<ComboBox fx:id="cbCareerName" onAction="#onSelectCareer" prefHeight="37.0" prefWidth="291.0" promptText="Please Select Term" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+									</children>
+								</GridPane>
+								<HBox alignment="CENTER" layoutX="2.0" layoutY="301.0" prefHeight="43.0" prefWidth="575.0">
+									<children>
+										<Button fx:id="btnDownloadTemplate" mnemonicParsing="false" onAction="#downnloadCSV" prefHeight="38.0" prefWidth="110.0" text="Download" textAlignment="CENTER">
+											<font>
+												<Font size="18.0" />
+											</font>
+										</Button>
+									</children>
+								</HBox>
+							</children>
+						</AnchorPane>
+					</content>
+				</Tab>
+            <Tab fx:id="tbUploadGrades" text="Upload Grades">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <HBox alignment="CENTER" layoutX="6.0" layoutY="14.0" prefHeight="41.0" prefWidth="567.0">
+                           <children>
+                              <Label alignment="CENTER" text="Upload Template">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <GridPane layoutX="2.0" layoutY="64.0" prefHeight="216.0" prefWidth="597.0">
+                           <children>
+                              <Label text="Term ">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Department Name" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Course Name" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Career Name" GridPane.rowIndex="3">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="cbSelectTermUpload" onAction="#onSelectTermUpload" prefHeight="38.0" prefWidth="289.0" promptText="Please Select Term" GridPane.columnIndex="1" />
+                              <ComboBox fx:id="cbDeptNameUpload" onAction="#onSelectDeptUpload" prefHeight="41.0" prefWidth="289.0" promptText="Please Select Term" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <ComboBox fx:id="cbCourseNameUpload" editable="true" onAction="#onSelectDeptNameUpload" prefHeight="43.0" prefWidth="289.0" promptText="Please Select Course" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <ComboBox fx:id="cbCareerNameUpload" onAction="#onSelectCareer" prefHeight="37.0" prefWidth="291.0" promptText="Please Select Term" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Label prefHeight="30.0" prefWidth="243.0" text="Choose Grade Fill Template" GridPane.rowIndex="4">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <Button fx:id="btnFileChooser" mnemonicParsing="false" onAction="#clickOnFileChooser" prefHeight="40.0" prefWidth="230.0" text="Select File" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                           </children>
+                           <columnConstraints>
+                              <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="250.0" minWidth="10.0" prefWidth="250.0" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="371.0" minWidth="10.0" prefWidth="344.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="106.0" minHeight="4.0" prefHeight="45.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="147.0" minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="147.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="147.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                        </GridPane>
+                        <HBox alignment="CENTER" layoutX="2.0" layoutY="287.0" prefHeight="43.0" prefWidth="575.0">
+                           <children>
+                              <Button fx:id="btnUploadTemplate" mnemonicParsing="false" onAction="#UploadCSV" prefHeight="38.0" prefWidth="110.0" text="Submit" textAlignment="CENTER">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+			</tabs>
+		</TabPane>
+	</left>
+</BorderPane>

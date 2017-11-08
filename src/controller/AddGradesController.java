@@ -158,13 +158,12 @@ public class AddGradesController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		 
+		String instructorID = Singleton.getInstance().getUserAcessID().getText(); 
 		DAO dataAccess = new DAO();
 		ArrayList termListArray = dataAccess.termNames();
-		ArrayList departmentNames = dataAccess.departmentNames();
-		
-		String instructorID = Singleton.getInstance().getUserAcessID().getText();
+		ArrayList departmentNames = dataAccess.Instructor_Dept(Integer.parseInt(instructorID));		
 		ArrayList courseNames = dataAccess.Instructor_Courses(Integer.parseInt(instructorID));
+		ArrayList careerNames = dataAccess.careerList_ins(Integer.parseInt(instructorID));
 		
 		
 		
@@ -177,11 +176,12 @@ public class AddGradesController implements Initializable {
 		ObservableList termlist = FXCollections.observableArrayList(termListArray);
 		ObservableList DepartmentNamelist = FXCollections.observableArrayList(departmentNames);
 		ObservableList courseNamelist = FXCollections.observableArrayList(courseNames);
+		ObservableList careerNameList = FXCollections.observableArrayList(careerNames);
 		
 		cbSelectTerm.setItems(termlist);
 		cbDeptName.setItems(DepartmentNamelist);
 		cbCourseName.setItems(courseNamelist);
-		
+		cbCareerName.setItems(careerNameList);
 		
 		
 	}

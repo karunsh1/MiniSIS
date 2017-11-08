@@ -1,11 +1,14 @@
 package model;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
+import com.csvreader.CsvWriter;
 import DTO.Admin;
 import DTO.Instructor;
 import DTO.Term;
@@ -203,7 +206,104 @@ public class DAO {
 		return CoursetList;
 
 	}
+	/**
+	 * instructor Department where he teaches
+	 * 
+	 * 
+	 */
+	public ArrayList Instructor_Dept(int instrutorID) {
+		String sql = null;
+		ArrayList deptList = new ArrayList();
+		
+
+		sql = "select subject_code from subject where id in (select subject_id from course where  id  in( select course_id  from course_details where instructor_id="+ instrutorID +"))";
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = obj.getConnection();
+		try {
+			PreparedStatement term = conn.prepareStatement(sql);
+			ResultSet result = term.executeQuery();
+			
+			while (result.next()) {
+				for (int i = 1; i <= 1; i++) {
+					
+					deptList.add(result.getString("subject_code"));;					
+				}
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return deptList;
+
+	}
+	/**
+	 * Career Leve Grad or UnderGrad
+	 */
 	
+	public ArrayList careerList_ins(int instrutorID) {
+		String sql = null;
+		ArrayList deptList = new ArrayList();
+		
+
+		sql = "select level from minisis.course where id in (select course_id from minisis.course_details where instructor_id ="+ instrutorID +")";
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = obj.getConnection();
+		try {
+			PreparedStatement term = conn.prepareStatement(sql);
+			ResultSet result = term.executeQuery();
+			
+			while (result.next()) {
+				for (int i = 1; i <= 1; i++) {
+					
+					deptList.add(result.getString("level"));;					
+				}
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return deptList;
+
+	}
+	
+	/**
+	 * CSV Export from Database
+	 */
+	public File exportCSVStudent_Inst_uploadGrades(String filePath, String IntructorID ,String termID ){
+		
+		String fileName = "Student_Result";
+		String sql = "";
+		
+				
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = obj.getConnection();
+		sql = "Select id,first_name,last_name from minisis.student where id in(select student_id from minisis.registration where status ='enrolled' and"
+				+ "  course_details_id in(select id from minisis.course_details where instructor_id ="+IntructorID+" and term_id ="+termID+"))";
+		
+		try {
+			PrintWriter pw = new PrintWriter(new File(filePath+ "\\" +fileName));
+			StringBuilder sb = new StringBuilder();
+	        sb.append("id");
+	        sb.append(',');
+	        sb.append("first_name");
+	        sb.append(',');
+	        
+
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+		
+		
+	}
+		
 	
 
 }
