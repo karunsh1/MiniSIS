@@ -129,11 +129,20 @@
                                     <Font size="20.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="btnFileChooser" mnemonicParsing="false" onAction="#clickOnFileChooser" prefHeight="40.0" prefWidth="230.0" text="Select File" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <HBox alignment="CENTER_LEFT" maxHeight="35.0" maxWidth="300.0" prefHeight="42.0" prefWidth="306.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                 <children>
+                                    <HBox maxHeight="35.0" maxWidth="100.0" minWidth="0.0" prefHeight="35.0" prefWidth="96.0">
+                                       <children>
+                                          <Button fx:id="btnFileChooser" maxWidth="100.0" mnemonicParsing="false" onAction="#clickOnFileChooser" prefHeight="35.0" prefWidth="87.0" text="Select File" />
+                                       </children>
+                                    </HBox>
+                                    <Label fx:id="lblFileName" prefHeight="21.0" prefWidth="155.0" />
+                                 </children>
+                              </HBox>
                            </children>
                            <columnConstraints>
                               <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="250.0" minWidth="10.0" prefWidth="250.0" />
-                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="371.0" minWidth="10.0" prefWidth="344.0" />
+                              <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="371.0" minWidth="10.0" prefWidth="344.0" />
                            </columnConstraints>
                            <rowConstraints>
                               <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES" />
