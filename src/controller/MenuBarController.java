@@ -1,3 +1,4 @@
+
 package controller;
 
 import java.io.IOException;
@@ -26,6 +27,25 @@ public class MenuBarController implements Initializable {
 	private MenuBar menuBar;
 	@FXML
 	private MenuItem mItemViewTranscript;
+	
+
+   
+    @FXML
+	private MenuItem menuitemSearchCourse;
+   
+	@FXML
+	private void onSearchCourse() {
+		BorderPane newLoadedPane = null;
+		try {
+			
+			newLoadedPane = FXMLLoader.load(getClass().getResource("/view/MenuBar.fxml"));
+		} catch (IOException e) {
+			System.out.println("in catch");
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		showItemPane.getChildren().add(newLoadedPane);
+	}
 	
 	@FXML
 	private void clickOnViewTranscript(){
@@ -103,3 +123,8 @@ public class MenuBarController implements Initializable {
 	}
 
 }
+
+
+
+} 
+
