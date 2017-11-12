@@ -48,11 +48,7 @@
    <center>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-<<<<<<< HEAD
             <StackPane fx:id="showItemPane" prefHeight="620.0" prefWidth="821.0" />
-=======
-            <StackPane fx:id="showItemPane" prefHeight="620.0" prefWidth="647.0" />
->>>>>>> RegisterCourse
          </children>
       </HBox>
    </center>
