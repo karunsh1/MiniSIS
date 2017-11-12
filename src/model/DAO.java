@@ -83,9 +83,9 @@ public class DAO {
 	 * System.out.println("Something went wrong. Please contact system admin.");
 	 * System.err.println(e.getMessage()); } return termList; }
 	 */
-	public ArrayList termNames() {
+	public ArrayList<String> termNames() {
 		String sql = null;
-		ArrayList termNameList = new ArrayList();
+		ArrayList<String> termNameList = new ArrayList();
 
 		sql = "select term from term_info";
 		MySQLAccess obj = new MySQLAccess();
@@ -108,7 +108,37 @@ public class DAO {
 		return termNameList;
 
 	}
+	/**
+	 * 
+	 * term list as per instructor
+	 * 
+	 */
+	public ArrayList<String> termNames( String instructorID) {
+		String sql = null;
+		ArrayList<String> termNameList = new ArrayList();
 
+		sql = "SELECT  term FROM term_info where id in(select term_id from course_details where instructor_id = "+instructorID+")";
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = obj.getConnection();
+		try {
+			PreparedStatement term = conn.prepareStatement(sql);
+			ResultSet result = term.executeQuery();
+
+			while (result.next()) {
+				for (int i = 1; i <= 1; i++) {
+					termNameList.add(result.getString("term"));
+				}
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return termNameList;
+
+	}
+	
 	/**
 	 * Department Name
 	 * 

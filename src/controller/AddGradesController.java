@@ -7,6 +7,9 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -86,7 +89,9 @@ public class AddGradesController implements Initializable {
 	}
 	// For upload CSV 
 	@FXML
-	private void onSelectTermUpload(){		
+	private void onSelectTermUpload(){	
+		String selectedTermid = cbSelectTerm.getSelectionModel().getSelectedItem().toString();
+		System.out.println("selected item "+ selectedTermid);
 	}
 	@FXML
 	private void onSelectDeptUpload(){		
@@ -143,7 +148,12 @@ public class AddGradesController implements Initializable {
 		
 		String instructorID = Singleton.getInstance().getUserAcessID().getText(); 
 		DAO dataAccess = new DAO();
-		ArrayList termListArray = dataAccess.termNames();
+		ArrayList termListArray = dataAccess.termNames(instructorID);
+		ObservableList termlist = FXCollections.observableArrayList(termListArray);
+		cbSelectTerm.setItems(termlist);
+		
+		
+		
 		ArrayList departmentNames = dataAccess.Instructor_Dept(Integer.parseInt(instructorID));		
 		ArrayList courseNames = dataAccess.Instructor_Courses(Integer.parseInt(instructorID));
 		ArrayList careerNames = dataAccess.careerList_ins(Integer.parseInt(instructorID));
@@ -152,16 +162,13 @@ public class AddGradesController implements Initializable {
 		
 		
 		
-		
-		
-		
-		
-		ObservableList termlist = FXCollections.observableArrayList(termListArray);
 		ObservableList DepartmentNamelist = FXCollections.observableArrayList(departmentNames);
 		ObservableList courseNamelist = FXCollections.observableArrayList(courseNames);
 		ObservableList careerNameList = FXCollections.observableArrayList(careerNames);
 		
-		cbSelectTerm.setItems(termlist);
+		
+		
+		
 		cbDeptName.setItems(DepartmentNamelist);
 		cbCourseName.setItems(courseNamelist);
 		cbCareerName.setItems(careerNameList);
