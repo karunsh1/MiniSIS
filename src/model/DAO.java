@@ -57,6 +57,8 @@ public class DAO {
 		return terminfo;
 	}
 
+	
+	
 	/*
 	 * public ArrayList termList() {
 	 * 
@@ -108,6 +110,7 @@ public class DAO {
 		return termNameList;
 
 	}
+<<<<<<< HEAD
 	/**
 	 * 
 	 * term list as per instructor
@@ -128,6 +131,34 @@ public class DAO {
 				for (int i = 1; i <= 1; i++) {
 					termNameList.add(result.getString("term"));
 				}
+=======
+	
+//	public ArrayList courseIds(String term) {
+//		String sql = null;
+//		ArrayList courseIdList = new ArrayList();
+//
+//		sql = "select course_code from course where ";
+//		MySQLAccess obj = new MySQLAccess();
+//		Connection conn = obj.getConnection();
+//		try {
+//			PreparedStatement courseId = conn.prepareStatement(sql);
+//			ResultSet result = .executeQuery();
+//
+//			while (result.next()) {
+//				for (int i = 1; i <= 1; i++) {
+//					courseIdList.add(result.getString("course_code"));
+//				}
+//
+//			}
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//
+//		return termNameList;
+//
+//	}
+>>>>>>> 023f9ef0069d67b0b49df06d64fbeb4a84600245
 
 			}
 		} catch (SQLException e) {
@@ -306,7 +337,40 @@ public class DAO {
 		return deptList;
 
 	}
+    
+	
+	public ArrayList courseList(int term_id, String level) {
+		String sql = null;
+		ArrayList courseList = new ArrayList();
+        sql="SELECT course.course_code\r\n" + 
+        		"FROM course \r\n" + 
+        		"JOIN course_details \r\n" + 
+        		"ON course.id = course_details.course_id \r\n" + 
+        		"WHERE course_details.term_id =" + term_id +" \r\n" +
+        		"OR level = " + "\""+level+ "\"";
+		System.out.println(sql);
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = obj.getConnection();
+		try {
+			PreparedStatement courselist = conn.prepareStatement(sql);
+			ResultSet result = courselist.executeQuery();
 
+			while (result.next()) {
+				for (int i = 1; i <= 1; i++) {
+
+					courseList.add(result.getString("course_code"));
+					;
+				}
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return courseList;
+
+	}
 	/**
 	 * CSV Export from Database
 	 */
