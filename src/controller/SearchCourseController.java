@@ -47,8 +47,10 @@ public class SearchCourseController implements Initializable
 {
 	private TextField ErrorMsgField;
 	private TableView searchCourseTableView;
+	ArrayList courseListArray;
 	static ResultSet availcourses;
-
+    int term_id;
+    String level;
 	@FXML
 	private ComboBox<String> ComboboxProgram;
 	@FXML
@@ -215,50 +217,42 @@ public class SearchCourseController implements Initializable
 	    //ObservableList<String> availablecoursesObservableList = FXCollections.observableArrayList();  
 		levelListArray.add("Graduate");
 		levelListArray.add("Undergraduate");
-	
+		ObservableList termlist = FXCollections.observableArrayList(termListArray);
+		termComboBox.setItems(termlist);
+		ObservableList deptlist = FXCollections.observableArrayList(deptListArray);
+		ComboboxProgram.setItems(deptlist);
+		ObservableList levellist = FXCollections.observableArrayList(levelListArray);
+		LevelCombobox.setItems(levellist);
+		System.out.println("till level done");
 
-		//			MySQLAccess obj = new MySQLAccess();
-		//			Connection conn = null;
-		//			conn=obj.getConnection();
-		//
-		//        GraduateRadioButton.setDisable(true);
-		//        UnderGraduateRadioButton.setDisable(true);
-		termComboBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>()
+		termComboBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
 		{
 			@Override
-			public void changed(ObservableValue<? extends Number> ov, Number t, Number t1)
-			{
-				termComboBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>()
+			public void changed(ObservableValue<? extends String> ov, String t, String t1)
+			{   
+				int intermediate_term_id=termComboBox.getSelectionModel().getSelectedIndex();//0-Fall, 1-Winter
+                term_id=intermediate_term_id+1;
+		
+				LevelCombobox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
 				{
 					@Override
-					public void changed(ObservableValue<? extends Number> ov, Number t, Number t1)
+					public void changed(ObservableValue<? extends String> ov, String t, String t1)
 					{
+						level=LevelCombobox.getValue();
+						System.out.println(level);
+					
+			
+				      courseListArray = dataAccess.courseList(term_id,level);
+				      System.out.println(courseListArray);
+					ObservableList courselist = FXCollections.observableArrayList(courseListArray);
+					System.out.println(courselist);
+					CourseIdComboBox.setItems(courselist);
 
-						try
-						{
-							availcourses = statement.executeQuery("select course_code from course where term=" + termComboBox.getSelectionModel().getSelectedItem() + " and level= " + LevelCombobox.getSelectionModel().getSelectedItem());
-							courseIdListArray.clear();
-							while (availcourses.next())
-							{
-								courseIdListArray.add(availcourses.getString("course_code"));
-							}
-						} catch (SQLException ex)
-						{
-						}
-						CourseIdComboBox.setDisable(false);
 					}
 				});
 			}
-			
 		});
-				ObservableList termlist = FXCollections.observableArrayList(termListArray);
-				termComboBox.setItems(termlist);
-				ObservableList deptlist = FXCollections.observableArrayList(deptListArray);
-				ComboboxProgram.setItems(deptlist);
-				ObservableList levellist = FXCollections.observableArrayList(levelListArray);
-				LevelCombobox.setItems(levellist);
-				ObservableList courselist = FXCollections.observableArrayList(courseIdListArray);
-				CourseIdComboBox.setItems(courselist);
+
 
 				//
 		}
@@ -292,8 +286,6 @@ public class SearchCourseController implements Initializable
 			}
 
 		}
-
-
 
 
 		@FXML public void onAddCourse(ActionEvent event) {}
