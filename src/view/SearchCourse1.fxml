@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="searchCourseBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="465.0" prefWidth="930.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SearchCourseController">
+   <center>
+      <ScrollPane prefHeight="332.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
+        <content>
+          <AnchorPane fx:id="SearchCourseAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="231.0" prefWidth="928.0">
+               <children>
+                  <TableView layoutY="12.0" prefHeight="218.0" prefWidth="920.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="Program" />
+                      <TableColumn prefWidth="124.0" text="Course Title" />
+                        <TableColumn prefWidth="89.0" text="Course ID" />
+                        <TableColumn fx:id="searchCourseTableView" prefWidth="71.0" text="Level" />
+                        <TableColumn prefWidth="89.0" text="# of Credits" />
+                        <TableColumn prefWidth="238.0" text="Description">
+                           <columns>
+                              <TableColumn prefWidth="106.0" text="Term" />
+                           </columns></TableColumn>
+                        <TableColumn prefWidth="122.0" text="Department" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+   </center>
+   <top>
+      <GridPane vgap="10.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="459.0" minWidth="10.0" prefWidth="338.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="589.0" minWidth="10.0" prefWidth="199.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="589.0" minWidth="10.0" prefWidth="161.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="589.0" minWidth="10.0" prefWidth="178.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="31.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="31.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="41.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="20.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Search Course" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+               <font>
+                  <Font size="29.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets top="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Select Term" GridPane.rowIndex="2">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="termComboBox" prefHeight="35.0" prefWidth="142.0" promptText="Select Term" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </ComboBox>
+            <Label text="Course Id" GridPane.rowIndex="5">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label prefHeight="21.0" prefWidth="118.0" text="Program" GridPane.rowIndex="4">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="ComboboxProgram" prefWidth="150.0" promptText="Program" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Button fx:id="SearchButton" mnemonicParsing="false" onAction="#onSearchCourse" prefHeight="31.0" prefWidth="142.0" text="Search" GridPane.columnIndex="2" GridPane.rowIndex="5">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <ComboBox fx:id="CourseIdComboBox" prefWidth="150.0" promptText="Course Id" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label text="Level" GridPane.rowIndex="3">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="LevelCombobox" prefWidth="150.0" promptText="Level" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </GridPane>
+   </top>
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="41.0" prefWidth="930.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="AddCourseButton" mnemonicParsing="false" onAction="#onAddCourse" prefHeight="31.0" prefWidth="115.0" text="Add" textAlignment="CENTER" />
+         </children></HBox>
+   </bottom>
+</BorderPane>

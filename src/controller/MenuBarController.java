@@ -26,10 +26,7 @@ public class MenuBarController implements Initializable {
 	@FXML
 	private MenuBar menuBar;
 	@FXML
-	private MenuItem mItemViewTranscript;
-	
-
-   
+	private MenuItem mItemViewTranscript;  
     @FXML
 	private MenuItem menuitemSearchCourse;
    
@@ -38,7 +35,7 @@ public class MenuBarController implements Initializable {
 		BorderPane newLoadedPane = null;
 		try {
 			
-			newLoadedPane = FXMLLoader.load(getClass().getResource("/view/MenuBar.fxml"));
+			newLoadedPane = FXMLLoader.load(getClass().getResource("/view/SearchCourse1.fxml"));
 		} catch (IOException e) {
 			System.out.println("in catch");
 			// TODO Auto-generated catch block
