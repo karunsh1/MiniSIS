@@ -195,7 +195,7 @@ CREATE TABLE `grade` (
   `course_id` int(11) NOT NULL,
   `student_id` int(11) NOT NULL,
   `term_id` int(11) NOT NULL,
-  `gpa` double(10,0) DEFAULT NULL,
+  `gpa` float DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -206,7 +206,7 @@ CREATE TABLE `grade` (
 
 LOCK TABLES `grade` WRITE;
 /*!40000 ALTER TABLE `grade` DISABLE KEYS */;
-INSERT INTO `grade` VALUES (1,15,2,1,NULL);
+INSERT INTO `grade` VALUES (1,15,2,1,2);
 /*!40000 ALTER TABLE `grade` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -472,7 +472,7 @@ CREATE TABLE `term_info` (
 
 LOCK TABLES `term_info` WRITE;
 /*!40000 ALTER TABLE `term_info` DISABLE KEYS */;
-INSERT INTO `term_info` VALUES (1,'Fall 2016','2016-08-02','2016-12-31','2016-05-02','2016-08-18','2016-09-02',12),(2,'Winter 2017','2017-01-07','2016-04-30','2016-05-02','2017-02-19','2017-02-03',12);
+INSERT INTO `term_info` VALUES (1,'Fall 2017','2017-08-02','2017-12-31','2017-05-02','2017-08-18','2017-09-02',12),(2,'Winter 2018','2018-01-07','2018-04-30','2018-05-02','2018-02-19','2018-02-03',12);
 /*!40000 ALTER TABLE `term_info` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -511,4 +511,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-09 18:22:53
+-- Dump completed on 2017-11-13  2:56:31

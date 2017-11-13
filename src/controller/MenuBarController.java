@@ -18,6 +18,8 @@ import util.Singleton;
 public class MenuBarController implements Initializable {
 
 	@FXML
+	private BorderPane addGradesPane;
+	@FXML
 	private StackPane showItemPane;
 	@FXML
 	private MenuItem addGrades;
@@ -94,12 +96,13 @@ public class MenuBarController implements Initializable {
 
 			try {
 				newLoadedPane = FXMLLoader.load(getClass().getResource("/view/GradesDashboard.fxml"));
+				showItemPane.getChildren().add(newLoadedPane);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
-			showItemPane.getChildren().add(newLoadedPane);
+			
 			//addGrades.disableProperty().set(true);
 
 		//}
