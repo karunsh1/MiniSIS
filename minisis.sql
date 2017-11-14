@@ -197,7 +197,7 @@ CREATE TABLE `grade` (
   `term_id` int(11) NOT NULL,
   `gpa` float DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -206,7 +206,7 @@ CREATE TABLE `grade` (
 
 LOCK TABLES `grade` WRITE;
 /*!40000 ALTER TABLE `grade` DISABLE KEYS */;
-INSERT INTO `grade` VALUES (1,15,2,1,2);
+INSERT INTO `grade` VALUES (1,15,2,1,3),(2,10,2,1,3.4),(3,11,2,2,NULL),(4,2,2,2,4),(5,12,2,1,3),(6,11,2,1,NULL),(7,10,2,1,3.5);
 /*!40000 ALTER TABLE `grade` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -407,8 +407,10 @@ CREATE TABLE `student` (
   `email` varchar(50) NOT NULL,
   `mobile` varchar(20) NOT NULL,
   `address` mediumtext,
+  `level` enum('G','UG') DEFAULT 'G',
+  `subject_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -417,7 +419,7 @@ CREATE TABLE `student` (
 
 LOCK TABLES `student` WRITE;
 /*!40000 ALTER TABLE `student` DISABLE KEYS */;
-INSERT INTO `student` VALUES (1,'nafiz','islam','na_islam@concordia.ca','5144735006','Montreal, Quebec, Canada'),(2,'a','a','a','5145135394','22h');
+INSERT INTO `student` VALUES (1,'nafiz','islam','na_islam@concordia.ca','5144735006','Montreal, Quebec, Canada','G',2),(2,'a','a','a','5145135394','22h','G',2),(3,'omar','khan','omarfaruk.sust@gmail.com','5124878890','montreal','G',3);
 /*!40000 ALTER TABLE `student` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -511,4 +513,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-13  2:56:31
+-- Dump completed on 2017-11-14  6:46:00

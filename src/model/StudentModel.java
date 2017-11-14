@@ -40,6 +40,38 @@ public class StudentModel {
 		return student;
 	}
 	
+	public Student selectStudent(int studentID) {
+		Student student = null;
+		String sql = "SELECT student.first_name,student.last_name,student.level,subject.subject_code from student "
+				+ "left join subject on student.subject_id = subject.id where student.id = "+studentID+"";
+		
+		// Establish Connection
+		MySQLAccess obj = new MySQLAccess();
+		Connection connection = obj.getConnection();
+		
+		try {
+			PreparedStatement prepareStm = connection.prepareStatement(sql);
+			//System.out.println(prepareStm+ "  ,             " +  sql);
+			
+			ResultSet results = prepareStm.executeQuery();
+			while(results.next()){
+				
+				String first_name = results.getString("first_name");
+				String last_name = results.getString("last_name");
+				String career_Level = results.getString("level");
+				String subject_name = results.getString("subject_code");
+				
+				//System.out.println("first_name "+ first_name + " last_name " + last_name +" career_name "+ career_Level +" subject"+ subject_name );
+	
+				student = new Student(first_name, last_name, career_Level,subject_name);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return student;
+	}
+	
 	public boolean validateStudent(int studentId){
 		boolean returnStudentValidity = false;
 		String sql = "select * from "+ tableName +" where id=?";
