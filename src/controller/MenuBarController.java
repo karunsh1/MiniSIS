@@ -22,7 +22,7 @@ public class MenuBarController implements Initializable {
 	@FXML
 	private StackPane showItemPane;
 	@FXML
-	private MenuItem addGrades;
+	private MenuItem addGrades, mViewProfile;
 	@FXML
 	private MenuItem mItemViewCGPA;
 	@FXML
@@ -108,6 +108,19 @@ public class MenuBarController implements Initializable {
 		//}
 
 	}
+	@FXML
+	private void onViewProfile(){
+		showItemPane.getChildren().clear();
+		StackPane newLoadedPane = null;
+		try {
+			newLoadedPane = FXMLLoader.load(getClass().getResource("/view/ProfileDashboard.fxml"));
+			showItemPane.getChildren().add(newLoadedPane);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -118,6 +131,7 @@ public class MenuBarController implements Initializable {
 	   userType = Singleton.getInstance().getUserType().getText();
 	    if(!userType.equals("3")){
 	    	addGrades.visibleProperty().set(false);
+	    	mItemViewCGPA.visibleProperty().set(false);
 	    }		
 
 	}

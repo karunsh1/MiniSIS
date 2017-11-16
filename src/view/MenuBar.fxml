@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1049.0" prefWidth="1594.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MenuBarController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MenuBarController">
    <top>
       <HBox prefHeight="32.0" prefWidth="1157.0" BorderPane.alignment="CENTER">
          <children>
@@ -19,7 +19,7 @@
               <menus>
                 <Menu mnemonicParsing="false" text="User Detail">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="View Profile" />
+                    <MenuItem fx:id="mViewProfile" mnemonicParsing="false" onAction="#onViewProfile" text="View Profile" />
                         <MenuItem mnemonicParsing="false" text="Update Profile" />
                   </items>
                 </Menu>

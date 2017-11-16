@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import com.csvreader.CsvReader;
 import com.csvreader.CsvWriter;
+
+import DTO.Admin;
 import DTO.Instructor;
 import DTO.Term;
 import database.*;
@@ -491,6 +493,11 @@ public class DAO {
 		return gpalist;
 	}
 
+	/**
+	 * 
+	 * @param studentId
+	 * @return returnStudentValidity
+	 */
 	public boolean validateStudentForCGPA(int studentId) {
 		boolean returnStudentValidity = false;
 		String sql = "select student_id from grade where student_id=?";
@@ -515,5 +522,39 @@ public class DAO {
 		return returnStudentValidity;
 
 	}
+	
+	public Instructor getInstructorInfo(String email){
+		Instructor instructor = null;
+		String sql = "select * from admin where email=?";
+		
+		/// Establish Connection
+		MySQLAccess obj = new MySQLAccess();
+		Connection connection = obj.getConnection();
+		
+		try {
+			PreparedStatement prepareStm = connection.prepareStatement(sql);
+			prepareStm.setString(1, email);
+			ResultSet results = prepareStm.executeQuery();
+			while(results.next()){
+				email = results.getString("email");
+				
+				int id = results.getInt("id");
+				String first_name = results.getString("first_name");
+				String last_name = results.getString("last_name");
+				//String mobile = results.getString("mobile");
+				String address = results.getString("address");
+				int emp_id = results.getInt("emp_id");
+	
+				instructor = new Instructor(id, first_name, last_name, email, emp_id, address);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return instructor;
+	}
+		
+		
+	
 
 }

@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.canvas.*?>
 <?import javafx.scene.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
@@ -48,11 +53,6 @@
 						</GridPane>
 					</children>
 				</HBox>
-            <ScrollPane fx:id="ScrlPaneVewTranscript" layoutX="2.0" layoutY="116.0" prefHeight="425.0" prefWidth="866.0">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-              </content>
-            </ScrollPane>
 			</children>
 		</AnchorPane>
 	</center>
