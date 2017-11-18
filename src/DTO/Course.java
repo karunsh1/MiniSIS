@@ -1,0 +1,144 @@
+package DTO;
+
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+
+public class Course {
+	
+	
+    public SimpleStringProperty program =new SimpleStringProperty();
+    public SimpleStringProperty courseTitle =new SimpleStringProperty();
+	public SimpleIntegerProperty courseId = new SimpleIntegerProperty();
+	public SimpleStringProperty level =new SimpleStringProperty();
+	public SimpleIntegerProperty numCredits = new SimpleIntegerProperty();
+	public SimpleStringProperty term =new SimpleStringProperty();
+	public SimpleStringProperty description =new SimpleStringProperty();
+//	String program;
+//	String courseTitle;
+//	int courseId;
+//	String level;
+//	int numCredits;
+//	String term;
+//	String description;
+	
+//	public Course(String program, String courseTitle, int courseId,String level,int numCredits,String term,String description){
+//		super();
+//		this.program=program;
+//		this.courseTitle=courseTitle;
+//		this.courseId=courseId;
+//		this.level=level;
+//		this.numCredits=numCredits;
+//		this.term=term;
+//		this.description=description;
+//	}
+	
+	
+	
+//	public Term(String term, int termid){
+//		super();
+//		this.term = term;
+//		this.termid = termid;
+//		
+//	}
+	
+
+	
+	public String getProgram() {
+		return program.get();
+	}
+	
+
+	public String getCourseTitle() {
+		return courseTitle.get() ;
+	}
+	
+
+	public int getCourseId() {
+		return courseId.get();
+	}
+	
+	
+	public String getLevel() {
+		return level.get() ;
+	}
+
+	
+	public int getNumCredits() {
+		return numCredits.get();
+	}
+	
+
+	public String getTerm() {
+		return term.get() ;
+	}
+	
+	
+	public String getDescription() {
+		return description.get();
+	}
+	
+//
+//	public String getProgram() {
+//		return program;
+//	}
+//	
+//	public void setProgram(String program) {
+//		this.program = program;
+//	}
+//
+//	public String getCourseTitle() {
+//		return courseTitle ;
+//	}
+//	
+//	public void setCourseTitle(String courseTitle) {
+//		this.courseTitle = courseTitle;
+//	}
+//    
+//
+//	public int getCourseId() {
+//		return courseId;
+//	}
+//	
+//	public void setCourseId(int courseId) {
+//		this.courseId = courseId;
+//	}
+//	
+//	public String getLevel() {
+//		return level ;
+//	}
+//	
+//	public void setLevel(String level) {
+//		this.level = level;
+//	}
+//	
+//	public int getNumCredits() {
+//		return numCredits;
+//	}
+//	
+//	public void setNumCredits(int numCredits) {
+//		this.numCredits = numCredits;
+//	}
+//	
+//	
+//	public String getTerm() {
+//		return term ;
+//	}
+//	
+//	public void setTerm(String term) {
+//		this.term = term;
+//	}
+//	
+//	public String getDescription() {
+//		return description;
+//	}
+//	
+//	public void setDescription(String description) {
+//		this.description = description;
+//	}
+
+
+	
+	
+	
+
+}

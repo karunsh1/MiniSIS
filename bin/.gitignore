@@ -1,2 +1,10 @@
+/DTO/
+/c3p0-config.xml
 /controller/
+/data/
+/database/
+/images/
 /model/
+/util/
+/view/
+/application/

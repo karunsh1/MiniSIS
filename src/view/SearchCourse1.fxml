@@ -21,18 +21,15 @@
         <content>
           <AnchorPane fx:id="SearchCourseAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="231.0" prefWidth="928.0">
                <children>
-                  <TableView layoutY="12.0" prefHeight="218.0" prefWidth="920.0">
+                  <TableView fx:id="searchCourseTableView" layoutY="7.0" prefHeight="218.0" prefWidth="920.0">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="Program" />
-                      <TableColumn prefWidth="124.0" text="Course Title" />
-                        <TableColumn prefWidth="89.0" text="Course ID" />
-                        <TableColumn fx:id="searchCourseTableView" prefWidth="71.0" text="Level" />
-                        <TableColumn prefWidth="89.0" text="# of Credits" />
-                        <TableColumn prefWidth="238.0" text="Description">
-                           <columns>
-                              <TableColumn prefWidth="106.0" text="Term" />
-                           </columns></TableColumn>
-                        <TableColumn prefWidth="122.0" text="Department" />
+                      <TableColumn fx:id="ColumnProgram" prefWidth="75.0" text="Program" />
+                      <TableColumn fx:id="ColumnCourseTitle" prefWidth="124.0" text="Course Title" />
+                        <TableColumn fx:id="ColumnCourseId" prefWidth="89.0" text="Course ID" />
+                        <TableColumn fx:id="ColumnLevel" prefWidth="71.0" text="Level" />
+                        <TableColumn fx:id="ColumnNumCredits" prefWidth="89.0" text="# of Credits" />
+                        <TableColumn fx:id="ColumnTerm" prefWidth="101.0" text="Term" />
+                        <TableColumn fx:id="ColumnDescription" prefWidth="255.0" text="Description" />
                     </columns>
                   </TableView>
                </children>

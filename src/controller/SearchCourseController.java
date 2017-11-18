@@ -12,10 +12,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
+import DTO.Course;
 import DTO.Student;
 import DTO.Users;
 import javafx.animation.FadeTransition;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -31,26 +32,32 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.util.Callback;
 import javafx.util.Duration;
 import model.DAO;
 import model.StudentModel;
+import javafx.scene.control.TitledPane;
 
 
 public class SearchCourseController implements Initializable
 {
 	private TextField ErrorMsgField;
-	private TableView searchCourseTableView;
+	private TableView<Course> searchCourseTableView;
 	ArrayList courseListArray;
 	static ResultSet availcourses;
+	public   ObservableList<ObservableList> data;
     int term_id;
-    String level;
+    String level,program;
 	@FXML
 	private ComboBox<String> ComboboxProgram;
 	@FXML
@@ -82,6 +89,15 @@ public class SearchCourseController implements Initializable
 	//	private void onAddCourse() {
 	//
 	//	}
+	@FXML TableColumn<Course, String> ColumnProgram;
+	@FXML TableColumn<Course, String> ColumnCourseTitle;
+	@FXML TableColumn<Course, Integer> ColumnCourseId;	
+	@FXML TableColumn<Course, String> ColumnLevel;
+	@FXML TableColumn<Course, Integer> ColumnNumCredits;
+	@FXML TableColumn<Course, String> ColumnTerm;
+	@FXML TableColumn<Course, String> ColumnDescription;
+	
+	String courseIdDisplay,programDisplay,termDisplay,levelDisplay;
 
 
 	//
@@ -232,7 +248,10 @@ public class SearchCourseController implements Initializable
 			{   
 				int intermediate_term_id=termComboBox.getSelectionModel().getSelectedIndex();//0-Fall, 1-Winter
                 term_id=intermediate_term_id+1;
-		
+		        if(term_id==0)
+		        	termDisplay="Fall 2016";
+		        else if(term_id==1)
+		        	termDisplay="Winter 2017";
 				LevelCombobox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
 				{
 					@Override
@@ -240,20 +259,36 @@ public class SearchCourseController implements Initializable
 					{
 						level=LevelCombobox.getValue();
 						System.out.println(level);
-					
-			
-				      courseListArray = dataAccess.courseList(term_id,level);
+					    levelDisplay=level;
+					    ComboboxProgram.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
+						{
+							@Override
+							public void changed(ObservableValue<? extends String> ov, String t, String t1)
+							{
+								program=ComboboxProgram.getValue();
+								System.out.println(program);
+							    programDisplay=program;
+							    
+				      courseListArray = dataAccess.courseList(term_id,level,program);
 				      System.out.println(courseListArray);
 					ObservableList courselist = FXCollections.observableArrayList(courseListArray);
 					System.out.println(courselist);
 					CourseIdComboBox.setItems(courselist);
-
-					}
+					courseIdDisplay=CourseIdComboBox.getValue();
+					        }
 				});
 			}
 		});
+			}
+		});
 
-
+	      ColumnProgram.setCellValueFactory(new PropertyValueFactory<>("Program"));
+	      ColumnCourseTitle.setCellValueFactory(new PropertyValueFactory<>("Course Title"));
+	      ColumnCourseId.setCellValueFactory(new PropertyValueFactory<>("Course ID"));
+	      ColumnLevel.setCellValueFactory(new PropertyValueFactory<>("Level"));
+	      ColumnNumCredits.setCellValueFactory(new PropertyValueFactory<>("# of Credits"));
+	      ColumnTerm.setCellValueFactory(new PropertyValueFactory<>("Term"));
+	      ColumnDescription.setCellValueFactory(new PropertyValueFactory<>("Description"));
 				//
 		}
 
@@ -289,7 +324,98 @@ public class SearchCourseController implements Initializable
 
 
 		@FXML public void onAddCourse(ActionEvent event) {}
-		@FXML public void onSearchCourse(ActionEvent event) {}
+		@FXML public void onSearchCourse(ActionEvent event) {
+			
+		    //TABLE VIEW AND DATA
+		    ObservableList<Course> data;
+		  //  private TableView tableview;
+		    DAO dataAccess = new DAO();
+
+			      
+		          //data = new ObservableList<ObservableList>();
+		          data = FXCollections.observableArrayList();
+		          try{
+		            //ResultSet
+		            ResultSet rs = dataAccess.CourseInfo(6260, "INSE","Fall 2016","Graduate");
+                    System.out.println("resultset" +rs);
+		            /**********************************
+		             * TABLE COLUMN ADDED DYNAMICALLY *
+		             **********************************/
+
+//        			while(rs.next())
+//        			{  System.out.println("resultset" +rs);
+//        				data.add(new Course(
+//        						rs.getString("program"),
+//        						
+//        						rs.getString("title"),
+//        						rs.getInt("course_code"),
+//        						rs.getString("level"),
+//        						rs.getInt("units"),
+//        						rs.getString("term"),
+//        						rs.getString("description")
+//        						));
+//        				System.out.println(rs.getString("program"));
+//        				System.out.println(data);
+//        				for(int i = 0; i < data.size(); i++) {   
+//        				    System.out.print(data.get(i));
+//        				}  
+                    while(rs.next()){
+                        Course course = new Course();
+                        course.program.set(rs.getString("program"));  
+                        course.courseTitle.set(rs.getString("title"));
+                        course.courseId.set(rs.getInt("course_code"));
+                        course.level.set(rs.getString("level"));
+                        course.numCredits.set(rs.getInt("units"));
+                        course.term.set(rs.getString("term"));
+                        course.description.set(rs.getString("description"));
+                        data.add(course);                  
+                    }
+                    //tableview.setItems(data);
+        				searchCourseTableView.setItems(data);
+        			}
+        			//preparedStatement.close();
+        			//rs.close();
+//		            for(int i=0 ; i<rs.getMetaData().getColumnCount(); i++){
+//		                //We are using non property style for making dynamic table
+//		                final int j = i;                
+//		                TableColumn col = new TableColumn(rs.getMetaData().getColumnName(i+1));
+//		                System.out.println("col"+ col);
+//		                col.setCellFactory(new Callback<CellDataFeatures<ObservableList,String>,ObservableValue<String>>(){                    
+//		                    public ObservableValue<String> call(CellDataFeatures<ObservableList, String> param) {   
+//		                    	System.out.println("stringproperty" +new SimpleStringProperty(param.getValue().get(j).toString()));
+//		                        return new SimpleStringProperty(param.getValue().get(j).toString());                        
+//		                    }                    
+//		                });
+//		                
+//		                searchCourseTableView.getColumns().addAll(col); 
+//		                System.out.println("Column ["+i+"] ");
+//		            }
+//
+//		            /********************************
+//		             * Data added to ObservableList *
+//		             ********************************/
+//		            while(rs.next()){
+//		                //Iterate Row
+//		                ObservableList<String> row = FXCollections.observableArrayList();
+//		                for(int i=1 ; i<=rs.getMetaData().getColumnCount(); i++){
+//		                    //Iterate Column
+//		                    row.add(rs.getString(i));
+//		                    System.out.println(row);
+//		                }
+//		                System.out.println("Row [1] added "+row );
+//		                data.add((Course) row);
+//
+//		            }
+//
+//		            //FINALLY ADDED TO TableView
+//		            searchCourseTableView.setItems(data);
+		          catch(Exception e){
+		              e.printStackTrace();
+		              System.out.println("Error on Building Data");             
+		          }
+		}
+		    
+		
 	}
 
 

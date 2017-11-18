@@ -237,6 +237,55 @@ public class DAO {
 		return CoursetList;
 
 	}
+	
+	
+	
+	
+	public ResultSet CourseInfo(int course_code,String term, String program,String level) {
+		String sql = null;
+        
+		sql = "SELECT course.program, course.title,course.course_code,course.description,course.level, course.units,course_details.id as course_details_id,term_info.term from course join course_details on course.id =course_details.course_id inner join \r\n" + 
+				"term_info on  course_details.term_id= term_info.id where course_code= " +"\""+course_code+ "\""  
+				+ "and program="+"\""+program+ "\"" +"and level=" +"\""+level+ "\"" +"and term=" +"\""+term+ "\"" ;
+		
+		 
+		System.out.println(sql);
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = obj.getConnection();
+		ResultSet result = null;
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			result = ps.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+       return result;
+
+	}
+	
+	public boolean addCourse(String studentId,String course_details_id) {
+		String sql = null;
+        String enrolled="enrolled";
+		sql ="INSERT INTO registration (student_id, course_details_id, status)"
+				+"VALUES ("+"\""+ studentId+"\""+","+ "\""+ course_details_id+"\""+","+ "\""+ enrolled+"\""+")";
+		System.out.println(sql);
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = obj.getConnection();
+		ResultSet result = null;
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+       return false;
+
+	}
 
 	/**
 	 * instructor Department where he teaches
@@ -306,7 +355,7 @@ public class DAO {
 	}
     
 	
-	public ArrayList courseList(int term_id, String level) {
+	public ArrayList courseList(int term_id, String level,String program) {
 		String sql = null;
 		ArrayList courseList = new ArrayList();
         sql="SELECT course.course_code\r\n" + 
@@ -314,7 +363,7 @@ public class DAO {
         		"JOIN course_details \r\n" + 
         		"ON course.id = course_details.course_id \r\n" + 
         		"WHERE course_details.term_id =" + term_id +" \r\n" +
-        		"OR level = " + "\""+level+ "\"";
+        		"AND level = " + "\""+level+ "\""+"AND program = " + "\""+program+ "\"";
 		System.out.println(sql);
 		MySQLAccess obj = new MySQLAccess();
 		Connection conn = obj.getConnection();
