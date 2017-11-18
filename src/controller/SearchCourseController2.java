@@ -109,16 +109,23 @@ public class SearchCourseController2 implements Initializable
 	   studentID = Singleton.getInstance().getUserAcessID().getText();
 	   System.out.println("student_id"+studentID);
 	}
-	else if(userType.equals("2"))
+	if(userType.equals("2"))
 	{
 		studentIdLabel.setVisible(true);
 		studentIdTextField.setVisible(true);
-		studentID=studentIdTextField.getText(); 
-		 System.out.println("student_id"+studentID);
 	}
+	
 	else {
 		System.out.println("no match"+studentID);
 	}
+		if(studentID=="") {
+			if(userType.equals("1"))
+					 studentID = Singleton.getInstance().getUserAcessID().getText();
+			else if(userType.equals("2")) {
+				studentID=studentIdTextField.getText();
+				System.out.println("2nd tym" +"student_id"+studentID);
+		}
+		}
 		
 		AddCourseButton.setVisible(false);
 		titledPane.setExpanded(false);
@@ -238,6 +245,12 @@ public class SearchCourseController2 implements Initializable
 		}
 		@FXML public void onSearchCourse(ActionEvent event) {
 			
+			if(userType.equals("2"))
+			{
+		
+				studentID=studentIdTextField.getText(); 
+				System.out.println("student_id"+studentID);
+			}
 			
 		    //TABLE VIEW AND DATA
 		    ObservableList<Course> data;
