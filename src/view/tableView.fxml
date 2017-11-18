@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TableViewController">
+   <center>
+      <TableView fx:id="tableViewID" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="userID" prefWidth="102.0" text="user ID" />
+          <TableColumn fx:id="emailID" prefWidth="92.0" text="email ID" />
+        </columns>
+      </TableView>
+   </center>
+</BorderPane>
