@@ -8,15 +8,17 @@ public class Student {
 	String mobile;
 	String address;
 	String career_Name;
-	
-
-
 	String subject_Name;
 
 	public Student() {
 		super();
 	}
 	
+	public Student(String first_name, String first_name2){
+		this.first_name = first_name;
+		this.last_name = last_name;
+		
+	}
 	
 	public Student(String first_name,String last_name, String email, String mobile, String address) {
 		super();

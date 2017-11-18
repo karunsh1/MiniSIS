@@ -20,7 +20,7 @@
                 <Menu mnemonicParsing="false" text="User Detail">
                   <items>
                     <MenuItem fx:id="mViewProfile" mnemonicParsing="false" onAction="#onViewProfile" text="View Profile" />
-                        <MenuItem mnemonicParsing="false" text="Update Profile" />
+                        <MenuItem fx:id="mItemupdateProfile" mnemonicParsing="false" onAction="#onUpdateProfile" text="Update Profile" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Course Detail">
