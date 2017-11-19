@@ -40,6 +40,11 @@
                         <MenuItem fx:id="addGrades" mnemonicParsing="false" onAction="#clickOnAddGrades" text="Add Grades" />
                      </items>
                   </Menu>
+                  <Menu mnemonicParsing="false" text="Pay fees">
+                     <items>
+                        <MenuItem fx:id="menuitemPay" mnemonicParsing="false" onAction="#OnClickPay" text="Pay" />
+                     </items>
+                  </Menu>
               </menus>
             </MenuBar>
          </children>

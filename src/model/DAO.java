@@ -355,6 +355,49 @@ public class DAO {
 	}
     
 	
+	public ResultSet getPaymentDetails(String term, String StudentID) {
+		String sql = null;
+		ArrayList courseList = new ArrayList();
+        sql="SELECT * from payment where term=" + "\""+term  + "\""+ "and student_id="  + "\""+StudentID  + "\"";
+        	
+		System.out.println(sql);
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = obj.getConnection();
+		ResultSet result = null;
+		try {
+			PreparedStatement courselist = conn.prepareStatement(sql);
+			result = courselist.executeQuery();
+             
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return result;
+
+	}
+	
+	public boolean setPaymentDetails(String term, String StudentID, String AmountDue) {
+		String sql = null;
+		ArrayList courseList = new ArrayList();
+        sql="update payment set amount_due="+ "\""+AmountDue  + "\""+  "where term=" + "\""+term  + "\""+ "and student_id="  + "\""+StudentID  + "\"";
+
+		System.out.println(sql);
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = obj.getConnection();
+		int result = 0;
+		try {
+			PreparedStatement courselist = conn.prepareStatement(sql);
+			result = courselist.executeUpdate();
+             return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return false;
+
+	}
 	public ArrayList courseList(int term_id, String level,String program) {
 		String sql = null;
 		ArrayList courseList = new ArrayList();

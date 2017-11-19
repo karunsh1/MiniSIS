@@ -11,9 +11,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import util.Singleton;
+import javafx.event.ActionEvent;
 
 public class MenuBarController implements Initializable {
 
@@ -29,6 +31,7 @@ public class MenuBarController implements Initializable {
 	private MenuItem mItemViewTranscript;  
     @FXML
 	private MenuItem menuitemSearchCourse;
+	@FXML MenuItem menuitemPay;
    
 	@FXML
 	private void onSearchCourse() {
@@ -109,16 +112,35 @@ public class MenuBarController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		
+		menuitemPay.visibleProperty().set(false);
 		String userType = null;
 		
 	   userType = Singleton.getInstance().getUserType().getText();
 	    if(!userType.equals("3")){
 	    	addGrades.visibleProperty().set(false);
-	    }		
+	    }	
+	    if(userType.equals("1")){
+	    	menuitemPay.visibleProperty().set(true);
+	    }
 
 	}
 
+
+	@FXML public void OnClickPay(ActionEvent event) {
+		showItemPane.getChildren().clear();
+		AnchorPane newLoadedPane = null;
+		//if (!addGrades.isDisable()) {
+
+			try {
+				newLoadedPane = FXMLLoader.load(getClass().getResource("/view/PayFees.fxml"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			showItemPane.getChildren().add(newLoadedPane);
+	}
+      
 }
 
 
