@@ -14,6 +14,7 @@ public class Main extends Application {
 			BorderPane root = FXMLLoader.load(getClass().getResource("/view/Main.fxml"));
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			primaryStage.setTitle("Student Portal");
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch(Exception e) {

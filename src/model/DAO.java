@@ -13,9 +13,14 @@ import com.csvreader.CsvReader;
 import com.csvreader.CsvWriter;
 
 import DTO.Admin;
+import DTO.GradesInfo;
 import DTO.Instructor;
+import DTO.Student;
 import DTO.Term;
 import database.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import util.Auth;
 
 public class DAO {
 
@@ -264,10 +269,10 @@ public class DAO {
 			ResultSet result = term.executeQuery();
 
 			while (result.next()) {
-				for (int i = 1; i <= 1; i++) {
+
+				if (!result.wasNull()) {
 
 					deptList.add(result.getString("subject_code"));
-					;
 				}
 
 			}
@@ -368,7 +373,7 @@ public class DAO {
 
 		MySQLAccess obj = new MySQLAccess();
 		Connection conn = obj.getConnection();
-		sql = "SELECT id, first_name, last_name FROM  minisis.student  WHERE id IN ("
+		sql = "SELECT id, first_name, last_name FROM  student  WHERE id IN ("
 				+ "SELECT student_id FROM registration WHERE  status = 'enrolled'  AND course_details_id IN ("
 				+ "SELECT id FROM course_details WHERE instructor_id =" + instructorID + " AND term_id IN ("
 				+ "SELECT id  FROM  term_info   WHERE  term = '" + term + "') AND course_id IN ("
@@ -452,6 +457,9 @@ public class DAO {
 				result = selectStatement.executeUpdate();
 				if (result == 1) {
 					System.out.println("Updated" + strudentID);
+				} else {
+					System.out.println("Wrong ID " + strudentID);
+
 				}
 
 				System.out.println("SQL Prnt" + updateSQL);
@@ -510,7 +518,7 @@ public class DAO {
 			PreparedStatement prepareStm = connection.prepareStatement(sql);
 			prepareStm.setInt(1, studentId);
 			ResultSet results = prepareStm.executeQuery();
-			System.out.println("resul ="+results);
+			System.out.println("resul =" + results);
 			if (results.next()) {
 				while (results.next()) {
 					returnStudentValidity = true;
@@ -522,39 +530,206 @@ public class DAO {
 		return returnStudentValidity;
 
 	}
-	
-	public Instructor getInstructorInfo(String email){
+
+	public Instructor getInstructorInfo(String email) {
 		Instructor instructor = null;
 		String sql = "select * from admin where email=?";
-		
+
 		/// Establish Connection
 		MySQLAccess obj = new MySQLAccess();
 		Connection connection = obj.getConnection();
-		
+
 		try {
 			PreparedStatement prepareStm = connection.prepareStatement(sql);
 			prepareStm.setString(1, email);
 			ResultSet results = prepareStm.executeQuery();
-			while(results.next()){
+			while (results.next()) {
 				email = results.getString("email");
-				
+
 				int id = results.getInt("id");
 				String first_name = results.getString("first_name");
 				String last_name = results.getString("last_name");
-				//String mobile = results.getString("mobile");
+				// String mobile = results.getString("mobile");
 				String address = results.getString("address");
 				int emp_id = results.getInt("emp_id");
-	
+
 				instructor = new Instructor(id, first_name, last_name, email, emp_id, address);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return instructor;
 	}
-		
-		
-	
+
+	public ObservableList<GradesInfo> getGradeViewDetail(int studentID, String term) {
+		String sql = null;
+		ObservableList<GradesInfo> oblGradeInfo = FXCollections.observableArrayList();
+
+		sql = "SELECT  subject.subject_code,course.course_code,course.title,course.units,grade.gpa  FROM "
+				+ "subject inner join  course inner join grade on "
+				+ "course.subject_id = subject.id  and course.id = grade.course_id " + "and grade.term_id in ("
+				+ "select term_info.id from minisis.term_info where term_info.term = '" + term
+				+ "' ) and grade.student_id= " + studentID;
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = obj.getConnection();
+		try {
+			PreparedStatement psterm = conn.prepareStatement(sql);
+			System.out.println(sql);
+			ResultSet result = psterm.executeQuery();
+
+			while (result.next()) {
+
+				String subject_Code = result.getString("subject_code");
+				String course_Code = result.getString("course_code");
+				String courseName = subject_Code + "-" + course_Code;
+				String courseTitle = result.getString("title");
+
+				float attempted = result.getFloat("units");
+				String gpa = result.getString(("gpa"));
+
+				System.out.println("Float value" + gpa);
+
+				String grade = "";
+
+				if (result.wasNull()) {
+					gpa = "-";
+					grade = "-";
+
+				} else {
+					grade = calGrades(Float.parseFloat(gpa));
+				}
+				oblGradeInfo.add(new GradesInfo(courseName, courseTitle, attempted, grade, gpa));
+				// System.out.println(courseName+ courseTitle + attempted +
+				// grade + gpa);
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// System.out.println("oblGradeInfo" + oblGradeInfo.size());
+
+		return oblGradeInfo;
+
+	}
+
+	private String calGrades(float gpa) {
+		String grade;
+		if (gpa <= 2.0) {
+			grade = "F";
+
+		} else if (gpa <= 2.7) {
+
+			grade = "C";
+		} else if (gpa < 3.0) {
+
+			grade = "B-";
+		} else if (gpa < 3.4) {
+
+			grade = "b";
+		} else if (gpa < 3.7) {
+
+			grade = "b+";
+		} else if (gpa < 4) {
+
+			grade = "A";
+		} else if (gpa == 4) {
+
+			grade = "A+";
+		} else {
+			grade = "-";
+		}
+		return grade;
+	}
+
+	public ArrayList getTermGrade(int studentID) {
+		String sql = null;
+		ArrayList termList = new ArrayList<>();
+
+		sql = "SELECT term FROM term_info where id in(select term_id from grade where student_id=" + studentID + ")";
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = obj.getConnection();
+		try {
+			PreparedStatement psterm = conn.prepareStatement(sql);
+			ResultSet result = psterm.executeQuery();
+			while (result.next()) {
+				for (int i = 1; i <= 1; i++) {
+					termList.add(result.getString("term"));
+				}
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return termList;
+
+	}
+
+	public Student studentProfile(int studentID) {
+		Student student = null;
+		String sql = "select student.first_name,student.last_name,student.address,student.level,subject.subject_code "
+				+ "from student left join subject on student.subject_id = subject.id where student.id=" + studentID
+				+ "";
+
+		// Establish Connection
+		MySQLAccess obj = new MySQLAccess();
+		Connection connection = obj.getConnection();
+
+		try {
+			PreparedStatement prepareStm = connection.prepareStatement(sql);
+			// System.out.println(prepareStm+ " , " + sql);
+
+			ResultSet results = prepareStm.executeQuery();
+			while (results.next()) {
+
+				String first_name = results.getString("first_name");
+				String last_name = results.getString("last_name");
+				String career_Level = results.getString("level");
+				String subject_name = results.getString("subject_code");
+				String address = results.getString("address");
+				student = new Student(first_name, last_name, career_Level, subject_name, address);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return student;
+	}
+
+	public String changeUserPassword(String email, String oldPasswordd, String newPassword) {
+
+		String message = null;
+
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = null;
+		conn = obj.getConnection();
+		String sql = "";
+		int result = 0;
+		sql = "UPDATE `users` SET `password`= '" + Auth.md5(newPassword) + "' WHERE `email`='" + email
+				+ "' and `password` = '" + Auth.md5(oldPasswordd) + "'";
+
+		try {
+			PreparedStatement psPWD = conn.prepareStatement(sql);
+			System.out.println("ps statment " + psPWD);
+			result = psPWD.executeUpdate();
+			System.out.println("reslt statment " + result);
+			if (result == 1) {
+				message = "Congrats! Password has been saved successfully!";
+				System.out.println(message);
+			} else {
+				message = "Please verify your current password!";
+				System.out.println(message);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return message;
+
+	}
 
 }

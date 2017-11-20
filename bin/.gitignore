@@ -1,3 +1,5 @@
 /controller/
 /view/
-/DTO/
+/util/
+/model/
+/application/

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MenuBarController">
+<BorderPane fx:id="BPaneMenuBar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MenuBarController">
    <top>
       <HBox prefHeight="32.0" prefWidth="1157.0" BorderPane.alignment="CENTER">
          <children>
@@ -20,20 +20,21 @@
                 <Menu mnemonicParsing="false" text="User Detail">
                   <items>
                     <MenuItem fx:id="mViewProfile" mnemonicParsing="false" onAction="#onViewProfile" text="View Profile" />
-                        <MenuItem fx:id="mItemupdateProfile" mnemonicParsing="false" onAction="#onUpdateProfile" text="Update Profile" />
+                        <MenuItem fx:id="mItemLogout" mnemonicParsing="false" onAction="#onLogout" text="Logout" />
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Course Detail">
+                <Menu fx:id="mCourseDetail" mnemonicParsing="false" text="Course Detail">
                   <items>
                     <MenuItem fx:id="menuitemSearchCourse" mnemonicParsing="false" onAction="#onSearchCourse" text="Search Course" />
                         <MenuItem mnemonicParsing="false" text="Add Course" />
                         <MenuItem mnemonicParsing="false" text="Drop Course" />
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Result">
+                <Menu fx:id="mResult" mnemonicParsing="false" text="Result">
                   <items>
                     <MenuItem fx:id="mItemViewCGPA" mnemonicParsing="false" onAction="#ClickOnViewCGPA" text="View CGPA" />
                         <MenuItem fx:id="mItemViewTranscript" mnemonicParsing="false" onAction="#clickOnViewTranscript" text="View Trascript" />
+                        <MenuItem fx:id="mItemViewGrade" mnemonicParsing="false" onAction="#ClickOnViewGrade" text="View Grade" />
                   </items>
                 </Menu>
                   <Menu mnemonicParsing="false" text="Activity">
@@ -41,7 +42,7 @@
                         <MenuItem mnemonicParsing="false" text="View Schedule" />
                         <MenuItem mnemonicParsing="false" text="Add Term/Course" />
                         <MenuItem mnemonicParsing="false" text="Select Class Schedule" />
-                        <MenuItem fx:id="addGrades" mnemonicParsing="false" onAction="#clickOnAddGrades" text="Add Grades" />
+                        <MenuItem fx:id="addGrades" mnemonicParsing="false" onAction="#clickOnAddGrades" text="Add Grades" visible="false" />
                      </items>
                   </Menu>
               </menus>

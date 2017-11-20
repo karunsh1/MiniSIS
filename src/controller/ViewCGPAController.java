@@ -97,9 +97,7 @@ public class ViewCGPAController implements Initializable {
 				hBoxCGPADetail.visibleProperty().set(true);
 				StudentModel studentModel = new StudentModel();
 				Student student = new Student();
-				student = studentModel.selectStudent(Integer.parseInt(studentID));
-				System.out.println("name  "+ student.getFirst_name());
-				
+				student = studentModel.selectStudent(Integer.parseInt(studentID));				
 				lblStudentName.setText(student.getFirst_name() + " " + student.getLast_name());
 				lblStudentCareer.setText(student.getCareer_Name());
 				lblStudentProgram.setText(student.getSubject_Name());

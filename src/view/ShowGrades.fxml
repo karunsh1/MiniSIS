@@ -1,32 +1,120 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-
-<BorderPane prefHeight="520.0" prefWidth="634.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
-   <center>
-      <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-   </center>
-   <top>
-      <GridPane prefHeight="170.0" prefWidth="634.0" vgap="15.0" BorderPane.alignment="CENTER">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints maxHeight="49.0" minHeight="10.0" prefHeight="49.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="52.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="25.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+<BorderPane prefHeight="673.0" prefWidth="899.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ShowGradesController">
+	<top>
+		<HBox alignment="CENTER" prefHeight="58.0" prefWidth="777.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <Label text="View Grades" textAlignment="CENTER">
+               <font>
+                  <Font name="Arial Bold" size="29.0" />
+               </font>
+            </Label>
+         </children>
+		</HBox>
+	</top>
+   <bottom>
+      <AnchorPane fx:id="acPaneGradeView" prefHeight="433.0" prefWidth="899.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox fx:id="hBoxSelectTerm" alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="410.0">
                <children>
-                  <Label text="Show Grades " />
+                  <GridPane prefHeight="45.0" prefWidth="396.0">
+                     <children>
+                        <Label prefHeight="21.0" prefWidth="208.0" text="Select Term">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="cbSelectTerm" onAction="#onSelectTerm" prefHeight="41.0" prefWidth="215.0" promptText="Please Select Term" GridPane.columnIndex="1" />
+                     </children>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="144.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </GridPane>
                </children>
             </HBox>
+            <StackPane layoutX="109.0" layoutY="96.0" prefHeight="239.0" prefWidth="677.0" AnchorPane.leftAnchor="109.0" AnchorPane.topAnchor="96.0">
+               <children>
+                  <TableView fx:id="tbltermCourseDetail" prefHeight="239.0" prefWidth="677.0">
+                     <columns>
+                        <TableColumn fx:id="tblColCourse" prefWidth="120.0" text="Course" />
+                        <TableColumn fx:id="tblColDescription" prefWidth="260.0" text="Description" />
+                        <TableColumn fx:id="tblColAttempted" prefWidth="101.0" text="Attempted" />
+                        <TableColumn fx:id="tblColGrades" prefWidth="87.0" text="Grades" />
+                        <TableColumn fx:id="tblColGPA" prefWidth="105.0" text="GPA" />
+                     </columns>
+                     <opaqueInsets>
+                        <Insets bottom="10.0" />
+                     </opaqueInsets>
+                  </TableView>
+               </children>
+            </StackPane>
          </children>
-      </GridPane>
-   </top>
+      </AnchorPane>
+   </bottom>
+   <center>
+		<AnchorPane prefHeight="279.0" prefWidth="899.0" BorderPane.alignment="CENTER">
+			<children>
+				<HBox fx:id="hBoxSearchStudent" alignment="CENTER" prefHeight="104.0" prefWidth="763.0">
+					<children>
+						<GridPane prefHeight="80.0" prefWidth="487.0">
+							<columnConstraints>
+								<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+								<ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+							</columnConstraints>
+							<rowConstraints>
+								<RowConstraints maxHeight="144.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="144.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
+							</rowConstraints>
+							<children>
+								<Label prefHeight="21.0" prefWidth="208.0" text="Search Student">
+									<font>
+										<Font size="20.0" />
+									</font>
+								</Label>
+								<TextField fx:id="txtSearchStudentID" prefHeight="45.0" prefWidth="143.0" promptText="Enter Student ID" GridPane.columnIndex="1">
+                           <font>
+                              <Font size="20.0" />
+                           </font></TextField>
+                        <Button fx:id="btnSearchViewCGPA" mnemonicParsing="false" onAction="#ClickOnBtnSearchStudentDetail" prefHeight="44.0" prefWidth="129.0" text="Search" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Button>
+							</children>
+							<HBox.margin>
+								<Insets />
+							</HBox.margin>
+							<padding>
+								<Insets left="10.0" />
+							</padding>
+						</GridPane>
+					</children>
+				</HBox>
+            <Label fx:id="lblError" alignment="CENTER" contentDisplay="CENTER" layoutY="104.0" prefHeight="60.0" prefWidth="546.0" textFill="#d30b0b" wrapText="true">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+			</children>
+		</AnchorPane>
+   </center>
 </BorderPane>

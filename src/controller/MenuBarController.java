@@ -4,7 +4,9 @@ package controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
+import DTO.Users;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,9 +18,23 @@ import javafx.scene.layout.StackPane;
 import util.Singleton;
 
 public class MenuBarController implements Initializable {
+	
+	private final ObjectProperty<Users> user = new SimpleObjectProperty<>();
+	
+	public final ObjectProperty<Users> userProperty() {
+        return this.user;
+    }
 
+    public final Users getUser() {
+        return this.userProperty().get();
+    }
+
+    public final void setUser(final Users user) {
+        this.userProperty().set(user);
+    }
+    
 	@FXML
-	private BorderPane addGradesPane;
+	private BorderPane addGradesPane,BPaneMenuBar;
 	@FXML
 	private StackPane showItemPane;
 	@FXML
@@ -30,20 +46,21 @@ public class MenuBarController implements Initializable {
 	@FXML
 	private MenuItem mItemViewTranscript;  
     @FXML
-	private MenuItem menuitemSearchCourse, mItemUpdateProfile;
+	private MenuItem menuitemSearchCourse, mItemLogout, mItemViewGrade;
+    @FXML 
+    private Menu mResult,mCourseDetail;
+    
+  
     
     @FXML
-    private void onUpdateProfile(){
-    	BorderPane newLoadedPane = null;
-		try {
-			
-			newLoadedPane = FXMLLoader.load(getClass().getResource("/view/tableView.fxml"));
-		} catch (IOException e) {
-			System.out.println("in catch");
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		showItemPane.getChildren().add(newLoadedPane);
+    private void onLogout(){
+    	
+    	user.set(null);
+    	Singleton.getInstance().setUserAcessID(null);
+    	Singleton.getInstance().setEmailID(null);
+    	Singleton.getInstance().setUserType(null);
+    	showItemPane.getChildren().clear();
+    	   	
     	
     }
    
@@ -53,9 +70,9 @@ public class MenuBarController implements Initializable {
 		try {
 			
 			newLoadedPane = FXMLLoader.load(getClass().getResource("/view/SearchCourse1.fxml"));
+			
 		} catch (IOException e) {
-			System.out.println("in catch");
-			// TODO Auto-generated catch block
+			System.out.println("in catch");			
 			e.printStackTrace();
 		}
 		showItemPane.getChildren().add(newLoadedPane);
@@ -101,6 +118,24 @@ public class MenuBarController implements Initializable {
 		//}
 
 	}
+	@FXML
+	private void ClickOnViewGrade(){
+		showItemPane.getChildren().clear();
+		BorderPane newLoadedPane = null;
+		
+			try {
+				newLoadedPane = FXMLLoader.load(getClass().getResource("/view/ShowGrades.fxml"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			showItemPane.getChildren().add(newLoadedPane);
+			
+
+	}
+		
+	
 
 	@FXML
 	private void clickOnAddGrades() {
@@ -144,12 +179,19 @@ public class MenuBarController implements Initializable {
 		String userType = null;
 		
 	   userType = Singleton.getInstance().getUserType().getText();
-	    if(!userType.equals("3")){
-	    	addGrades.visibleProperty().set(false);
+	   System.out.println("User Type  " + userType);
+	   
+	    if(userType.equals("3")){
+	    	addGrades.visibleProperty().set(true);
 	    	mItemViewCGPA.visibleProperty().set(false);
+	    	mItemViewGrade.visibleProperty().set(false);
+	    	mCourseDetail.visibleProperty().set(false);
+	    	mResult.visibleProperty().set(false);
 	    }		
 
 	}
+
+	
 
 }
 

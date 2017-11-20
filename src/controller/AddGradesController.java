@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
@@ -22,7 +23,7 @@ import util.Singleton;
 public class AddGradesController implements Initializable {
 
 	@FXML
-	private ComboBox cbSelectTerm;
+	private ComboBox cbSelectTerm ;
 	@FXML
 	private BorderPane addGrades;
 	@FXML
@@ -44,6 +45,8 @@ public class AddGradesController implements Initializable {
 	@FXML
 	private Label lblFileName;
 	@FXML
+	private Tab tbGradeTemplate, tbUploadGrades;
+	@FXML
 	private Button btnFileChooser;
 	private Window stage;
 	public String selectTerm = null;
@@ -53,6 +56,18 @@ public class AddGradesController implements Initializable {
 	String instructorID = Singleton.getInstance().getUserAcessID().getText();
 	DAO dataAccess = new DAO();
 
+	@FXML
+	private void onSelecttbUploadGrades(){
+		
+		cbSelectTerm.getSelectionModel().clearSelection();
+		
+	}
+	@FXML
+	private void onSelecttbGradeTemplate(){
+		cbSelectTermUpload.getSelectionModel().clearSelection();
+		
+		
+	}
 	@FXML
 	private void onSelectTerm()
 
@@ -70,9 +85,13 @@ public class AddGradesController implements Initializable {
 	private void onSelectDept() {
 		selectDept = null;
 		selectDept = cbDeptName.getSelectionModel().getSelectedItem().toString();
+		if(!selectDept.equals(null)){
 		ArrayList courseNames = dataAccess.instructor_Courses(Integer.parseInt(instructorID), selectDept);
 		ObservableList courseNamelist = FXCollections.observableArrayList(courseNames);
 		cbCourseName.setItems(courseNamelist);
+		}else{
+			System.out.println("Select term");
+		}
 
 	}
 

@@ -18,6 +18,7 @@ import javafx.scene.control.TextField;
 import model.AdminModel;
 import model.DAO;
 import model.StudentModel;
+import util.Auth;
 import util.Singleton;
 import DTO.Users;
 
@@ -71,8 +72,9 @@ public class LoginController {
 			setUser(new Users(userName, password));
 
 		} else {
-			clearFields();
+			
 		}
+		clearFields();
 
 	}
 
@@ -94,7 +96,8 @@ public class LoginController {
 			PreparedStatement login = conn.prepareStatement(" select * from users where email=? and password=?");
 
 			login.setString(1, userName);
-			login.setString(2, password);
+			login.setString(2, Auth.md5(password));
+			System.out.println("Password id: " + Auth.md5(password));
 
 			ResultSet result = login.executeQuery();
 
@@ -147,7 +150,7 @@ public class LoginController {
 				}
 				lblUserAccessID.setText(Integer.toString(userID));
 				lblUserRole.setText(userType);
-				Singleton.getInstance().setEmailID(userNameField);
+				Singleton.getInstance().setEmailID(userName);
 				Singleton.getInstance().setUserType(lblUserType);
 				Singleton.getInstance().setUserAcessID(lblUserAccessID);
 				Singleton.getInstance().setUserRol(lblUserRole);
@@ -179,17 +182,6 @@ public class LoginController {
 		}
 
 	}
-	/*
-	 * public String[] getSession(){ String [] userDetail = null; userDetail[0]
-	 * = lblUserType.getText(); userDetail[1] = userNameField.getText();
-	 * 
-	 * System.out.println( "login detail"+ userDetail);
-	 * 
-	 * return userDetail;
-	 * 
-	 * }
-	 */
-
 	private void clearFields() {
 		userNameField.setText("");
 		passwordField.setText("");

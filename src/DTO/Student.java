@@ -14,22 +14,19 @@ public class Student {
 		super();
 	}
 	
-	public Student(String first_name, String first_name2){
-		this.first_name = first_name;
-		this.last_name = last_name;
-		
-	}
 	
-	public Student(String first_name,String last_name, String email, String mobile, String address) {
-		super();
+	
+	public Student(String first_name,String last_name, String career_Level, String subject_Name, String address) {
+		
 		this.first_name = first_name;
 		this.last_name = last_name;
-		this.email = email;
-		this.mobile = mobile;
+		this.career_Name = career_Level;
+		this.subject_Name = subject_Name;
+		this.address = address;
 	}
 	
 	public Student(int id, String first_name,String last_name, String email, String mobile,String address) {
-		super();
+		
 		this.id = id;
 		this.first_name = first_name;
 		this.last_name = last_name;
@@ -39,8 +36,7 @@ public class Student {
 
 
 	public Student(String first_name, String last_name, String career_Level, String subject_Name) {
-		super();
-		this.id = id;
+		
 		this.first_name = first_name;
 		this.last_name = last_name;
 		this.career_Name = career_Level;
