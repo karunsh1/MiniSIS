@@ -23,7 +23,7 @@
                   <items>
                     <MenuItem fx:id="menuitemSearchCourse" mnemonicParsing="false" onAction="#onSearchCourse" text="Search Course" />
                         <MenuItem mnemonicParsing="false" text="Add Course" />
-                        <MenuItem mnemonicParsing="false" text="Drop Course" />
+                        <MenuItem fx:id="MenuItemDropCourse" mnemonicParsing="false" onAction="#onDropCourse" text="Drop Course" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Result">

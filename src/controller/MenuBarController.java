@@ -32,6 +32,7 @@ public class MenuBarController implements Initializable {
     @FXML
 	private MenuItem menuitemSearchCourse;
 	@FXML MenuItem menuitemPay;
+	@FXML MenuItem MenuItemDropCourse;
    
 	@FXML
 	private void onSearchCourse() {
@@ -133,6 +134,22 @@ public class MenuBarController implements Initializable {
 
 			try {
 				newLoadedPane = FXMLLoader.load(getClass().getResource("/view/PayFees.fxml"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			showItemPane.getChildren().add(newLoadedPane);
+	}
+
+	@FXML public void onDropCourse(ActionEvent event) {
+		
+		showItemPane.getChildren().clear();
+		BorderPane newLoadedPane = null;
+		//if (!addGrades.isDisable()) {
+
+			try {
+				newLoadedPane = FXMLLoader.load(getClass().getResource("/view/DropCourse.fxml"));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
