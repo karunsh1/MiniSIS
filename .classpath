@@ -5,20 +5,5 @@
 	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/javacsv.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Karun/Documents/GitHub/MiniSIS/lib/mysql-connector-java-5.1.44-bin.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Karun/Documents/GitHub/MiniSIS/lib/Pdf/itext7-font-asian-7.0.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Karun/Documents/GitHub/MiniSIS/lib/Pdf/itext7-font-asian-7.0.2-javadoc.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Karun/Documents/GitHub/MiniSIS/lib/Pdf/itext7-forms-7.0.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Karun/Documents/GitHub/MiniSIS/lib/Pdf/itext7-forms-7.0.2-javadoc.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Karun/Documents/GitHub/MiniSIS/lib/Pdf/itext7-hyph-7.0.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Karun/Documents/GitHub/MiniSIS/lib/Pdf/itext7-hyph-7.0.2-javadoc.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Karun/Documents/GitHub/MiniSIS/lib/Pdf/itext7-io-7.0.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Karun/Documents/GitHub/MiniSIS/lib/Pdf/itext7-io-7.0.2-javadoc.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Karun/Documents/GitHub/MiniSIS/lib/Pdf/itext7-kernel-7.0.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Karun/Documents/GitHub/MiniSIS/lib/Pdf/itext7-kernel-7.0.2-javadoc.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Karun/Documents/GitHub/MiniSIS/lib/Pdf/itext7-layout-7.0.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Karun/Documents/GitHub/MiniSIS/lib/Pdf/itext7-layout-7.0.2-javadoc.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Karun/Documents/GitHub/MiniSIS/lib/Pdf/itext7-pdfa-7.0.2-javadoc.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Karun/Documents/GitHub/MiniSIS/lib/Pdf/itext7-pdftest-7.0.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Karun/Documents/GitHub/MiniSIS/lib/Pdf/itext7-sign-7.0.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
