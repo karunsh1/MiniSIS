@@ -32,7 +32,7 @@ public class PdfTranscript {
 
 	
 
-	public void pdfgenrator(int studentID) throws DocumentException, MalformedURLException, IOException {
+	public String pdfgenrator(int studentID) throws DocumentException, MalformedURLException, IOException {
 
 		DAO dataAccess = new DAO();
 		Student studentInfo = new Student();
@@ -117,7 +117,7 @@ public class PdfTranscript {
 			document.add(new Paragraph("Session: "+term));
 			document.add(new Paragraph("\n"));
 			PdfPTable tblGrade = new PdfPTable(5);
-			float widthsGradeTable[] = { 10, 15, 4, 4, 4 };
+			float widthsGradeTable[] = { 10, 15, 8, 4, 4 };
 			tblGrade.setWidths(widthsGradeTable);
 			tblGrade.setHeaderRows(1);
             
@@ -193,7 +193,9 @@ public class PdfTranscript {
 		
 		document.close();
 		System.out.println("Successfull.");
+		return CareerName;
 	}
+	
 
 }
 
