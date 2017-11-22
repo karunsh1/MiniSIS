@@ -1,9 +1,14 @@
 
 package controller;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.itextpdf.text.DocumentException;
+
 import DTO.Users;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -16,6 +21,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import util.PdfTranscript;
 import util.Singleton;
 import javafx.event.ActionEvent;
 
@@ -48,9 +54,10 @@ public class MenuBarController implements Initializable {
 	@FXML
 	private MenuItem mItemViewTranscript;  
 
-
-	@FXML MenuItem menuitemPay;
-	@FXML MenuItem MenuItemDropCourse;
+	@FXML
+	MenuItem menuitemPay;
+	@FXML
+	MenuItem MenuItemDropCourse;
 
 	private MenuItem menuitemSearchCourse, mItemLogout, mItemViewGrade;
     @FXML 
@@ -93,18 +100,39 @@ public class MenuBarController implements Initializable {
 		BorderPane newLoadedPane = null;
 		//if (!mItemViewCGPA.isDisable()) {
 
-			try {
-				newLoadedPane = FXMLLoader.load(getClass().getResource("/view/ViewTranscript.fxml"));
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		String studentID = Singleton.getInstance().getUserAcessID().getText();
+		PdfTranscript pdfTranscript = new PdfTranscript();
+		try {
+			pdfTranscript.pdfgenrator(Integer.parseInt(studentID));
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-			showItemPane.getChildren().add(newLoadedPane);
-			//mItemViewCGPA.disableProperty().set(true);
+		/*
+		 * showItemPane.getChildren().clear(); BorderPane newLoadedPane = null;
+		 * 
+		 * 
+		 * try { newLoadedPane =
+		 * FXMLLoader.load(getClass().getResource("/view/ViewTranscript.fxml"));
+		 * } catch (IOException e) { // TODO Auto-generated catch block
+		 * e.printStackTrace(); }
+		 * 
+		 * showItemPane.getChildren().add(newLoadedPane);
+		 */
 
-		//}
-		
 	}
 	@FXML
 	private void ClickOnViewCGPA() {
@@ -180,9 +208,10 @@ public class MenuBarController implements Initializable {
 		}
 		
 	}
-	
-	@FXML public void onDropCourse(ActionEvent event) {
-		
+
+	@FXML
+	public void onDropCourse(ActionEvent event) {
+
 		showItemPane.getChildren().clear();
 		BorderPane newLoadedPane = null;
 		//if (!addGrades.isDisable()) {
