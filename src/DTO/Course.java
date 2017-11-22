@@ -15,14 +15,16 @@ public class Course {
 //	public SimpleStringProperty description =new SimpleStringProperty();
 	String program;
 	String courseTitle;
-	int courseId;
+	String courseId;
+	
+
 	String level;
-	int numCredits;
+	Integer numCredits;
 	String term;
 	String description;
 	String instructor;
 	
-	public Course(String program, String courseTitle, int courseId,String level,int numCredits,String term,String description, String instructor){
+	public Course(String program, String courseTitle, String courseId,String level,int numCredits,String term,String description, String instructor){
 		super();
 		this.program=program;
 		this.courseTitle=courseTitle;
@@ -32,6 +34,7 @@ public class Course {
 		this.term=term;
 		this.description=description;
 		this.instructor=instructor;
+		System.out.println("in constructor" + courseId);
 	}
 	
 	public Course(){
@@ -100,14 +103,7 @@ public class Course {
 		this.courseTitle = courseTitle;
 	}
     
-
-	public int getCourseId() {
-		return courseId;
-	}
 	
-	public void setCourseId(int courseId) {
-		this.courseId = courseId;
-	}
 	
 	public String getLevel() {
 		return level ;
@@ -117,7 +113,7 @@ public class Course {
 		this.level = level;
 	}
 	
-	public int getNumCredits() {
+	public Integer getNumCredits() {
 		return numCredits;
 	}
 	
@@ -149,7 +145,13 @@ public class Course {
 	public void setInstructor(String instructor) {
 		this.instructor = instructor;
 	}
+	public String getCourseId() {
+		return courseId;
+	}
 
+	public void setCourseId(String courseId) {
+		this.courseId = courseId;
+	}
 	
 	
 	

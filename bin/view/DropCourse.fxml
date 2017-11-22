@@ -58,7 +58,7 @@
             </Label>
           <AnchorPane fx:id="SearchCourseAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="231.0" prefWidth="928.0" GridPane.rowIndex="13">
                <children>
-                  <TableView fx:id="searchCourseTableView" layoutY="-182.0" prefHeight="407.0" prefWidth="920.0">
+                  <TableView fx:id="searchCourseTableView" layoutY="-182.0" onMouseClicked="#onRowClick" prefHeight="407.0" prefWidth="920.0">
                     <columns>
                       <TableColumn fx:id="ColumnProgram" prefWidth="75.0" text="Program" />
                       <TableColumn fx:id="ColumnCourseTitle" prefWidth="124.0" text="CourseTitle" />

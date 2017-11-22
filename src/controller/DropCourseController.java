@@ -32,6 +32,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableColumn;
 import javafx.event.ActionEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.input.MouseEvent;
 
 public class DropCourseController implements Initializable {
 	
@@ -46,7 +47,7 @@ public class DropCourseController implements Initializable {
 	@FXML TableView<Course> searchCourseTableView;
 	@FXML TableColumn<Course, String> ColumnProgram;
 	@FXML TableColumn<Course, String> ColumnCourseTitle;
-	@FXML TableColumn<Course, Integer> ColumnCourseId;	
+	@FXML TableColumn<Course, String> ColumnCourseId;	
 	@FXML TableColumn<Course, String> ColumnLevel;
 	@FXML TableColumn<Course, Integer> ColumnNumCredits;
 	@FXML TableColumn<Course, String> ColumnTerm;
@@ -84,24 +85,24 @@ public class DropCourseController implements Initializable {
 		        	termDisplay="Fall 2016";
 		        else if(term_id==2)
 		        	termDisplay="Winter 2017";
-		        Course  course= coursemodel.EnrollCourseList(Integer.parseInt(studentID), term_id);
+		       // Course  course= coursemodel.EnrollCourseList(Integer.parseInt(studentID), term_id);
 		        ArrayList data = new ArrayList();
 		      	      ColumnProgram.setCellValueFactory(new PropertyValueFactory<Course,String>("Program"));
 		      	      ColumnCourseTitle.setCellValueFactory(new PropertyValueFactory<Course,String>("CourseTitle"));
-		      	      ColumnCourseId.setCellValueFactory(new PropertyValueFactory<Course,Integer>("CourseID"));
+		      	      ColumnCourseId.setCellValueFactory(new PropertyValueFactory<Course,String>("courseId"));
 		      	      ColumnLevel.setCellValueFactory(new PropertyValueFactory<Course,String>("Level"));
-		      	      ColumnNumCredits.setCellValueFactory(new PropertyValueFactory<Course,Integer>("NumOfCredits"));
+		      	      ColumnNumCredits.setCellValueFactory(new PropertyValueFactory<Course,Integer>("numCredits"));
 		      	      ColumnTerm.setCellValueFactory(new PropertyValueFactory<Course,String>("Term"));
 		      	      ColumnDescription.setCellValueFactory(new PropertyValueFactory<Course,String>("Description"));
-		      	      ColumnInstructorName.setCellValueFactory(new PropertyValueFactory<Course,String>("InstructorName"));
+		      	      ColumnInstructorName.setCellValueFactory(new PropertyValueFactory<Course,String>("instructor"));
 		        			
 		        		
-		        		//ObservableList<Student> dataOB = FXCollections.observableArrayList(data);
-		        			ObservableList<Course> dataob = FXCollections.observableArrayList();	        
-		        	        dataob.add(new Course(course.getProgram(),course.getCourseTitle(),course.getCourseId(),course.getLevel(),course.getNumCredits(),course.getTerm(),course.getDescription(),
-		        	        		course.getInstructor()));
-		        	        searchCourseTableView.setItems(dataob);
-		        			System.out.println(data +"   obdata   "+  dataob);
+//		        		//ObservableList<Student> dataOB = FXCollections.observableArrayList(data);
+//		        			ObservableList<Course> dataob = FXCollections.observableArrayList();	        
+//		        	        dataob.add(new Course(course.getProgram(),course.getCourseTitle(),course.getCourseId(),course.getLevel(),course.getNumCredits(),course.getTerm(),course.getDescription(),
+//		        	        		course.getInstructor()));
+		        	        searchCourseTableView.setItems(coursemodel.EnrollCourseList(Integer.parseInt(studentID), term_id));
+		        			
 		        			
 			}
 		});
@@ -109,13 +110,20 @@ public class DropCourseController implements Initializable {
 			
 	}
 
-	@FXML public void onDropCourse(ActionEvent event) {}
+
 	
+	@FXML public void onDropCourse(ActionEvent event) {}
+
+
+
+	@FXML public void onRowClick(MouseEvent event) {
+		
+		 Course selectedItems = searchCourseTableView.getSelectionModel().getSelectedItems().get(0);
+		 String first_Column = selectedItems.getTerm();
+		 String courseId = selectedItems.getCourseId();
+		System.out.println(courseId);
+	}
     
 	
 	
-	
-
-
-
 	}
