@@ -10,8 +10,10 @@ public class Singleton {
     }
 
     private Label userType;
-    private TextField emailID;
-    private Label userRol;
+    private String emailID;
+    
+
+	private Label userRol;
     public Label getUserRol() {
 		return userRol;
 	}
@@ -34,12 +36,13 @@ public class Singleton {
 	public void setUserType(Label lblUserType) {
 		this.userType = lblUserType;
 	}
-	public TextField getEmailID() {
+	public String getEmailID() {
 		return emailID;
 	}
-	public void setEmailID(TextField userNameField) {
-		this.emailID = userNameField;
+	public void setEmailID(String emailID) {
+		this.emailID = emailID;
 	}
+	
 	
 
 	

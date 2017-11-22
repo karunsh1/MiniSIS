@@ -7,27 +7,42 @@ public class Student {
 	String email;
 	String mobile;
 	String address;
+	String career_Name;
+	String subject_Name;
 
 	public Student() {
 		super();
 	}
 	
 	
-	public Student(String first_name,String last_name, String email, String mobile, String address) {
-		super();
+	
+	public Student(String first_name,String last_name, String career_Level, String subject_Name, String address) {
+		
 		this.first_name = first_name;
 		this.last_name = last_name;
-		this.email = email;
-		this.mobile = mobile;
+		this.career_Name = career_Level;
+		this.subject_Name = subject_Name;
+		this.address = address;
 	}
 	
 	public Student(int id, String first_name,String last_name, String email, String mobile,String address) {
-		super();
+		
 		this.id = id;
 		this.first_name = first_name;
 		this.last_name = last_name;
 		this.email = email;
 		this.mobile = mobile;
+	}
+
+
+	public Student(String first_name, String last_name, String career_Level, String subject_Name) {
+		
+		this.first_name = first_name;
+		this.last_name = last_name;
+		this.career_Name = career_Level;
+		this.subject_Name = subject_Name;
+		
+		// TODO Auto-generated constructor stub
 	}
 
 
@@ -86,5 +101,23 @@ public class Student {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	public String getCareer_Name() {
+		return career_Name;
+	}
+
+
+	public void setCareer_Name(String career_Name) {
+		this.career_Name = career_Name;
+	}
+
+
+	public String getSubject_Name() {
+		return subject_Name;
+	}
+
+
+	public void setSubject_Name(String subject_Name) {
+		this.subject_Name = subject_Name;
 	}
 }

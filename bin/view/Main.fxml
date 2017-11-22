@@ -3,7 +3,7 @@
 <?import javafx.scene.layout.BorderPane?>
 	
 <BorderPane fx:id="root" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
-	<center>
+	<top>
 		<fx:include source="Login.fxml" fx:id="login"/>
-	</center>
+	</top>
 </BorderPane>
