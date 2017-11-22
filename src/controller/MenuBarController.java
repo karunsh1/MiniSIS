@@ -26,23 +26,23 @@ import util.Singleton;
 import javafx.event.ActionEvent;
 
 public class MenuBarController implements Initializable {
-
+	
 	private final ObjectProperty<Users> user = new SimpleObjectProperty<>();
-
+	
 	public final ObjectProperty<Users> userProperty() {
-		return this.user;
-	}
+        return this.user;
+    }
 
-	public final Users getUser() {
-		return this.userProperty().get();
-	}
+    public final Users getUser() {
+        return this.userProperty().get();
+    }
 
-	public final void setUser(final Users user) {
-		this.userProperty().set(user);
-	}
-
+    public final void setUser(final Users user) {
+        this.userProperty().set(user);
+    }
+    
 	@FXML
-	private BorderPane addGradesPane, BPaneMenuBar;
+	private BorderPane addGradesPane,BPaneMenuBar;
 	@FXML
 	private StackPane showItemPane;
 	@FXML
@@ -52,7 +52,7 @@ public class MenuBarController implements Initializable {
 	@FXML
 	private MenuBar menuBar;
 	@FXML
-	private MenuItem mItemViewTranscript;
+	private MenuItem mItemViewTranscript;  
 
 	@FXML
 	MenuItem menuitemPay;
@@ -60,36 +60,45 @@ public class MenuBarController implements Initializable {
 	MenuItem MenuItemDropCourse;
 
 	private MenuItem menuitemSearchCourse, mItemLogout, mItemViewGrade;
-	@FXML
-	private Menu mResult, mCourseDetail;
-
-	@FXML
-	private void onLogout() {
-
-		user.set(null);
-		Singleton.getInstance().setUserAcessID(null);
-		Singleton.getInstance().setEmailID(null);
-		Singleton.getInstance().setUserType(null);
-		showItemPane.getChildren().clear();
-
-	}
-
+    @FXML 
+    private Menu mResult,mCourseDetail;
+    
+  
+    
+    @FXML
+    private void onLogout(){
+    	
+    	user.set(null);
+    	Singleton.getInstance().setUserAcessID(null);
+    	Singleton.getInstance().setEmailID(null);
+    	Singleton.getInstance().setUserType(null);
+    	showItemPane.getChildren().clear();
+    	   	
+    	
+    }
+   
 	@FXML
 	private void onSearchCourse() {
+
+		showItemPane.getChildren().clear();
 		BorderPane newLoadedPane = null;
 		try {
+			
 
 			newLoadedPane = FXMLLoader.load(getClass().getResource("/view/SearchCourse2.fxml"));
 
 		} catch (IOException e) {
-			System.out.println("in catch");
+			System.out.println("in catch");			
 			e.printStackTrace();
 		}
 		showItemPane.getChildren().add(newLoadedPane);
 	}
-
+	
 	@FXML
-	private void clickOnViewTranscript() {
+	private void clickOnViewTranscript(){
+		showItemPane.getChildren().clear();
+		BorderPane newLoadedPane = null;
+		//if (!mItemViewCGPA.isDisable()) {
 
 		String studentID = Singleton.getInstance().getUserAcessID().getText();
 		PdfTranscript pdfTranscript = new PdfTranscript();
@@ -125,67 +134,69 @@ public class MenuBarController implements Initializable {
 		 */
 
 	}
-
 	@FXML
 	private void ClickOnViewCGPA() {
-
+		
+		
 		showItemPane.getChildren().clear();
 		BorderPane newLoadedPane = null;
-		// if (!mItemViewCGPA.isDisable()) {
+		//if (!mItemViewCGPA.isDisable()) {
 
-		try {
-			newLoadedPane = FXMLLoader.load(getClass().getResource("/view/ViewGradeDashBoard.fxml"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			try {
+				newLoadedPane = FXMLLoader.load(getClass().getResource("/view/ViewGradeDashBoard.fxml"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
-		showItemPane.getChildren().add(newLoadedPane);
-		// mItemViewCGPA.disableProperty().set(true);
+			showItemPane.getChildren().add(newLoadedPane);
+			//mItemViewCGPA.disableProperty().set(true);
 
-		// }
+		//}
 
 	}
-
 	@FXML
-	private void ClickOnViewGrade() {
+	private void ClickOnViewGrade(){
 		showItemPane.getChildren().clear();
 		BorderPane newLoadedPane = null;
+		
+			try {
+				newLoadedPane = FXMLLoader.load(getClass().getResource("/view/ShowGrades.fxml"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
-		try {
-			newLoadedPane = FXMLLoader.load(getClass().getResource("/view/ShowGrades.fxml"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		showItemPane.getChildren().add(newLoadedPane);
+			showItemPane.getChildren().add(newLoadedPane);
+			
 
 	}
+		
+	
 
 	@FXML
 	private void clickOnAddGrades() {
-
+		
 		showItemPane.getChildren().clear();
 		BorderPane newLoadedPane = null;
-		// if (!addGrades.isDisable()) {
+		//if (!addGrades.isDisable()) {
 
-		try {
-			newLoadedPane = FXMLLoader.load(getClass().getResource("/view/GradesDashboard.fxml"));
-			showItemPane.getChildren().add(newLoadedPane);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			try {
+				newLoadedPane = FXMLLoader.load(getClass().getResource("/view/GradesDashboard.fxml"));
+				showItemPane.getChildren().add(newLoadedPane);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
-		// addGrades.disableProperty().set(true);
+			
+			//addGrades.disableProperty().set(true);
 
-		// }
+		//}
 
 	}
-
 	@FXML
-	private void onViewProfile() {
+	private void onViewProfile(){
 		showItemPane.getChildren().clear();
 		StackPane newLoadedPane = null;
 		try {
@@ -195,7 +206,7 @@ public class MenuBarController implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
 	}
 
 	@FXML
@@ -203,55 +214,67 @@ public class MenuBarController implements Initializable {
 
 		showItemPane.getChildren().clear();
 		BorderPane newLoadedPane = null;
-		// if (!addGrades.isDisable()) {
+		//if (!addGrades.isDisable()) {
 
-		try {
-			newLoadedPane = FXMLLoader.load(getClass().getResource("/view/DropCourse.fxml"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			try {
+				newLoadedPane = FXMLLoader.load(getClass().getResource("/view/DropCourse.fxml"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
-		showItemPane.getChildren().add(newLoadedPane);
+			showItemPane.getChildren().add(newLoadedPane);
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		// menuitemPay.visibleProperty().set(false);
+		menuitemPay.visibleProperty().set(false);
 		String userType = null;
+		
 
-		userType = Singleton.getInstance().getUserType().getText();
-
-		if (userType.equals("1")) {
-			menuitemPay.visibleProperty().set(true);
-		}
-
-		System.out.println("User Type  " + userType);
-
-		if (userType.equals("3")) {
-			addGrades.visibleProperty().set(true);
-			mCourseDetail.visibleProperty().set(false);
-			mResult.visibleProperty().set(false);
-
-		}
+	   userType = Singleton.getInstance().getUserType().getText();
+	  
+	    if(userType.equals("1")){
+	    	menuitemPay.visibleProperty().set(true);
+	    }
+	    
+		   
+		   System.out.println("User Type  " + userType);
+		   
+		    if(userType.equals("3")){
+		    	addGrades.visibleProperty().set(true);
+		    	mCourseDetail.visibleProperty().set(false);
+		    	mResult.visibleProperty().set(false);
+		    }
 
 	}
 
-	@FXML
-	public void OnClickPay(ActionEvent event) {
+
+	@FXML public void OnClickPay(ActionEvent event) {
 		showItemPane.getChildren().clear();
 		AnchorPane newLoadedPane = null;
-		// if (!addGrades.isDisable()) {
+		//if (!addGrades.isDisable()) {
 
-		try {
-			newLoadedPane = FXMLLoader.load(getClass().getResource("/view/PayFees.fxml"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			try {
+				newLoadedPane = FXMLLoader.load(getClass().getResource("/view/PayFees.fxml"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
-		showItemPane.getChildren().add(newLoadedPane);
+			showItemPane.getChildren().add(newLoadedPane);
 	}
 
+
+      
+		
+
+	
+
 }
+
+
+
+ 
+
