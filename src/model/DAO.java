@@ -725,10 +725,10 @@ public class DAO {
 			grade = "B-";
 		} else if (gpa < 3.4) {
 
-			grade = "b";
+			grade = "B";
 		} else if (gpa < 3.7) {
 
-			grade = "b+";
+			grade = "B+";
 		} else if (gpa < 4) {
 
 			grade = "A";

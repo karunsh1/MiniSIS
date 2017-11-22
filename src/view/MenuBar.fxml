@@ -15,7 +15,7 @@
    <top>
       <HBox prefHeight="32.0" prefWidth="1157.0" BorderPane.alignment="CENTER">
          <children>
-            <MenuBar fx:id="menuBar" prefHeight="32.0" prefWidth="371.0">
+            <MenuBar fx:id="menuBar" prefHeight="32.0" prefWidth="441.0">
               <menus>
                 <Menu mnemonicParsing="false" text="User Detail">
                   <items>

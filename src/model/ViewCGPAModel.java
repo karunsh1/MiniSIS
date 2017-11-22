@@ -17,35 +17,27 @@ import util.Singleton;
 
 public class ViewCGPAModel {
 
-	
-	
-	
-	public Float getCGPA(int studentID){
-		 
-		Float studentCGPA =0f;
-		
-		DAO accessData = new DAO();
-		ArrayList<Float>  listGPA = new ArrayList<Float>();
-		listGPA = accessData.getStudentGPA(studentID);
-		int i= 0;
-		Iterator<Float > itratorGPA = listGPA.iterator();
-		
-		while(itratorGPA.hasNext()){
-			
-			 studentCGPA = studentCGPA +itratorGPA.next();
-			
-		}
-		
-		 studentCGPA = studentCGPA/listGPA.size();
-		
-		System.out.println("total gpa"+ studentCGPA);
-		
-		
-		return studentCGPA;
-		
-	}
-			
+	public Float getCGPA(int studentID) {
 
-	
+		Float studentCGPA = 0f;
+
+		DAO accessData = new DAO();
+		ArrayList<Float> listGPA = new ArrayList<Float>();
+		listGPA = accessData.getStudentGPA(studentID);
+		int i = 0;
+		Iterator<Float> itratorGPA = listGPA.iterator();
+
+		while (itratorGPA.hasNext()) {
+			studentCGPA = studentCGPA + itratorGPA.next();
+
+		}
+
+		studentCGPA = studentCGPA / listGPA.size();
+
+		System.out.println("total gpa" + studentCGPA);
+
+		return studentCGPA;
+
+	}
 
 }

@@ -1,9 +1,5 @@
 /controller/
-/data/
-/database/
-/model/
 /util/
-/DTO/
-/application/
+/model/
 /images/
 /view/
