@@ -205,9 +205,7 @@ public class MenuBarController implements Initializable {
 		
 
 	   userType = Singleton.getInstance().getUserType().getText();
-	    if(!userType.equals("3")){
-	    	addGrades.visibleProperty().set(false);
-	    }	
+	  
 	    if(userType.equals("1")){
 	    	menuitemPay.visibleProperty().set(true);
 	    }
@@ -217,8 +215,6 @@ public class MenuBarController implements Initializable {
 		   
 		    if(userType.equals("3")){
 		    	addGrades.visibleProperty().set(true);
-		    	mItemViewCGPA.visibleProperty().set(false);
-		    	mItemViewGrade.visibleProperty().set(false);
 		    	mCourseDetail.visibleProperty().set(false);
 		    	mResult.visibleProperty().set(false);
 		    }
