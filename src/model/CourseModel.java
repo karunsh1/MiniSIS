@@ -6,12 +6,15 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import DTO.Course;
+import DTO.GradesInfo;
 
 /*import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;*/
 
 import database.*;
 //import com.msis.DTO.CourseCart;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class CourseModel {
 	
@@ -19,6 +22,7 @@ public class CourseModel {
 				MySQLAccess obj = new MySQLAccess();
 				Connection conn = obj.getConnection();
 				Course course;
+				
 	public ArrayList courseListCart(int studentId) {
 
 		ArrayList courseListCart = null;
@@ -75,9 +79,9 @@ public class CourseModel {
 		}
 		return courseListCart;
 	}
-
-	public Course EnrollCourseList(int studentID, int termID) {	
-		 
+	
+	public ObservableList<Course> EnrollCourseList(int studentID, int termID) {	
+		ObservableList<Course> dataob = FXCollections.observableArrayList();
 		int studentId = studentID;		
 		int termId = termID;
 		String program;
@@ -132,17 +136,19 @@ public class CourseModel {
 					System.out.println(result.getString("units"));
 					description=result.getString("description");
 					System.out.println(result.getString("description"));
-					course=new Course(program,courseTitle,courseId,level,numCredits,term,description,instructor);
-					
-					//}
-					//Rows.add(row);
-					//enrollCourseList = Rows;
+					course=new Course(program,courseTitle,String.valueOf(courseId),level,numCredits,term,description,instructor);
+					System.out.println("------course id----" + course.getCourseId());	        
+        	        dataob.add(new Course(course.getProgram(),course.getCourseTitle(),course.getCourseId(),course.getLevel(),course.getNumCredits(),course.getTerm(),course.getDescription(),
+        	        		course.getInstructor()));
+        	        System.out.println(" ----------------------------------  obdata   "+  dataob);
+        	        //return dataob;
+			
 				}
 
 		} catch (Exception e) {
 			System.out.println("Something went wrong. Please contact system admin.");
 			System.err.println(e.getMessage());
 		}
-		return course;
+		return dataob;
 	}
 }

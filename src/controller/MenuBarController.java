@@ -72,6 +72,8 @@ public class MenuBarController implements Initializable {
    
 	@FXML
 	private void onSearchCourse() {
+
+		showItemPane.getChildren().clear();
 		BorderPane newLoadedPane = null;
 		try {
 			
