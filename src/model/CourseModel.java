@@ -110,10 +110,7 @@ public class CourseModel {
 			
 			System.out.println(sqlQuery);
 			PreparedStatement courseList = conn.prepareStatement(sqlQuery);
-			// PreparedStatement course = conn.prepareStatement(" select id,
-			// name, status_client from test.projects where client=? ");
-//			courseList.setInt(1, termId);
-//			courseList.setInt(2, studentId);
+
 			
 	
 			ResultSet result = courseList.executeQuery();

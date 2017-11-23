@@ -4,6 +4,7 @@ package controller;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URL;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -28,6 +30,7 @@ import model.DAO;
 import util.Singleton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableColumn;
 import javafx.event.ActionEvent;
@@ -59,10 +62,10 @@ public class DropCourseController implements Initializable {
 	@FXML TableColumn ColumnInstructorName;
 	@FXML BorderPane searchCourseBorderPane;
 	@FXML ComboBox TermCombobox;
-  int term_id;
-  String termDisplay;
-
-  
+    int term_id;
+    String termDisplay;
+    String term_from_view,  program_from_view,level_from_view;
+    Integer course_id_from_view;
      CourseModel coursemodel = new CourseModel();
      
 	@SuppressWarnings("unchecked")
@@ -95,13 +98,7 @@ public class DropCourseController implements Initializable {
 		      	      ColumnTerm.setCellValueFactory(new PropertyValueFactory<Course,String>("Term"));
 		      	      ColumnDescription.setCellValueFactory(new PropertyValueFactory<Course,String>("Description"));
 		      	      ColumnInstructorName.setCellValueFactory(new PropertyValueFactory<Course,String>("instructor"));
-		        			
-		        		
-//		        		//ObservableList<Student> dataOB = FXCollections.observableArrayList(data);
-//		        			ObservableList<Course> dataob = FXCollections.observableArrayList();	        
-//		        	        dataob.add(new Course(course.getProgram(),course.getCourseTitle(),course.getCourseId(),course.getLevel(),course.getNumCredits(),course.getTerm(),course.getDescription(),
-//		        	        		course.getInstructor()));
-		        	        searchCourseTableView.setItems(coursemodel.EnrollCourseList(Integer.parseInt(studentID), term_id));
+		        	  searchCourseTableView.setItems(coursemodel.EnrollCourseList(Integer.parseInt(studentID), term_id));
 		        			
 		        			
 			}
@@ -112,16 +109,54 @@ public class DropCourseController implements Initializable {
 
 
 	
-	@FXML public void onDropCourse(ActionEvent event) {}
+	@FXML public void onDropCourse(ActionEvent event) {
+		
+		 DAO dataAccess = new DAO();
+		 System.out.println(course_id_from_view);
+		 System.out.println(term_from_view);
+		 System.out.println(program_from_view);
+		 System.out.println(term_from_view);
+		 
+			ResultSet rs = dataAccess.CourseInfo(course_id_from_view,term_from_view,program_from_view,level_from_view);
+         System.out.println("resultset" +rs);
+       try {System.out.println("in try");
+				while(rs.next())
+				{
+					String course_details_id=rs.getString("course_details_id");
+					Boolean success=dataAccess.dropCourse(studentID,course_details_id);
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Information Dialog");
+					alert.setHeaderText("Course Registeration");
+					searchCourseTableView.setItems(coursemodel.EnrollCourseList(Integer.parseInt(studentID), term_id));
+					if(success) {
+					alert.setContentText("Course deleted successfully :))");
+					}
+					else
+					{
+						alert.setContentText("Course dropping Failed.Contact your admin");
+						}
+					alert.showAndWait();
+					System.out.println(success);
+				}
+				
+			} catch (SQLException e) {
+				System.out.print("error in SQL drop");
+				e.printStackTrace();
+			}
+	}
 
 
 
 	@FXML public void onRowClick(MouseEvent event) {
 		
 		 Course selectedItems = searchCourseTableView.getSelectionModel().getSelectedItems().get(0);
-		 String first_Column = selectedItems.getTerm();
-		 String courseId = selectedItems.getCourseId();
-		System.out.println(courseId);
+         term_from_view = selectedItems.getTerm();
+         System.out.println(term_from_view);
+		 course_id_from_view =Integer.parseInt(selectedItems.getCourseId()) ;
+		 program_from_view= selectedItems.getProgram();
+		 level_from_view= selectedItems.getLevel();
+		 
+		//System.out.println(courseId);
 	}
     
 	
