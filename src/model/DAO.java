@@ -13,8 +13,10 @@ import com.csvreader.CsvReader;
 import com.csvreader.CsvWriter;
 
 import DTO.Admin;
+import DTO.Course;
 import DTO.GradesInfo;
 import DTO.Instructor;
+import DTO.Schedule;
 import DTO.Student;
 import DTO.Term;
 import database.*;
@@ -23,6 +25,10 @@ import javafx.collections.ObservableList;
 import util.Auth;
 
 public class DAO {
+
+	private ArrayList<String> dataobSchedule;
+	private Schedule schedule;
+
 
 	/**
 	 * 
@@ -228,7 +234,7 @@ public class DAO {
 	public ResultSet CourseInfo(int course_code,String term, String program,String level) {
 		String sql = null;
         
-		sql = "SELECT course.program, course.title,course.course_code,course.description,course.level, course.units,course_details.id as course_details_id,term_info.term from course join course_details on course.id =course_details.course_id inner join \r\n" + 
+		sql = "SELECT course.program, course.title, course_details.id as course_details_id ,course.course_code,course.description,course.level, course.units,course_details.id as course_details_id,term_info.term from course join course_details on course.id =course_details.course_id inner join \r\n" + 
 				"term_info on  course_details.term_id= term_info.id where course_code= " +"\""+course_code+ "\""  
 				+ "and program="+"\""+program+ "\"" +"and level=" +"\""+level+ "\"" +"and term=" +"\""+term+ "\"" ;
 		
@@ -271,6 +277,25 @@ public class DAO {
 
 	}
 
+	public boolean dropCourse(String studentId,String course_details_id) {
+		String sql = null;
+        String dropped="dropped";
+		sql ="update registration set status="+"\""+ dropped +"\"" +" where student_id="+ "\"" +studentId +"\"" +"and course_details_id="+ "\""+course_details_id+"\"";
+		System.out.println(sql);
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = obj.getConnection();
+		ResultSet result = null;
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+       return false;
+
+	}
 	/**
 	 * 
 	 * @param instructorID
@@ -829,5 +854,72 @@ public class DAO {
 		return message;
 
 	}
+	
+	
+	public ObservableList<Schedule> ViewSchedule(int studentID, int termID) {	
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = null;
+		conn = obj.getConnection();
+		
+		ObservableList<Schedule> dataobSchedule = FXCollections.observableArrayList();
+		int studentId = studentID;		
+		int termId = termID;
 
+		String course;
+		String day;
+		String start_time;
+		String end_time;
+		int room_num;
+		String building;
+		
+		System.out.println(studentId);
+		System.out.println(termId);
+		
+		ArrayList enrollCourseList = null;
+		String sqlQuery = "";
+        String enrolled="enrolled";
+		try {
+
+			sqlQuery =	"select *, CONCAT(program ,course_code) as full_course_name, full_name as building_name from course_schedule join course_details on course_schedule.course_detail_id=course_details.id"+
+					" join schedule on schedule.id=course_schedule.schedule_id join course on course.id=course_details.course_id "+
+					" join room on room.id=course_details.room_id join term_info on term_info.id=course_details.term_id join registration on course_details.id=registration.course_details_id join student"+
+					" on student.id=registration.student_id join building on building.id=room.building_id where  student_id="+"\""+studentId +"\""+"and status="+"\""+enrolled+"\""+ "and term_id="+"\""+termId+"\"";
+			
+			System.out.println(sqlQuery);
+			PreparedStatement courseList = conn.prepareStatement(sqlQuery);
+
+			
+	
+			ResultSet result = courseList.executeQuery();
+			ArrayList Rows = new ArrayList();
+				while (result.next()) {
+
+					course=result.getString("full_course_name");
+					System.out.println(result.getString("full_course_name"));
+					day=result.getString("day");
+					System.out.println(result.getString("day"));
+					start_time=result.getString("start_time");	
+					System.out.println(result.getString("start_time"));
+					end_time=result.getString("end_time");
+					System.out.println(result.getString("end_time"));
+					room_num=	Integer.parseInt(result.getString("room_no"));
+					System.out.println(result.getString("room_no"));
+					building=result.getString("building_name");
+					System.out.println(result.getString("building_name"));
+				
+					schedule=new Schedule(course, day, start_time, end_time,  room_num, building);
+					//System.out.println("------course id----" + course.getCourseId());	       
+        	        dataobSchedule.add(new Schedule(schedule.getCourse(),schedule.getDay(),schedule.getStart_time(),schedule.getEnd_time(),schedule.getRoom_num(),schedule.getBuilding()));
+        	        System.out.println(" ----------------------------------  obdata   "+  dataobSchedule);
+        	   
+			
+				}
+
+		} catch (Exception e) {
+			System.out.println("Something went wrong. Please contact system admin.");
+			System.err.println(e.getMessage());
+		}
+		return dataobSchedule;
+	}
 }
+

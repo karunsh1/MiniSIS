@@ -58,10 +58,14 @@ public class MenuBarController implements Initializable {
 	MenuItem menuitemPay;
 	@FXML
 	MenuItem MenuItemDropCourse;
-
+	@FXML
 	private MenuItem menuitemSearchCourse, mItemLogout, mItemViewGrade;
 	@FXML
 	private Menu mResult, mCourseDetail;
+
+
+	@FXML MenuItem mViewSchedule;
+	@FXML Menu mMenuPayFee;
 
 	@FXML
 	private void onLogout() {
@@ -96,19 +100,7 @@ public class MenuBarController implements Initializable {
 		BorderPane newLoadedPane = null;
 		// if (!mItemViewCGPA.isDisable()) {
 
-		/*
-		 * String studentID =
-		 * Singleton.getInstance().getUserAcessID().getText(); PdfTranscript
-		 * pdfTranscript = new PdfTranscript(); try {
-		 * pdfTranscript.pdfgenrator(Integer.parseInt(studentID)); } catch
-		 * (NumberFormatException e) { // TODO Auto-generated catch block
-		 * e.printStackTrace(); } catch (FileNotFoundException e) { // TODO
-		 * Auto-generated catch block e.printStackTrace(); } catch
-		 * (DocumentException e) { // TODO Auto-generated catch block
-		 * e.printStackTrace(); } catch (MalformedURLException e) { // TODO
-		 * Auto-generated catch block e.printStackTrace(); } catch (IOException
-		 * e) { // TODO Auto-generated catch block e.printStackTrace(); }
-		 */
+
 
 		try {
 			newLoadedPane = FXMLLoader.load(getClass().getResource("/view/ViewTranscript.fxml"));
@@ -212,13 +204,15 @@ public class MenuBarController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		menuitemPay.visibleProperty().set(false);
+		mMenuPayFee.visibleProperty().set(true);
+		mViewSchedule.visibleProperty().set(true);
 		String userType = null;
 
 		userType = Singleton.getInstance().getUserType().getText();
 
-		if (userType.equals("1")) {
-			menuitemPay.visibleProperty().set(true);
+		if (!userType.equals("1")) {
+			mMenuPayFee.visibleProperty().set(false);
+			mViewSchedule.visibleProperty().set(false);
 		}
 
 		System.out.println("User Type  " + userType);
@@ -239,6 +233,20 @@ public class MenuBarController implements Initializable {
 
 		try {
 			newLoadedPane = FXMLLoader.load(getClass().getResource("/view/PayFees.fxml"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		showItemPane.getChildren().add(newLoadedPane);
+	}
+
+	@FXML public void onViewSchedule(ActionEvent event) {
+		showItemPane.getChildren().clear();
+		BorderPane newLoadedPane = null;
+
+		try {
+			newLoadedPane = FXMLLoader.load(getClass().getResource("/view/ViewSchedule.fxml"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
