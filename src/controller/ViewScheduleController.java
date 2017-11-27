@@ -94,11 +94,6 @@ public class ViewScheduleController implements Initializable {
 			{   
 				int intermediate_term_id=TermCombobox.getSelectionModel().getSelectedIndex();//0-Fall, 1-Winter
                 term_id=intermediate_term_id+1;
-//		        if(term_id==1)
-//		        	termDisplay="Fall 2016";
-//		        else if(term_id==2)
-//		        	termDisplay="Winter 2017";
-		       // Course  course= coursemodel.EnrollCourseList(Integer.parseInt(studentID), term_id);
 		        ArrayList data = new ArrayList();
 				ColumnCourse.setCellValueFactory(new PropertyValueFactory<>("course"));
 				ColumnDay.setCellValueFactory(new PropertyValueFactory<>("day"));
@@ -111,7 +106,7 @@ public class ViewScheduleController implements Initializable {
 				System.out.println("data there" +dataAccess.ViewSchedule(Integer.parseInt(studentID), term_id));}
 				else
 				{       System.out.println("data not there" +dataAccess.ViewSchedule(Integer.parseInt(studentID), term_id));
-					 Alert alert = new Alert(AlertType.INFORMATION);
+					    Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Information Dialog");
 						alert.setHeaderText("Schedule");
 						alert.setContentText("Not registered in any course for this term. Please register in a course to view schedule");

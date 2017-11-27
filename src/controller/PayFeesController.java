@@ -118,7 +118,7 @@ public class PayFeesController implements Initializable {
 					if(TextFieldPayAmount.getText()!= null )
 	            	moneyToBePaid= Integer.parseInt(TextFieldPayAmount.getText());
 					Integer AmountDue=Integer.parseInt(TextFieldAmountDue.getText());
-					if(moneyToBePaid<AmountDue)
+					if(moneyToBePaid<=AmountDue)
 					{
 						AmountDue= AmountDue-moneyToBePaid;
 						AmountDueString=AmountDue.toString();

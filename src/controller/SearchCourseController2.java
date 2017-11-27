@@ -221,7 +221,9 @@ public class SearchCourseController2 implements Initializable
 				while(rs.next())
 				{
 					String course_details_id=rs.getString("course_details_id");
-					Boolean success=dataAccess.addCourse(studentID,course_details_id);
+					Integer term_id=Integer.parseInt(rs.getString("term_id"));
+					String program=rs.getString("term_id");
+					Boolean success=dataAccess.addCourse(studentID,term_id,course_details_id,userType,program);
 					Alert alert = new Alert(AlertType.INFORMATION);
 					alert.setTitle("Information Dialog");
 					alert.setHeaderText("Course Registeration");
@@ -244,7 +246,11 @@ public class SearchCourseController2 implements Initializable
 			
 		}
 		@FXML public void onSearchCourse(ActionEvent event) {
-			
+			search();
+		}
+		
+		public String search() {
+			String course_details_id = null;
 			if(userType.equals("2"))
 			{
 		
@@ -275,6 +281,7 @@ public class SearchCourseController2 implements Initializable
                     TextFieldCourseTitle.setText(rs.getString("title"));
                     TextFieldCourseDescription.setText(rs.getString("description"));
                     TextFieldNumCredits.setText(rs.getString("units"));
+                    course_details_id=rs.getString("course_details_id");
                     }
                     AddCourseButton.setVisible(true);
         			}
@@ -283,8 +290,9 @@ public class SearchCourseController2 implements Initializable
 		              e.printStackTrace();
 		              System.out.println("Error on Building Data");             
 		          }
+				return course_details_id;
+			
 		}
-		    
 		
 	}
 
