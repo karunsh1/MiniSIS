@@ -57,7 +57,7 @@ public class MenuBarController implements Initializable {
 	MenuItem menuitemPay;
 	@FXML
 	MenuItem MenuItemDropCourse;
-
+	@FXML
 	private MenuItem menuitemSearchCourse, mItemLogout, mItemViewGrade;
 	@FXML
 	private Menu mResult, mCourseDetail;
@@ -80,6 +80,10 @@ public class MenuBarController implements Initializable {
 		
 		
 	}
+
+
+	@FXML MenuItem mViewSchedule;
+	@FXML Menu mMenuPayFee;
 
 	@FXML
 	private void onLogout() {
@@ -126,7 +130,14 @@ public class MenuBarController implements Initializable {
 	@FXML
 	private void clickOnViewTranscript() {
 		showItemPane.getChildren().clear();
+<<<<<<< HEAD
 		BorderPane newLoadedPane = null;		
+=======
+		BorderPane newLoadedPane = null;
+		// if (!mItemViewCGPA.isDisable()) {
+
+
+>>>>>>> 2bbd6001c6c30cf96be56568ddaa199c6427a32f
 
 		try {
 			newLoadedPane = FXMLLoader.load(getClass().getResource("/view/ViewTranscript.fxml"));
@@ -230,13 +241,15 @@ public class MenuBarController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		menuitemPay.visibleProperty().set(false);
+		mMenuPayFee.visibleProperty().set(true);
+		mViewSchedule.visibleProperty().set(true);
 		String userType = null;
 
 		userType = Singleton.getInstance().getUserType().getText();
 
-		if (userType.equals("1")) {
-			menuitemPay.visibleProperty().set(true);
+		if (!userType.equals("1")) {
+			mMenuPayFee.visibleProperty().set(false);
+			mViewSchedule.visibleProperty().set(false);
 		}
 
 		System.out.println("User Type  " + userType);
@@ -260,6 +273,20 @@ public class MenuBarController implements Initializable {
 
 		try {
 			newLoadedPane = FXMLLoader.load(getClass().getResource("/view/PayFees.fxml"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		showItemPane.getChildren().add(newLoadedPane);
+	}
+
+	@FXML public void onViewSchedule(ActionEvent event) {
+		showItemPane.getChildren().clear();
+		BorderPane newLoadedPane = null;
+
+		try {
+			newLoadedPane = FXMLLoader.load(getClass().getResource("/view/ViewSchedule.fxml"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

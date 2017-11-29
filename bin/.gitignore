@@ -1,5 +1,15 @@
+<<<<<<< HEAD
 /view/
 /controller/
 /util/
 /model/
+=======
+/DTO/
+/controller/
+/data/
+/database/
+/model/
+/util/
+/view/
+>>>>>>> 2bbd6001c6c30cf96be56568ddaa199c6427a32f
 /application/
