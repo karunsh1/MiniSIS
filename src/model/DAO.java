@@ -232,15 +232,7 @@ public class DAO {
 
 	}
 
-<<<<<<< HEAD
-	public ResultSet CourseInfo(int course_code, String term, String program, String level) {
-		String sql = null;
 
-		sql = "SELECT course.program, course.title,course.course_code,course.description,course.level, course.units,course_details.id as course_details_id,term_info.term from course join course_details on course.id =course_details.course_id inner join \r\n"
-				+ "term_info on  course_details.term_id= term_info.id where course_code= " + "\"" + course_code + "\""
-				+ "and program=" + "\"" + program + "\"" + "and level=" + "\"" + level + "\"" + "and term=" + "\""
-				+ term + "\"";
-=======
 
 
 
@@ -251,7 +243,7 @@ public class DAO {
 				"term_info on  course_details.term_id= term_info.id where course_code= " +"\""+course_code+ "\""  
 				+ "and program="+"\""+program+ "\"" +"and level=" +"\""+level+ "\"" +"and term=" +"\""+term+ "\"" ;
 
->>>>>>> 2bbd6001c6c30cf96be56568ddaa199c6427a32f
+
 
 		System.out.println(sql);
 		MySQLAccess obj = new MySQLAccess();
@@ -266,18 +258,11 @@ public class DAO {
 		}
 
 		return result;
-<<<<<<< HEAD
+
 
 	}
 
-	public boolean addCourse(String studentId, String course_details_id) {
-		String sql = null;
-		String enrolled = "enrolled";
-		sql = "INSERT INTO registration (student_id, course_details_id, status)" + "VALUES (" + "\"" + studentId + "\""
-				+ "," + "\"" + course_details_id + "\"" + "," + "\"" + enrolled + "\"" + ")";
-=======
-
-	}
+	
 
 
 	public ArrayList getCourseDetailIds(int studentID, int termID) {	
@@ -523,7 +508,7 @@ public class DAO {
 		sql1="DELETE FROM grade where course_id="+"\""+  course_id  +"\"";
 		
 		sql2="update course_details set class_availability="+ "\""+(class_availability+1)  + "\""+  "where id=" + "\""+course_details_id  + "\"";
->>>>>>> 2bbd6001c6c30cf96be56568ddaa199c6427a32f
+
 		System.out.println(sql);
 		System.out.println(sql1);
 		System.out.println(sql2);
@@ -619,11 +604,9 @@ public class DAO {
 	public ResultSet  getPaymentDetails (String term, String StudentID) {
 		String sql = null;
 		ArrayList courseList = new ArrayList();
-<<<<<<< HEAD
-		sql = "SELECT * from payment where term=" + "\"" + term + "\"" + "and student_id=" + "\"" + StudentID + "\"";
-=======
+
 		sql="SELECT * from payment where term=" + "\""+term  + "\""+ "and student_id="  + "\""+StudentID  + "\"";
->>>>>>> 2bbd6001c6c30cf96be56568ddaa199c6427a32f
+
 
 		System.out.println(sql);
 		MySQLAccess obj = new MySQLAccess();
@@ -641,14 +624,10 @@ public class DAO {
 		return result;
 
 	}
-<<<<<<< HEAD
 
-	public boolean setPaymentDetails(String term, String StudentID, String AmountDue) {
-		String sql = null;
-		ArrayList courseList = new ArrayList();
-		sql = "update payment set amount_due=" + "\"" + AmountDue + "\"" + "where term=" + "\"" + term + "\""
-				+ "and student_id=" + "\"" + StudentID + "\"";
-=======
+
+	
+
 	public double getDuePayment(int term_id, String StudentID) {
 		double amount_due=0;
 		String sql = null;
@@ -734,7 +713,7 @@ public class DAO {
 		String sql = null;
 		ArrayList courseList = new ArrayList();
 		sql="update payment set amount_due="+ "\""+AmountDue  + "\""+  "where term=" + "\""+term  + "\""+ "and student_id="  + "\""+StudentID  + "\"";
->>>>>>> 2bbd6001c6c30cf96be56568ddaa199c6427a32f
+
 
 		System.out.println(sql);
 		MySQLAccess obj = new MySQLAccess();
@@ -756,18 +735,11 @@ public class DAO {
 	public ArrayList courseList(int term_id, String level, String program) {
 		String sql = null;
 		ArrayList courseList = new ArrayList();
-<<<<<<< HEAD
+
 		sql = "SELECT course.course_code\r\n" + "FROM course \r\n" + "JOIN course_details \r\n"
 				+ "ON course.id = course_details.course_id \r\n" + "WHERE course_details.term_id =" + term_id + " \r\n"
 				+ "AND level = " + "\"" + level + "\"" + "AND program = " + "\"" + program + "\"";
-=======
-		sql="SELECT course.course_code\r\n" + 
-				"FROM course \r\n" + 
-				"JOIN course_details \r\n" + 
-				"ON course.id = course_details.course_id \r\n" + 
-				"WHERE course_details.term_id =" + term_id +" \r\n" +
-				"AND level = " + "\""+level+ "\""+"AND program = " + "\""+program+ "\"";
->>>>>>> 2bbd6001c6c30cf96be56568ddaa199c6427a32f
+
 		System.out.println(sql);
 		MySQLAccess obj = new MySQLAccess();
 		Connection conn = obj.getConnection();
@@ -1206,7 +1178,7 @@ public class DAO {
 
 	}
 
-<<<<<<< HEAD
+
 	public boolean insertAddUser(String emailId, String passwordID, int userType, String first_Name, String last_Name,
 			String address, String program_Name, String mobileNo, String career_Name, String empID) {
 
@@ -1440,8 +1412,8 @@ public class DAO {
 		
 	}
 
-}
-=======
+
+
 
 	public ObservableList<Schedule> ViewSchedule(int studentID, int termID) {	
 		MySQLAccess obj = new MySQLAccess();
@@ -1510,4 +1482,4 @@ public class DAO {
 	}
 }
 
->>>>>>> 2bbd6001c6c30cf96be56568ddaa199c6427a32f
+

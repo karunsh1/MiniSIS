@@ -130,14 +130,7 @@ public class MenuBarController implements Initializable {
 	@FXML
 	private void clickOnViewTranscript() {
 		showItemPane.getChildren().clear();
-<<<<<<< HEAD
 		BorderPane newLoadedPane = null;		
-=======
-		BorderPane newLoadedPane = null;
-		// if (!mItemViewCGPA.isDisable()) {
-
-
->>>>>>> 2bbd6001c6c30cf96be56568ddaa199c6427a32f
 
 		try {
 			newLoadedPane = FXMLLoader.load(getClass().getResource("/view/ViewTranscript.fxml"));
