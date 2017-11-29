@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane fx:id="bPaneSetSecurityQuestion" prefHeight="293.0" prefWidth="656.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddSecurityQuestionController">
+   <center>
+      <GridPane prefHeight="21.0" prefWidth="656.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" prefHeight="34.0" prefWidth="548.0" GridPane.columnSpan="2147483647">
+               <children>
+                  <Label alignment="CENTER" prefHeight="30.0" prefWidth="363.0" text="Change Security  Question" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <textFill>
+                        <LinearGradient endX="1.0" endY="0.941747572815534" startX="0.46116504854368934">
+                           <stops>
+                              <Stop color="#2b106efc" />
+                              <Stop color="#2b106efc" offset="0.8369565217391306" />
+                              <Stop color="WHITE" offset="1.0" />
+                           </stops>
+                        </LinearGradient>
+                     </textFill>
+                  </Label>
+               </children>
+            </HBox>
+            <Label prefHeight="30.0" prefWidth="192.0" text="Enter Old Password" GridPane.rowIndex="1">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label prefHeight="30.0" prefWidth="192.0" text="Security Question" GridPane.rowIndex="2">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <PasswordField fx:id="txtpwdOldField" promptText="Old Passsword" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font size="19.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <GridPane.margin>
+                  <Insets left="20.0" right="10.0" />
+               </GridPane.margin>
+            </PasswordField>
+            <PasswordField fx:id="txtQuePwdField" promptText="Set Security Password" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <font>
+                  <Font size="19.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <GridPane.margin>
+                  <Insets left="20.0" right="10.0" />
+               </GridPane.margin>
+            </PasswordField>
+            <HBox alignment="CENTER_RIGHT" prefHeight="44.0" prefWidth="431.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="4">
+               <children>
+                  <Button fx:id="btnUpdateSQ" defaultButton="true" mnemonicParsing="false" onAction="#clickOnUpdateButton" prefHeight="50.0" prefWidth="108.0" text="Update" textAlignment="CENTER" visible="false">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btnSetPwd" defaultButton="true" mnemonicParsing="false" onAction="#clickOnSaveButton" prefHeight="50.0" prefWidth="108.0" text="Save" textAlignment="CENTER">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="5.0" right="20.0" top="5.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btnResetAll" mnemonicParsing="false" onAction="#clickOnResetButton" prefHeight="44.0" prefWidth="104.0" text="Reset">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="10.0" right="30.0" top="5.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <GridPane.margin>
+                  <Insets left="10.0" right="10.0" />
+               </GridPane.margin>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="72.0" prefWidth="554.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="5">
+               <children>
+                  <Label fx:id="lblError" prefHeight="69.0" prefWidth="536.0" textFill="#c93838" wrapText="true">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <Label prefHeight="30.0" prefWidth="192.0" text="Answer" GridPane.rowIndex="3">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="cbSecQuestion" onAction="#selectcbSecQuestion" prefHeight="47.0" prefWidth="393.0" promptText="Please Select Question" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="20.0" />
+               </GridPane.margin>
+            </ComboBox>
+         </children>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="325.0" minWidth="10.0" prefWidth="221.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="425.0" minWidth="10.0" prefWidth="425.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="71.0" minHeight="9.0" prefHeight="42.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="169.0" minHeight="0.0" prefHeight="43.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="158.0" minHeight="0.0" prefHeight="49.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="81.0" minHeight="0.0" prefHeight="41.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="81.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="81.0" minHeight="30.0" prefHeight="35.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+   </center>
+</BorderPane>

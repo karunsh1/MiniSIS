@@ -41,6 +41,11 @@
     -fx-padding: 3px 10px 3px 10px;
     -fx-background-color: linear-gradient(orange, orangered );
 }
+#btnSave{
+	-fx-background-radius: 30, 30, 29, 28;
+    -fx-padding: 3px 10px 3px 10px;
+    -fx-background-color: linear-gradient(orange, orangered );	
+}
 #btnReset {
     -fx-background-radius: 30, 30, 29, 28;
     -fx-padding: 3px 10px 3px 10px;

@@ -52,8 +52,7 @@ public class MenuBarController implements Initializable {
 	@FXML
 	private MenuBar menuBar;
 	@FXML
-	private MenuItem mItemViewTranscript;
-
+	private MenuItem mItemViewTranscript,mItemAddUser,mItemUpdateSequrityQue;
 	@FXML
 	MenuItem menuitemPay;
 	@FXML
@@ -62,6 +61,25 @@ public class MenuBarController implements Initializable {
 	private MenuItem menuitemSearchCourse, mItemLogout, mItemViewGrade;
 	@FXML
 	private Menu mResult, mCourseDetail;
+	
+	
+	@FXML
+	private void onUpdateSeqQue(){
+		
+		showItemPane.getChildren().clear();
+		BorderPane newLoadedPane = null;		
+
+		try {
+			newLoadedPane = FXMLLoader.load(getClass().getResource("/view/AddSecurityQuestion.fxml"));
+		} catch (IOException e) { // TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		showItemPane.getChildren().add(newLoadedPane);
+		
+		
+		
+	}
 
 	@FXML
 	private void onLogout() {
@@ -72,6 +90,21 @@ public class MenuBarController implements Initializable {
 		Singleton.getInstance().setUserType(null);
 		showItemPane.getChildren().clear();
 
+	}
+	@FXML
+	private void clickOnAddUser(){
+		showItemPane.getChildren().clear();
+		BorderPane newLoadedPane = null;		
+
+		try {
+			newLoadedPane = FXMLLoader.load(getClass().getResource("/view/AddUser.fxml"));
+		} catch (IOException e) { // TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		showItemPane.getChildren().add(newLoadedPane);
+		
+		
 	}
 
 	@FXML
@@ -93,22 +126,7 @@ public class MenuBarController implements Initializable {
 	@FXML
 	private void clickOnViewTranscript() {
 		showItemPane.getChildren().clear();
-		BorderPane newLoadedPane = null;
-		// if (!mItemViewCGPA.isDisable()) {
-
-		/*
-		 * String studentID =
-		 * Singleton.getInstance().getUserAcessID().getText(); PdfTranscript
-		 * pdfTranscript = new PdfTranscript(); try {
-		 * pdfTranscript.pdfgenrator(Integer.parseInt(studentID)); } catch
-		 * (NumberFormatException e) { // TODO Auto-generated catch block
-		 * e.printStackTrace(); } catch (FileNotFoundException e) { // TODO
-		 * Auto-generated catch block e.printStackTrace(); } catch
-		 * (DocumentException e) { // TODO Auto-generated catch block
-		 * e.printStackTrace(); } catch (MalformedURLException e) { // TODO
-		 * Auto-generated catch block e.printStackTrace(); } catch (IOException
-		 * e) { // TODO Auto-generated catch block e.printStackTrace(); }
-		 */
+		BorderPane newLoadedPane = null;		
 
 		try {
 			newLoadedPane = FXMLLoader.load(getClass().getResource("/view/ViewTranscript.fxml"));
@@ -227,6 +245,9 @@ public class MenuBarController implements Initializable {
 			addGrades.visibleProperty().set(true);
 			mCourseDetail.visibleProperty().set(false);
 			mResult.visibleProperty().set(false);
+			
+		}else if (userType.equals("2")){
+			mItemAddUser.visibleProperty().set(true);
 		}
 
 	}

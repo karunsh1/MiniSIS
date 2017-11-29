@@ -11,10 +11,17 @@ import DTO.Student;
 import database.MySQLAccess;
 import javafx.beans.property.ObjectProperty;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import model.AdminModel;
 import model.DAO;
 import model.StudentModel;
@@ -61,6 +68,28 @@ public class LoginController {
 	private Button btnLogin;
 	@FXML
 	private Button btnReset;
+	@FXML 
+	private Hyperlink hLinkForgetPassword;
+	
+	@FXML 
+	private void ClickOnForgetPassword(){
+		BorderPane root1;
+		try {
+			root1 = FXMLLoader.load(getClass().getResource("/view/ForgetPassword.fxml"));
+			Scene scene = new Scene(root1);
+			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			
+			Stage popupLayout = new Stage();			
+			popupLayout.initModality(Modality.APPLICATION_MODAL);
+			popupLayout.initStyle(StageStyle.UNDECORATED);			
+			popupLayout.setScene(scene);
+			popupLayout.show();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 
 	@FXML
 	private void ok() throws IOException {

@@ -14,7 +14,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.DAO;
-import util.PasswordValidator;
+import util.Validator;
 import util.Singleton;
 
 public class ChangePasswordController implements Initializable {
@@ -44,7 +44,7 @@ public class ChangePasswordController implements Initializable {
 	private Label lblError;
 	public String email = Singleton.getInstance().getEmailID();
 	public DAO dataAccess = new DAO();
-	public PasswordValidator validatePWD = new PasswordValidator();
+	public Validator validatePWD = new Validator();
 
 	@FXML
 	private void clickOnSaveButton() {

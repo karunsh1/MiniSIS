@@ -20,6 +20,7 @@
                 <Menu mnemonicParsing="false" text="User Detail">
                   <items>
                     <MenuItem fx:id="mViewProfile" mnemonicParsing="false" onAction="#onViewProfile" text="View Profile" />
+                        <MenuItem fx:id="mItemUpdateSequrityQue" mnemonicParsing="false" onAction="#onUpdateSeqQue" text="Update Security Question" />
                         <MenuItem fx:id="mItemLogout" mnemonicParsing="false" onAction="#onLogout" text="Logout" />
                   </items>
                 </Menu>
@@ -43,6 +44,7 @@
                         <MenuItem mnemonicParsing="false" text="Add Term/Course" />
                         <MenuItem mnemonicParsing="false" text="Select Class Schedule" />
                         <MenuItem fx:id="addGrades" mnemonicParsing="false" onAction="#clickOnAddGrades" text="Add Grades" visible="false" />
+                        <MenuItem fx:id="mItemAddUser" mnemonicParsing="false" onAction="#clickOnAddUser" text="Add User" visible="false" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Pay fees">

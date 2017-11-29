@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
@@ -61,6 +62,19 @@
       <Label fx:id="lblUserType" visible="false" GridPane.rowIndex="4" />
       <Label fx:id="lblUserAccessID" visible="false" GridPane.rowIndex="4" />
       <Label fx:id="lblUserRole" visible="false" GridPane.rowIndex="4" />
+      <Hyperlink fx:id="hLinkForgetPassword" onAction="#ClickOnForgetPassword" prefHeight="23.0" prefWidth="145.0" text="Forget Password ?" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <padding>
+            <Insets left="5.0" />
+         </padding>
+         <textFill>
+            <LinearGradient endX="1.0" endY="1.0" startY="1.0">
+               <stops>
+                  <Stop color="#4235b5" />
+                  <Stop color="#3020bc" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </textFill>
+      </Hyperlink>
    </children>
    <rowConstraints>
       <RowConstraints />

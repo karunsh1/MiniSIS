@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import com.csvreader.CsvReader;
 import com.csvreader.CsvWriter;
@@ -105,7 +106,6 @@ public class DAO {
 				for (int i = 1; i <= 1; i++) {
 					termNameList.add(result.getString("term"));
 				}
-
 
 			}
 		} catch (SQLException e) {
@@ -221,18 +221,15 @@ public class DAO {
 		return courseList;
 
 	}
-	
-	
-	
-	
-	public ResultSet CourseInfo(int course_code,String term, String program,String level) {
+
+	public ResultSet CourseInfo(int course_code, String term, String program, String level) {
 		String sql = null;
-        
-		sql = "SELECT course.program, course.title,course.course_code,course.description,course.level, course.units,course_details.id as course_details_id,term_info.term from course join course_details on course.id =course_details.course_id inner join \r\n" + 
-				"term_info on  course_details.term_id= term_info.id where course_code= " +"\""+course_code+ "\""  
-				+ "and program="+"\""+program+ "\"" +"and level=" +"\""+level+ "\"" +"and term=" +"\""+term+ "\"" ;
-		
-		 
+
+		sql = "SELECT course.program, course.title,course.course_code,course.description,course.level, course.units,course_details.id as course_details_id,term_info.term from course join course_details on course.id =course_details.course_id inner join \r\n"
+				+ "term_info on  course_details.term_id= term_info.id where course_code= " + "\"" + course_code + "\""
+				+ "and program=" + "\"" + program + "\"" + "and level=" + "\"" + level + "\"" + "and term=" + "\""
+				+ term + "\"";
+
 		System.out.println(sql);
 		MySQLAccess obj = new MySQLAccess();
 		Connection conn = obj.getConnection();
@@ -245,15 +242,15 @@ public class DAO {
 			e.printStackTrace();
 		}
 
-       return result;
+		return result;
 
 	}
-	
-	public boolean addCourse(String studentId,String course_details_id) {
+
+	public boolean addCourse(String studentId, String course_details_id) {
 		String sql = null;
-        String enrolled="enrolled";
-		sql ="INSERT INTO registration (student_id, course_details_id, status)"
-				+"VALUES ("+"\""+ studentId+"\""+","+ "\""+ course_details_id+"\""+","+ "\""+ enrolled+"\""+")";
+		String enrolled = "enrolled";
+		sql = "INSERT INTO registration (student_id, course_details_id, status)" + "VALUES (" + "\"" + studentId + "\""
+				+ "," + "\"" + course_details_id + "\"" + "," + "\"" + enrolled + "\"" + ")";
 		System.out.println(sql);
 		MySQLAccess obj = new MySQLAccess();
 		Connection conn = obj.getConnection();
@@ -267,7 +264,7 @@ public class DAO {
 			e.printStackTrace();
 		}
 
-       return false;
+		return false;
 
 	}
 
@@ -317,7 +314,7 @@ public class DAO {
 		String sql = null;
 		ArrayList<String> deptList = new ArrayList<String>();
 
-		sql = "select level from minisis.course where id in (select course_id from minisis.course_details where instructor_id ="
+		sql = "select level from course where id in (select course_id from course_details where instructor_id ="
 				+ instrutorID + ")";
 		MySQLAccess obj = new MySQLAccess();
 		Connection conn = obj.getConnection();
@@ -345,8 +342,8 @@ public class DAO {
 	public ResultSet getPaymentDetails(String term, String StudentID) {
 		String sql = null;
 		ArrayList courseList = new ArrayList();
-        sql="SELECT * from payment where term=" + "\""+term  + "\""+ "and student_id="  + "\""+StudentID  + "\"";
-        	
+		sql = "SELECT * from payment where term=" + "\"" + term + "\"" + "and student_id=" + "\"" + StudentID + "\"";
+
 		System.out.println(sql);
 		MySQLAccess obj = new MySQLAccess();
 		Connection conn = obj.getConnection();
@@ -354,7 +351,7 @@ public class DAO {
 		try {
 			PreparedStatement courselist = conn.prepareStatement(sql);
 			result = courselist.executeQuery();
-             
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -363,11 +360,12 @@ public class DAO {
 		return result;
 
 	}
-	
+
 	public boolean setPaymentDetails(String term, String StudentID, String AmountDue) {
 		String sql = null;
 		ArrayList courseList = new ArrayList();
-        sql="update payment set amount_due="+ "\""+AmountDue  + "\""+  "where term=" + "\""+term  + "\""+ "and student_id="  + "\""+StudentID  + "\"";
+		sql = "update payment set amount_due=" + "\"" + AmountDue + "\"" + "where term=" + "\"" + term + "\""
+				+ "and student_id=" + "\"" + StudentID + "\"";
 
 		System.out.println(sql);
 		MySQLAccess obj = new MySQLAccess();
@@ -376,7 +374,7 @@ public class DAO {
 		try {
 			PreparedStatement courselist = conn.prepareStatement(sql);
 			result = courselist.executeUpdate();
-             return true;
+			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -385,15 +383,13 @@ public class DAO {
 		return false;
 
 	}
-	public ArrayList courseList(int term_id, String level,String program) {
+
+	public ArrayList courseList(int term_id, String level, String program) {
 		String sql = null;
 		ArrayList courseList = new ArrayList();
-        sql="SELECT course.course_code\r\n" + 
-        		"FROM course \r\n" + 
-        		"JOIN course_details \r\n" + 
-        		"ON course.id = course_details.course_id \r\n" + 
-        		"WHERE course_details.term_id =" + term_id +" \r\n" +
-        		"AND level = " + "\""+level+ "\""+"AND program = " + "\""+program+ "\"";
+		sql = "SELECT course.course_code\r\n" + "FROM course \r\n" + "JOIN course_details \r\n"
+				+ "ON course.id = course_details.course_id \r\n" + "WHERE course_details.term_id =" + term_id + " \r\n"
+				+ "AND level = " + "\"" + level + "\"" + "AND program = " + "\"" + program + "\"";
 		System.out.println(sql);
 		MySQLAccess obj = new MySQLAccess();
 		Connection conn = obj.getConnection();
@@ -768,7 +764,7 @@ public class DAO {
 
 	public Student studentProfile(int studentID) {
 		Student student = null;
-		String sql = "select student.first_name,student.last_name,student.address,student.level,subject.subject_code "
+		String sql = "select  student.first_name,student.last_name,student.address,student.level,subject.subject_code "
 				+ "from student left join subject on student.subject_id = subject.id where student.id=" + studentID
 				+ "";
 
@@ -781,6 +777,7 @@ public class DAO {
 			// System.out.println(prepareStm+ " , " + sql);
 
 			ResultSet results = prepareStm.executeQuery();
+
 			while (results.next()) {
 
 				String first_name = results.getString("first_name");
@@ -790,6 +787,7 @@ public class DAO {
 				String address = results.getString("address");
 				student = new Student(first_name, last_name, career_Level, subject_name, address);
 			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -828,6 +826,239 @@ public class DAO {
 		}
 		return message;
 
+	}
+
+	public boolean insertAddUser(String emailId, String passwordID, int userType, String first_Name, String last_Name,
+			String address, String program_Name, String mobileNo, String career_Name, String empID) {
+
+		String sql = null;
+		String sqlsubjectID = null;
+		String table = null;
+		String Sqlemail = null;
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = null;
+		conn = obj.getConnection();
+		boolean insertStatus = true;
+
+		try {
+			sqlsubjectID = "select id from subject where subject_code = '" + program_Name + "'";
+			PreparedStatement prepareStm = conn.prepareStatement(sqlsubjectID);
+			ResultSet resultSubject = prepareStm.executeQuery();
+			int subjectID = 0;
+			while (resultSubject.next()) {
+				subjectID = resultSubject.getInt("id");
+
+			}
+
+			sql = "INSERT ignore INTO users (`email`, `password`, `type`) VALUES ('" + emailId + "', '"
+					+ Auth.md5(passwordID) + "', '" + userType + "')";
+
+			Statement psAdduser = conn.createStatement();
+
+			int result = psAdduser.executeUpdate(sql);
+
+			if (result == 1) {
+				if (userType == 1) {
+					table = "student";
+					Sqlemail = "INSERT ignore INTO " + table
+							+ " (`first_name`,`last_name`,`email`,`mobile`, `address`, `level`,`subject_id`) "
+							+ "VALUES ('" + first_Name + "', '" + last_Name + "', '" + emailId + "', '" + mobileNo
+							+ "', '" + address + "', '" + career_Name + "', '" + subjectID + "')";
+					Statement psAdduseremail = conn.createStatement();
+					psAdduseremail.executeUpdate(Sqlemail);
+
+				} else if (userType == 2) {
+					table = "admin";
+					Sqlemail = "INSERT ignore INTO " + table
+							+ " (`first_name`,`last_name`,`email`,`mobile`, `emp_id`,`address` ) " + "VALUES ('"
+							+ first_Name + "', '" + last_Name + "', '" + emailId + "', '" + mobileNo + "', '" + empID
+							+ "', '" + address + "')";
+					Statement psAdduseremail = conn.createStatement();
+					psAdduseremail.executeUpdate(Sqlemail);
+				} else if (userType == 3) {
+					table = "instructor";
+					Sqlemail = "INSERT ignore INTO " + table
+							+ " (`first_name`,`last_name`,`email`, `emp_id`,`address` ) " + "VALUES ('" + first_Name
+							+ "', '" + last_Name + "', '" + emailId + "', '" + empID + "', '" + address + "')";
+					Statement psAdduseremail = conn.createStatement();
+					psAdduseremail.executeUpdate(Sqlemail);
+				} else if (userType == 4) {
+					table = "admin";
+					Sqlemail = "INSERT ignore INTO " + table
+							+ " (`first_name`,`last_name`,`email`,`mobile`, `emp_id`,`address` ) " + "VALUES ('"
+							+ first_Name + "', '" + last_Name + "', '" + emailId + "', '" + mobileNo + "', '" + empID
+							+ "', '" + address + "')";
+					Statement psAdduseremail = conn.createStatement();
+					psAdduseremail.executeUpdate(Sqlemail);
+				}
+
+				insertStatus = true;
+
+			} else {
+				insertStatus = false;
+
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return insertStatus;
+	}
+
+	public ArrayList<String> selectSecurityQue() {
+
+		String sql = "";
+		ArrayList<String> securityQuestion = new ArrayList<>();
+
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = null;
+		conn = obj.getConnection();
+		sql = "SELECT question FROM security_question";
+		try {
+			PreparedStatement psSQue = conn.prepareStatement(sql);
+			ResultSet resultSubject = psSQue.executeQuery();
+			while (resultSubject.next()) {
+				securityQuestion.add(resultSubject.getString("question"));
+
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return securityQuestion;
+
+	}
+
+	public boolean addSecurityQueAnswer(String oldPassword, String securityQue, String secAnswer, String email) {
+
+		boolean addStatus = false;
+		String sql = "";
+		String updateSql = "";
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = null;
+		conn = obj.getConnection();
+
+		sql = "INSERT ignore INTO `minisis`.`user_security_question` (`email`,`sq_id`, `answer`) "
+				+ "select users.email, security_question.id,'" + secAnswer + "'  from users join "
+				+ "security_question where users.password = '" + Auth.md5(oldPassword)
+				+ "' and security_question.question = '" + securityQue + "' and users.email='" + email + "'";
+
+		updateSql = "UPDATE `minisis`.`user_security_question` SET `sq_id`=(select id from security_question where "
+				+ "question='" + securityQue + "'), `answer`='" + secAnswer + "' WHERE `email` = "
+				+ "(select email from minisis.users where password='" + Auth.md5(oldPassword) + "' and email='" + email
+				+ "');";
+		Statement psAdduser;
+
+		try {
+			if (!isEmailExistSecuritQue(email)) {
+				psAdduser = conn.createStatement();
+				int result = psAdduser.executeUpdate(sql);
+				if (result == 1) {
+					addStatus = true;
+				} else {
+					addStatus = false;
+				}
+			} else {
+				psAdduser = conn.createStatement();
+				int resultUpdate = psAdduser.executeUpdate(updateSql);
+
+				if (resultUpdate == 1) {
+					addStatus = true;
+				} else {
+					addStatus = false;
+				}
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return addStatus;
+
+	}
+
+	public boolean isEmailExistSecuritQue(String email) {
+
+		boolean addStatus = false;
+		String sql = "";
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = null;
+		conn = obj.getConnection();
+		sql = "SELECT email FROM user_security_question where email = '" + email + "'";
+
+		try {
+			PreparedStatement psemailvalid = conn.prepareStatement(sql);
+			ResultSet result = psemailvalid.executeQuery();
+
+			while (result.next()) {
+				addStatus = true;
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return addStatus;
+
+	}
+
+	public boolean forgetPassword(String email, String securityQue, String queAnswer, String newPassowrd) {
+
+		boolean changePwdstatus = false;
+		String sql = "";
+
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = null;
+		conn = obj.getConnection();
+		try {
+			sql = "update ignore `users` set `password`='" + Auth.md5(newPassowrd) + "'  where  `email` =("
+					+ "select email from user_security_question where answer='" + queAnswer + "' and email='"
+					+ email + "' and sq_id " + "in(select id from security_question where question='"
+					+ securityQue + "'))";
+			Statement forgetPwd = conn.createStatement();
+			int result = forgetPwd.executeUpdate(sql);
+			if (result == 1) {
+				changePwdstatus = true;
+			} else {
+				changePwdstatus = false;
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return changePwdstatus;
+
+	}
+	
+	public boolean isUserValid(String email){
+		boolean addStatus = false;
+		String sql = "";
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = null;
+		conn = obj.getConnection();
+		sql = "SELECT email FROM users where email = '" + email + "'";
+
+		try {
+			PreparedStatement psemailvalid = conn.prepareStatement(sql);
+			ResultSet result = psemailvalid.executeQuery();
+
+			while (result.next()) {
+				addStatus = true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return addStatus;
+		
 	}
 
 }

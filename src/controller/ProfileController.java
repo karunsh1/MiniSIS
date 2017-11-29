@@ -79,19 +79,32 @@ public class ProfileController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		if(userType.equals("1")){
-			lblOccupation.setText("Student");
+			
+			
 			student =dataAccess.studentProfile(Integer.parseInt(userID));
-			String userName = student.getFirst_name() +" " + student.getLast_name();
-			lblName.setText("Hi! "+userName);
-			String careerName = student.getCareer_Name();
-			String SubjectName = student.getSubject_Name();
-			String address = student.getAddress();
-			lblAddress.setText(address);
-			if(careerName.equals("U")){
-				lblCareer.setText("Under-Grad in" + student.getCareer_Name());
+			System.out.println("student karun"+ student);
+			if(student!=null){
+				lblOccupation.setText("Student");
+				String userName = student.getFirst_name() +" " + student.getLast_name();
+				lblName.setText("Hi! "+userName);
+				String careerName = student.getCareer_Name();
+				String SubjectName = student.getSubject_Name();
+				String address = student.getAddress();
+				lblAddress.setText(address);
+				if(careerName.equals("UG")){
+					lblCareer.setText("Under-Grad in" + student.getCareer_Name());
+				}else if(careerName.equals("G")){
+					lblCareer.setText("Grad in " + SubjectName);
+				}else{
+					lblCareer.setText("");
+				}
+				
 			}else{
-				lblCareer.setText("Grad in " + SubjectName);
+				System.out.println("student null");
 			}
+			
+			
+			
 			
 		}else if(userType.equals("2")){
 			
