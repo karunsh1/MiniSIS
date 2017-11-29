@@ -1340,7 +1340,7 @@ public class DAO {
 		Connection conn = null;
 		conn = obj.getConnection();
 		sql = "SELECT email FROM user_security_question where email = '" + email + "'";
-
+		Statement psAdduser;
 		try {
 			PreparedStatement psemailvalid = conn.prepareStatement(sql);
 			ResultSet result = psemailvalid.executeQuery();
@@ -1356,6 +1356,34 @@ public class DAO {
 
 		return addStatus;
 
+	}
+	public boolean resetPassword(String email, String newPassword){
+		
+		boolean resetStatus = false;
+		String sql = "";
+		String updateSql = "";
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = null;
+		conn = obj.getConnection();
+		sql = "update  users set password='"+Auth.md5(newPassword)+"' Where email = '" + email + "'";
+		Statement psResetPassword;
+		try {
+			psResetPassword = conn.createStatement();
+			int result = psResetPassword.executeUpdate(sql);
+
+			if(result == 1){
+				resetStatus = true;
+
+			}else {
+				resetStatus = false;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return resetStatus;
+		
 	}
 
 	public boolean forgetPassword(String email, String securityQue, String queAnswer, String newPassowrd) {

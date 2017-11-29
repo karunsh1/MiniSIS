@@ -58,9 +58,7 @@ import util.Singleton;
 public class ViewPdfController {
 
 	@FXML private Pagination pagination ;
-	@FXML private Label currentZoomLabel ;
-	
-	private FileChooser fileChooser ;
+	@FXML private Label currentZoomLabel ;	
 	private ObjectProperty<PDFFile> currentFile ;
 	private ObjectProperty<ImageView> currentImage ;
 	@FXML  private ScrollPane scroller ;
@@ -88,10 +86,7 @@ public class ViewPdfController {
 		scroller.contentProperty().bind(currentImage);
 		
 		zoom = new SimpleDoubleProperty(1);
-		// To implement zooming, we just get a new image from the PDFFile each time.
-		// This seems to perform well in some basic tests but may need to be improved
-		// E.g. load a larger image and scale in the ImageView, loading a new image only
-		// when required.
+		
 		zoom.addListener(new ChangeListener<Number>() {
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -116,10 +111,10 @@ public class ViewPdfController {
 		});
 	}
 
-	private void createAndConfigureFileChooser() {
-		/*fileChooser = new FileChooser();
+	/*private void createAndConfigureFileChooser() {
+		fileChooser = new FileChooser();
 		fileChooser.setInitialDirectory(Paths.get(System.getProperty("user.home")).toFile());
-		fileChooser.getExtensionFilters().add(new ExtensionFilter("PDF Files", "*.pdf", "*.PDF"));*/
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("PDF Files", "*.pdf", "*.PDF"));
 		PdfTranscript pdfview = new PdfTranscript();
 		System.out.println("studentSearchID"+studentSearchID);
 		try {
@@ -134,7 +129,7 @@ public class ViewPdfController {
 			e.printStackTrace();
 		}
 	}
-
+*/
 	private void updateWindowTitleWhenFileChanges() {
 		currentFile.addListener(new ChangeListener<PDFFile>() {
 			@Override

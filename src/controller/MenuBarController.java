@@ -1,6 +1,7 @@
 
 package controller;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -52,22 +53,34 @@ public class MenuBarController implements Initializable {
 	@FXML
 	private MenuBar menuBar;
 	@FXML
-	private MenuItem mItemViewTranscript,mItemAddUser,mItemUpdateSequrityQue;
+	private MenuItem mItemViewTranscript, mItemAddUser, mItemUpdateSequrityQue;
 	@FXML
 	MenuItem menuitemPay;
 	@FXML
 	MenuItem MenuItemDropCourse;
 	@FXML
-	private MenuItem menuitemSearchCourse, mItemLogout, mItemViewGrade;
+	private MenuItem menuitemSearchCourse, mItemLogout, mItemViewGrade,mItemResetPassword;
 	@FXML
 	private Menu mResult, mCourseDetail;
-	
-	
+
 	@FXML
-	private void onUpdateSeqQue(){
-		
+	private void clickOnResetPassword(){
 		showItemPane.getChildren().clear();
-		BorderPane newLoadedPane = null;		
+		BorderPane newLoadedPane = null;
+
+		try {
+			newLoadedPane = FXMLLoader.load(getClass().getResource("/view/ResetPassword.fxml"));
+		} catch (IOException e) { // TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		showItemPane.getChildren().add(newLoadedPane);
+	}
+	@FXML
+	private void onUpdateSeqQue() {
+
+		showItemPane.getChildren().clear();
+		BorderPane newLoadedPane = null;
 
 		try {
 			newLoadedPane = FXMLLoader.load(getClass().getResource("/view/AddSecurityQuestion.fxml"));
@@ -76,14 +89,13 @@ public class MenuBarController implements Initializable {
 		}
 
 		showItemPane.getChildren().add(newLoadedPane);
-		
-		
-		
+
 	}
 
-
-	@FXML MenuItem mViewSchedule;
-	@FXML Menu mMenuPayFee;
+	@FXML
+	MenuItem mViewSchedule;
+	@FXML
+	Menu mMenuPayFee;
 
 	@FXML
 	private void onLogout() {
@@ -95,10 +107,11 @@ public class MenuBarController implements Initializable {
 		showItemPane.getChildren().clear();
 
 	}
+
 	@FXML
-	private void clickOnAddUser(){
+	private void clickOnAddUser() {
 		showItemPane.getChildren().clear();
-		BorderPane newLoadedPane = null;		
+		BorderPane newLoadedPane = null;
 
 		try {
 			newLoadedPane = FXMLLoader.load(getClass().getResource("/view/AddUser.fxml"));
@@ -107,8 +120,7 @@ public class MenuBarController implements Initializable {
 		}
 
 		showItemPane.getChildren().add(newLoadedPane);
-		
-		
+
 	}
 
 	@FXML
@@ -130,8 +142,8 @@ public class MenuBarController implements Initializable {
 	@FXML
 	private void clickOnViewTranscript() {
 		showItemPane.getChildren().clear();
-		BorderPane newLoadedPane = null;		
-
+		BorderPane newLoadedPane = null;
+		
 		try {
 			newLoadedPane = FXMLLoader.load(getClass().getResource("/view/ViewTranscript.fxml"));
 		} catch (IOException e) { // TODO Auto-generated catch block
@@ -243,6 +255,7 @@ public class MenuBarController implements Initializable {
 		if (!userType.equals("1")) {
 			mMenuPayFee.visibleProperty().set(false);
 			mViewSchedule.visibleProperty().set(false);
+			mItemResetPassword.visibleProperty().set(false);
 		}
 
 		System.out.println("User Type  " + userType);
@@ -251,9 +264,11 @@ public class MenuBarController implements Initializable {
 			addGrades.visibleProperty().set(true);
 			mCourseDetail.visibleProperty().set(false);
 			mResult.visibleProperty().set(false);
-			
-		}else if (userType.equals("2")){
+			mItemResetPassword.visibleProperty().set(false);
+
+		} else if (userType.equals("2")) {
 			mItemAddUser.visibleProperty().set(true);
+			mItemResetPassword.visibleProperty().set(true);
 		}
 
 	}
@@ -274,7 +289,8 @@ public class MenuBarController implements Initializable {
 		showItemPane.getChildren().add(newLoadedPane);
 	}
 
-	@FXML public void onViewSchedule(ActionEvent event) {
+	@FXML
+	public void onViewSchedule(ActionEvent event) {
 		showItemPane.getChildren().clear();
 		BorderPane newLoadedPane = null;
 

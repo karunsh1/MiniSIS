@@ -211,8 +211,10 @@ public class PdfTranscript {
 		String CareerName = (studentInfo.getCareer_Name().equals("G")?"Graduate":"Under Graduate");
 
 		Document document = new Document(PageSize.A4, 20, 20, 20, 20);
+		
 		File path = new File("results/tables/Transcript.pdf");
-		PdfWriter.getInstance(document, new FileOutputStream(path));
+		FileOutputStream  outfile = new FileOutputStream(path);
+		PdfWriter.getInstance(document, outfile);
 		document.open();
 		document.add(new Paragraph("\n\n\n\n"));
 		
@@ -357,6 +359,10 @@ public class PdfTranscript {
 		
 		
 		document.close();
+		outfile.flush();
+        outfile.close();
+        outfile = null;
+        System.gc();
 		System.out.println("Successfull.");
 	return path;
 		
