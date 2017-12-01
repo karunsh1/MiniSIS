@@ -212,7 +212,7 @@ public class PdfTranscript {
 
 		Document document = new Document(PageSize.A4, 20, 20, 20, 20);
 		
-		File path = new File("results/tables/Transcript.pdf");
+		File path = new File("results/Transcript.pdf");
 		FileOutputStream  outfile = new FileOutputStream(path);
 		PdfWriter.getInstance(document, outfile);
 		document.open();

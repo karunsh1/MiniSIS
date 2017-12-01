@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 
-<BorderPane fx:id="BPaneMenuBar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MenuBarController">
+<BorderPane fx:id="BPaneMenuBar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="785.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MenuBarController">
    <top>
       <HBox prefHeight="32.0" prefWidth="1157.0" BorderPane.alignment="CENTER">
          <children>
@@ -29,6 +29,7 @@
                   <items>
                     <MenuItem fx:id="menuitemSearchCourse" mnemonicParsing="false" onAction="#onSearchCourse" text="Add Course" />
                         <MenuItem fx:id="MenuItemDropCourse" mnemonicParsing="false" onAction="#onDropCourse" text="Drop Course" />
+                        <MenuItem fx:id="mItemCourseDetail" mnemonicParsing="false" onAction="#onAddCourseDetail" text="Add Course Detail" visible="false" />
                   </items>
                 </Menu>
                 <Menu fx:id="mResult" mnemonicParsing="false" text="Result">
@@ -41,7 +42,7 @@
                   <Menu mnemonicParsing="false" text="Activity">
                      <items>
                         <MenuItem fx:id="mViewSchedule" mnemonicParsing="false" onAction="#onViewSchedule" text="View Schedule" />
-                        <MenuItem mnemonicParsing="false" text="Add Term/Course" />
+                        <MenuItem fx:id="mItemAddTermDetail" mnemonicParsing="false" onAction="#clcikOnMItemAddTermDetail" text="Add Term Detail" visible="false" />
                         <MenuItem fx:id="addGrades" mnemonicParsing="false" onAction="#clickOnAddGrades" text="Add Grades" visible="false" />
                         <MenuItem fx:id="mItemAddUser" mnemonicParsing="false" onAction="#clickOnAddUser" text="Add User" visible="false" />
                         <MenuItem fx:id="mItemResetPassword" mnemonicParsing="false" onAction="#clickOnResetPassword" text="Reset Password" visible="false" />
@@ -61,9 +62,9 @@
       </HBox>
    </top>
    <center>
-      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <HBox prefHeight="601.0" prefWidth="800.0" BorderPane.alignment="CENTER">
          <children>
-            <StackPane fx:id="showItemPane" prefHeight="620.0" prefWidth="821.0" />
+            <StackPane fx:id="showItemPane" prefHeight="707.0" prefWidth="913.0" />
          </children>
       </HBox>
    </center>

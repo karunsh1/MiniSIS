@@ -116,9 +116,9 @@ CREATE TABLE `course_details` (
   `duration` int(11) NOT NULL,
   `room_id` int(11) NOT NULL,
   `class_capacity` int(11) NOT NULL,
-  `waiting_capacity` int(11) NOT NULL,
+  `class_availablity` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -127,7 +127,7 @@ CREATE TABLE `course_details` (
 
 LOCK TABLES `course_details` WRITE;
 /*!40000 ALTER TABLE `course_details` DISABLE KEYS */;
-INSERT INTO `course_details` VALUES (1,15,11,1,6,1,50,10),(2,16,10,1,6,10,90,25),(3,3,3,2,13,1,50,10);
+INSERT INTO `course_details` VALUES (1,15,11,1,6,1,50,10),(2,16,10,1,6,10,90,25),(3,13,11,2,13,1,50,10),(4,15,1,2,6,1,30,30),(5,6,2,2,13,2,50,50);
 /*!40000 ALTER TABLE `course_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -206,7 +206,7 @@ CREATE TABLE `grade` (
 
 LOCK TABLES `grade` WRITE;
 /*!40000 ALTER TABLE `grade` DISABLE KEYS */;
-INSERT INTO `grade` VALUES (1,15,2,1,3),(2,10,2,1,3.4),(3,11,2,2,NULL),(4,2,2,2,4),(5,12,2,1,3),(6,11,2,1,NULL),(7,10,2,1,3.5);
+INSERT INTO `grade` VALUES (1,15,2,1,4),(2,10,2,1,3.4),(3,11,2,2,NULL),(4,2,2,2,4),(5,12,2,1,3),(6,11,2,1,NULL),(7,10,2,1,3.5);
 /*!40000 ALTER TABLE `grade` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -251,7 +251,7 @@ CREATE TABLE `instructor` (
   `emp_id` int(8) NOT NULL,
   `address` mediumtext,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -260,7 +260,7 @@ CREATE TABLE `instructor` (
 
 LOCK TABLES `instructor` WRITE;
 /*!40000 ALTER TABLE `instructor` DISABLE KEYS */;
-INSERT INTO `instructor` VALUES (1,'Dr. Sabine','Bergler','bergler@cse.concordia.ca',700001,'1455 de Maisonneuve Blvd West\r\nMontreal, Quebec, Canada\r\nH3G 1M8 '),(2,'Dr. Lata ','Narayanan','lata@cs.concordia.ca',700002,'1455 de Maisonneuve Blvd West\r\nMontreal, Quebec, Canada\r\nH3G 1M8 '),(3,'Dr. Tien ','Bui','bui@cse.concordia.ca',700003,'1455 de Maisonneuve Blvd West\r\nMontreal, Quebec, Canada\r\nH3G 1M8 '),(4,'Dr. Rajagopalan ','Jayakumar','Rajagopalan@encs.concordia.ca',700004,'1455 de Maisonneuve Blvd West\r\nMontreal, Quebec, Canada\r\nH3G 1M8 '),(5,'Dr. Chadi ','Assi','assi@encs.concordia.ca',700005,'1455 de Maisonneuve Blvd West\nMontreal, Quebec, Canada\nH3G 1M8 '),(6,'Dr. Gosta ','Grahne','gosta@encs.concordia.ca',700006,'1455 de Maisonneuve Blvd West\r\nMontreal, Quebec, Canada\r\nH3G 1M8 '),(7,'Dr. Juergen ','Rilling','Rilling@encs.concordia.ca',700007,'1455 de Maisonneuve Blvd West\nMontreal, Quebec, Canada\nH3G 1M8 '),(8,'Prof. Pankaj ','Kamthan','kamthan@encs.concordia.ca',700008,'1455 de Maisonneuve Blvd West\r\nMontreal, Quebec, Canada\r\nH3G 1M8 '),(9,'Dr. Rene ','Witte ','rene@encs.concordia.ca',700009,'1455 de Maisonneuve Blvd West\nMontreal, Quebec, Canada\nH3G 1M8 '),(10,'Prof. Fereshteh ','Mafakheri','fereshteh@encs.concordia.ca',700010,'1455 de Maisonneuve Blvd West\r\nMontreal, Quebec, Canada\r\nH3G 1M8 '),(11,'Prof. Rachida ','Dssouli','Dssouli@encs.concordia.ca',700011,'1455 de Maisonneuve Blvd West\r\nMontreal, Quebec, Canada\r\nH3G 1M8 '),(12,'Prof. Ayda ','Basyouni','@encs.concordia.ca',700012,'1455 de Maisonneuve Blvd West\r\nMontreal, Quebec, Canada\r\nH3G 1M8 '),(13,'Prof. Jeremy ','Clark','Clark@encs.concordia.ca',700013,'1455 de Maisonneuve Blvd West\r\nMontreal, Quebec, Canada\r\nH3G 1M8 '),(14,'Prof. Nizar ','Bouguila','Bouguila@encs.concordia.ca',700014,'1455 de Maisonneuve Blvd West\r\nMontreal, Quebec, Canada\r\nH3G 1M8 '),(15,'Prof. Lingyu ','Wang','Wang@encs.concordia.ca',700015,'1455 de Maisonneuve Blvd West\r\nMontreal, Quebec, Canada\r\nH3G 1M8 '),(16,'Prof. Olga ','Ormandjieva','Olga@encs.concordia.ca',700016,'1455 de Maisonneuve Blvd West\r\nMontreal, Quebec, Canada\r\nH3G 1M8 '),(17,'Prof. Constantinos ','Constantinides','Constantinos@encs.concordia.ca',700017,'1455 de Maisonneuve Blvd West\r\nMontreal, Quebec, Canada\r\nH3G 1M8 '),(18,'Prof. Terrill ','Fancott ','Fancott@encs.concordia.ca',700018,'1455 de Maisonneuve Blvd West\r\nMontreal, Quebec, Canada\r\nH3G 1M8 '),(19,'Prof. Yuhong ','Yan','Yan@encs.concordia.ca',700019,'1455 de Maisonneuve Blvd West\r\nMontreal, Quebec, Canada\r\nH3G 1M8 '),(20,'Prof. Sudhir ','Mudur','Mudur@encs.concordia.ca',700020,'1455 de Maisonneuve Blvd West\r\nMontreal, Quebec, Canada\r\nH3G 1M8 '),(21,'Prof. Eusebius ','Doedel','Doedel@encs.concordia.ca',700021,'1455 de Maisonneuve Blvd West\r\nMontreal, Quebec, Canada\r\nH3G 1M8 ');
+INSERT INTO `instructor` VALUES (1,'Dr. Sabine','Bergler','bergler@cse.concordia.ca',700001,'1455 de Maisonneuve Blvd West\r\nMontreal, Quebec, Canada\r\nH3G 1M8 '),(2,'Dr. Lata ','Narayanan','lata@cs.concordia.ca',700002,'1455 de Maisonneuve Blvd West\r\nMontreal, Quebec, Canada\r\nH3G 1M8 '),(3,'Dr. Tien ','Bui','bui@cse.concordia.ca',700003,'1455 de Maisonneuve Blvd West\r\nMontreal, Quebec, Canada\r\nH3G 1M8 '),(4,'Dr. Rajagopalan ','Jayakumar','Rajagopalan@encs.concordia.ca',700004,'1455 de Maisonneuve Blvd West\r\nMontreal, Quebec, Canada\r\nH3G 1M8 '),(5,'Dr. Chadi ','Assi','assi@encs.concordia.ca',700005,'1455 de Maisonneuve Blvd West\nMontreal, Quebec, Canada\nH3G 1M8 '),(6,'Dr. Gosta ','Grahne','gosta@encs.concordia.ca',700006,'1455 de Maisonneuve Blvd West\r\nMontreal, Quebec, Canada\r\nH3G 1M8 '),(7,'Dr. Juergen ','Rilling','Rilling@encs.concordia.ca',700007,'1455 de Maisonneuve Blvd West\nMontreal, Quebec, Canada\nH3G 1M8 '),(8,'Prof. Pankaj ','Kamthan','kamthan@encs.concordia.ca',700008,'1455 de Maisonneuve Blvd West\r\nMontreal, Quebec, Canada\r\nH3G 1M8 '),(9,'Dr. Rene ','Witte ','rene@encs.concordia.ca',700009,'1455 de Maisonneuve Blvd West\nMontreal, Quebec, Canada\nH3G 1M8 '),(10,'Prof. Fereshteh ','Mafakheri','fereshteh@encs.concordia.ca',700010,'1455 de Maisonneuve Blvd West\r\nMontreal, Quebec, Canada\r\nH3G 1M8 '),(11,'Prof. Rachida ','Dssouli','Dssouli@encs.concordia.ca',700011,'1455 de Maisonneuve Blvd West\r\nMontreal, Quebec, Canada\r\nH3G 1M8 '),(12,'Prof. Ayda ','Basyouni','@encs.concordia.ca',700012,'1455 de Maisonneuve Blvd West\r\nMontreal, Quebec, Canada\r\nH3G 1M8 '),(13,'Prof. Jeremy ','Clark','Clark@encs.concordia.ca',700013,'1455 de Maisonneuve Blvd West\r\nMontreal, Quebec, Canada\r\nH3G 1M8 '),(14,'Prof. Nizar ','Bouguila','Bouguila@encs.concordia.ca',700014,'1455 de Maisonneuve Blvd West\r\nMontreal, Quebec, Canada\r\nH3G 1M8 '),(15,'Prof. Lingyu ','Wang','Wang@encs.concordia.ca',700015,'1455 de Maisonneuve Blvd West\r\nMontreal, Quebec, Canada\r\nH3G 1M8 '),(16,'Prof. Olga ','Ormandjieva','Olga@encs.concordia.ca',700016,'1455 de Maisonneuve Blvd West\r\nMontreal, Quebec, Canada\r\nH3G 1M8 '),(17,'Prof. Constantinos ','Constantinides','Constantinos@encs.concordia.ca',700017,'1455 de Maisonneuve Blvd West\r\nMontreal, Quebec, Canada\r\nH3G 1M8 '),(18,'Prof. Terrill ','Fancott ','Fancott@encs.concordia.ca',700018,'1455 de Maisonneuve Blvd West\r\nMontreal, Quebec, Canada\r\nH3G 1M8 '),(19,'Prof. Yuhong ','Yan','Yan@encs.concordia.ca',700019,'1455 de Maisonneuve Blvd West\r\nMontreal, Quebec, Canada\r\nH3G 1M8 '),(20,'Prof. Sudhir ','Mudur','Mudur@encs.concordia.ca',700020,'1455 de Maisonneuve Blvd West\r\nMontreal, Quebec, Canada\r\nH3G 1M8 '),(21,'Prof. Eusebius ','Doedel','Doedel@encs.concordia.ca',700021,'1455 de Maisonneuve Blvd West\r\nMontreal, Quebec, Canada\r\nH3G 1M8 '),(22,'Karun','Sharma','karunsh@gmail.com',700056,'1650, Rene levesque		');
 /*!40000 ALTER TABLE `instructor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -274,7 +274,9 @@ DROP TABLE IF EXISTS `payment`;
 CREATE TABLE `payment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `student_id` int(11) NOT NULL,
-  `paid_amount` double NOT NULL,
+  `amount_due` double NOT NULL,
+  `semester_fee` double DEFAULT NULL,
+  `term` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -285,8 +287,33 @@ CREATE TABLE `payment` (
 
 LOCK TABLES `payment` WRITE;
 /*!40000 ALTER TABLE `payment` DISABLE KEYS */;
-INSERT INTO `payment` VALUES (1,1,7000),(2,2,6000);
+INSERT INTO `payment` VALUES (1,1,7000,NULL,NULL),(2,2,6000,NULL,NULL);
 /*!40000 ALTER TABLE `payment` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pre_requisite`
+--
+
+DROP TABLE IF EXISTS `pre_requisite`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pre_requisite` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `student_id` int(11) DEFAULT NULL,
+  `program` varchar(45) DEFAULT NULL,
+  `course_code` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1001 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pre_requisite`
+--
+
+LOCK TABLES `pre_requisite` WRITE;
+/*!40000 ALTER TABLE `pre_requisite` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pre_requisite` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -394,6 +421,31 @@ INSERT INTO `schedule` VALUES (1,'10:45:00','13:15:00','MON'),(2,'10:45:00','13:
 UNLOCK TABLES;
 
 --
+-- Table structure for table `security_question`
+--
+
+DROP TABLE IF EXISTS `security_question`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `security_question` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `question` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `security_question`
+--
+
+LOCK TABLES `security_question` WRITE;
+/*!40000 ALTER TABLE `security_question` DISABLE KEYS */;
+INSERT INTO `security_question` VALUES (1,'What is your favourite pet?'),(2,'What is the name of your hometown?'),(3,'What is your favourite color?'),(4,'What is your favourite place?');
+/*!40000 ALTER TABLE `security_question` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `student`
 --
 
@@ -407,10 +459,10 @@ CREATE TABLE `student` (
   `email` varchar(50) NOT NULL,
   `mobile` varchar(20) NOT NULL,
   `address` mediumtext,
-  `level` enum('G','UG') DEFAULT 'G',
+  `level` enum('G','UG') DEFAULT NULL,
   `subject_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=1000001 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -419,7 +471,7 @@ CREATE TABLE `student` (
 
 LOCK TABLES `student` WRITE;
 /*!40000 ALTER TABLE `student` DISABLE KEYS */;
-INSERT INTO `student` VALUES (1,'nafiz','islam','na_islam@concordia.ca','5144735006','Montreal, Quebec, Canada','G',2),(2,'a','a','a','5145135394','22h','G',2),(3,'omar','khan','omarfaruk.sust@gmail.com','5124878890','montreal','G',3);
+INSERT INTO `student` VALUES (1,'nafiz','islam','na_islam@concordia.ca','5144735006','Montreal, Quebec, Canada','G',2),(2,'a','a','a','5145135394','22h','G',2),(3,'omar','khan','omarfaruk.sust@gmail.com','5124878890','montreal','G',3),(4,'','','abc@gmail.com','',NULL,NULL,NULL),(6,'Karun','Sharma','karunsh1@gmail.com','5145135394','1650, Rene levesque		','G',2);
 /*!40000 ALTER TABLE `student` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -464,8 +516,9 @@ CREATE TABLE `term_info` (
   `dne_date` date NOT NULL,
   `disc_date` date NOT NULL,
   `max_credit` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `term_UNIQUE` (`term`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -474,8 +527,36 @@ CREATE TABLE `term_info` (
 
 LOCK TABLES `term_info` WRITE;
 /*!40000 ALTER TABLE `term_info` DISABLE KEYS */;
-INSERT INTO `term_info` VALUES (1,'Fall 2017','2017-08-02','2017-12-31','2017-05-02','2017-08-18','2017-09-02',12),(2,'Winter 2018','2018-01-07','2018-04-30','2018-05-02','2018-02-19','2018-02-03',12);
+INSERT INTO `term_info` VALUES (1,'Fall 2017','2017-08-02','2017-12-31','2017-05-02','2017-08-18','2017-09-02',12),(2,'Winter 2018','2018-01-07','2018-04-30','2018-05-02','2018-02-19','2018-02-03',12),(3,'Fall 2016','2016-09-07','2016-12-15','2016-03-23','0000-00-00','0000-00-00',0);
 /*!40000 ALTER TABLE `term_info` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user_security_question`
+--
+
+DROP TABLE IF EXISTS `user_security_question`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_security_question` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(45) DEFAULT NULL,
+  `sq_id` int(11) DEFAULT NULL,
+  `answer` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  UNIQUE KEY `email_UNIQUE` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_security_question`
+--
+
+LOCK TABLES `user_security_question` WRITE;
+/*!40000 ALTER TABLE `user_security_question` DISABLE KEYS */;
+INSERT INTO `user_security_question` VALUES (1,'a',4,'canada');
+/*!40000 ALTER TABLE `user_security_question` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -489,9 +570,10 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(50) NOT NULL,
   `password` varchar(100) NOT NULL,
-  `type` enum('1','2','3') DEFAULT '1',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+  `type` enum('1','2','3','4','5') DEFAULT '1',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email_UNIQUE` (`email`)
+) ENGINE=MyISAM AUTO_INCREMENT=10009 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -500,7 +582,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'na_islam@concordia.ca','c4ca4238a0b923820dcc509a6f75849b','1'),(2,'halina@cs.concordia.ca','ac','2'),(3,'omarfaruk.sust@gmail.com','a','1'),(4,'a','ab','1'),(5,'Dssouli@encs.concordia.ca','Ins','3');
+INSERT INTO `users` VALUES (1,'na_islam@concordia.ca','c4ca4238a0b923820dcc509a6f75849b','1'),(2,'halina@cs.concordia.ca','e2075474294983e013ee4dd2201c7a73','2'),(3,'omarfaruk.sust@gmail.com','202cb962ac59075b964b07152d234b70','1'),(4,'a','187ef4436122d1cc2f40dc2b92f0eba0','1'),(5,'Dssouli@encs.concordia.ca','19f7febae138727d9c04bb506712b56c','3'),(10008,'karunsh@gmail.com','98f6bcd4621d373cade4e832627b4f6','3'),(10007,'karunsh1@gmail.com','5f39d8aef6a4f54dcc0ce5ab4385742','1');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -513,4 +595,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-14  6:46:00
+-- Dump completed on 2017-11-30 21:40:47
