@@ -18,12 +18,18 @@ public class TestDAO {
 	}
 	
 	@Test
-	public void testGetTermId() {
+	public void test1GetTermId() {
 		String term="Fall 2017";
 		int termId=dataAccessObject.getTermId(term);
 		assertEquals(1, termId);
 	}
 	
+	@Test
+	public void test2GetTermId() {
+		String term="Fall 2016";
+		int termId=dataAccessObject.getTermId(term);
+		assertEquals(3, termId);
+	}
 	
 
 }

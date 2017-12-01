@@ -21,6 +21,7 @@
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="459.0" minWidth="10.0" prefWidth="204.0" />
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="589.0" minWidth="10.0" prefWidth="292.0" />
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="589.0" minWidth="10.0" prefWidth="161.0" />
+            <ColumnConstraints />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -106,6 +107,14 @@
       <HBox alignment="CENTER" prefHeight="41.0" prefWidth="930.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="AddCourseButton" mnemonicParsing="false" onAction="#onAddCourse" prefHeight="31.0" prefWidth="115.0" text="Add" textAlignment="CENTER" />
+            <Button fx:id="resetButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#onReset" prefHeight="39.0" prefWidth="70.0" text="Reset">
+               <HBox.margin>
+                  <Insets left="60.0" />
+               </HBox.margin>
+               <padding>
+                  <Insets right="20.0" />
+               </padding>
+            </Button>
          </children></HBox>
    </bottom>
    <center>

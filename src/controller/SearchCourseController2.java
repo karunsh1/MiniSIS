@@ -70,7 +70,6 @@ public class SearchCourseController2 implements Initializable
 	private ComboBox<String> LevelCombobox;
 	@FXML
 	private ComboBox<String> CourseIdComboBox;
-
 	@FXML
 	private ComboBox<String> termComboBox;
 
@@ -104,6 +103,7 @@ public class SearchCourseController2 implements Initializable
 	@FXML TextField textFieldAddress;
 	@FXML TextField textFieldSchedule;
 	@FXML Label labelSchedule;
+	@FXML Button resetButton;
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb)
@@ -183,6 +183,16 @@ public class SearchCourseController2 implements Initializable
 							    programDisplay=program;
 							    
 				      courseListArray = dataAccess.courseList(term_id,level,program);
+				      System.out.println("course list empty"+courseListArray.isEmpty());
+//				      if(courseListArray.isEmpty())
+//				      { Alert alert = new Alert(AlertType.INFORMATION);
+//						alert.setTitle("Information Dialog");
+//						alert.setHeaderText("Course Registeration");
+//						
+//						alert.setContentText("No course matches search criteria.Please try to use other criteria");
+//					
+//				    	  clearAll();
+//				      }
 				      System.out.println(courseListArray);
 					ObservableList courselist = FXCollections.observableArrayList(courseListArray);
 					System.out.println(courselist);
@@ -318,6 +328,25 @@ public class SearchCourseController2 implements Initializable
 		          }
 				return course_details_id;
 			
+		}
+
+public void clearAll() {
+	ComboboxProgram.getSelectionModel().clearSelection();
+	 LevelCombobox.getSelectionModel().clearSelection();;
+	 CourseIdComboBox.getSelectionModel().clearSelection();
+	termComboBox.getSelectionModel().clearSelection();
+	TextFieldCourseTitle.setText("");
+	TextFieldCourseDescription.setText("");
+	TextFieldNumCredits.setText("");
+	studentIdTextField.setText("");
+	textFieldInstructor.setText("");
+	textFieldRoomNumber.setText("");
+	textFieldAddress.setText("");
+	textFieldSchedule.setText("");
+}
+		
+		@FXML public void onReset(ActionEvent event) {
+			clearAll();
 		}
 		
 	}
