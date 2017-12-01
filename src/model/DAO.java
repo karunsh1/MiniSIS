@@ -237,9 +237,12 @@ public class DAO {
 
 	public ResultSet CourseInfo(int course_code,String term, String program,String level) {
 		String sql = null;
-
-		sql = "SELECT *,course.program, course.title, course_details.id as course_details_id ,course.course_code,course.description,course.level, course.units,course_details.id as course_details_id,term_info.term from course join course_details on course.id =course_details.course_id inner join \r\n" + 
-				"term_info on  course_details.term_id= term_info.id where course_code= " +"\""+course_code+ "\""  
+		
+		sql = "SELECT *,concat(first_name, \" \", last_name) as instructor_name, course.program, course.title, course_details.id as course_details_id ,course.course_code,course.description,course.level, course.units,course_details.id as course_details_id,term_info.term from course join course_details on course.id \r\n" + 
+				"		=course_details.course_id inner join \r\n" + 
+				"				term_info on  course_details.term_id= term_info.id join instructor on instructor.id"
+				+ "=course_details.instructor_id join room on room_id=room.id join course_schedule on course_details.id=course_schedule.course_detail_id join schedule on schedule.id=course_schedule.schedule_id "
+				+ "where course_code= " +"\""+course_code+ "\""  
 				+ "and program="+"\""+program+ "\"" +"and level=" +"\""+level+ "\"" +"and term=" +"\""+term+ "\"" ;
 
 
@@ -295,7 +298,7 @@ public class DAO {
 					System.out.println(courseDetailIdsList.get(i));
 					System.out.println(courseDetailIdsList.size());
 				}
-				//return dataob;
+				
 
 			}
 
@@ -487,6 +490,26 @@ public class DAO {
 		}
         System.out.println("payment due"+subject_code);
 		return subject_code;
+		
+	}
+	
+	public boolean waiveOffCourse(String studentId,String course_code,String program) {
+		boolean doneWaiveOff=false;
+		String sql = null;
+		sql="delete from pre_requisite where student_id="+ "\""+ studentId+"\""+"and course_code=" + "\""+ course_code+"\""+"and program=" +"\""+ program+"\"";
+		System.out.println(sql);
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = obj.getConnection();
+		ResultSet result = null;
+		try {
+			PreparedStatement courselist = conn.prepareStatement(sql);
+			result = courselist.executeQuery();
+			doneWaiveOff=true;
+            	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return doneWaiveOff;
 		
 	}
 
@@ -751,6 +774,108 @@ public class DAO {
 
 	}
 
+	public boolean WaiveOffExists(String studenId) {
+		String sql = null;
+		ResultSet result=null;
+		boolean waiveOffExists=false;
+		ArrayList courseList = new ArrayList();
+		sql="SELECT * FROM pre_requisite join course on course.program=pre_requisite.program "
+				+" WHERE student_id ="+ "\""+ studenId +"\"";
+		System.out.println(sql);
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = obj.getConnection();
+		try {
+			PreparedStatement courselist = conn.prepareStatement(sql);
+			result = courselist.executeQuery();
+			if(result.next()) {
+			while (result.next()) {
+
+					courseList.add(result.getString("course_code"));
+					
+			}
+			waiveOffExists=true;
+			}
+			else {
+				waiveOffExists=false;
+			}
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+		return waiveOffExists;
+
+	}
+	
+	public ArrayList courseForWaiveOff(String studenId) {
+		String sql = null;
+		ResultSet result=null;
+		ArrayList courseList = new ArrayList();
+		sql="SELECT * FROM pre_requisite join course on course.program=pre_requisite.program "
+				+" WHERE student_id ="+ "\""+ studenId +"\"";
+		System.out.println(sql);
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = obj.getConnection();
+		try {
+			PreparedStatement courselist = conn.prepareStatement(sql);
+			result = courselist.executeQuery();
+			if(result.next()) {
+			while (result.next()) {
+
+					courseList.add(result.getString("course_code"));
+			}
+			}
+			else {
+				
+			}
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+		return courseList;
+
+	}
+	public String courseForWaiveOffProgram(String studenId) {
+		String sql = null;
+		ResultSet result=null;
+	String program=null;
+	sql="SELECT * FROM pre_requisite join course on course.program=pre_requisite.program "
+			+" WHERE student_id ="+ "\""+ studenId +"\"";
+		System.out.println(sql);
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = obj.getConnection();
+		try {
+			PreparedStatement courselist = conn.prepareStatement(sql);
+			result = courselist.executeQuery();
+			if(result.next()) {
+			while (result.next()) {
+				for (int i = 1; i <= 1; i++) {
+
+					program=result.getString("program");
+					;
+				}
+			}
+			}
+			else {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Information Dialog");
+				alert.setHeaderText("Waive Off Course");
+				alert.setContentText("Waive Off Course");
+				alert.setContentText("Student has no pre-requisite");
+				alert.showAndWait();
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+		return program;
+
+	}
+	
 	/**
 	 * 
 	 * @param term_id

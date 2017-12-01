@@ -56,6 +56,7 @@ import javafx.scene.control.Label;
 public class SearchCourseController2 implements Initializable
 {   String userType ;
     String studentID;
+    
 	private TextField ErrorMsgField;
 	//private TableView<Course> searchCourseTableView;
 	ArrayList courseListArray;
@@ -95,6 +96,14 @@ public class SearchCourseController2 implements Initializable
 	@FXML TextField TextFieldCourseDescription;
     @FXML TextField TextFieldNumCredits;
     @FXML TextField studentIdTextField;
+	@FXML Label labelInstructorName;
+	@FXML TextField textFieldInstructor;
+	@FXML Label labelRoomNumber;
+	@FXML TextField textFieldRoomNumber;
+	@FXML Label labelAddress;
+	@FXML TextField textFieldAddress;
+	@FXML TextField textFieldSchedule;
+	@FXML Label labelSchedule;
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb)
@@ -251,6 +260,9 @@ public class SearchCourseController2 implements Initializable
 		
 		public String search() {
 			String course_details_id = null;
+			 String start_time =null;
+			 String end_time=null;
+			ArrayList<String> scheduleDay = new ArrayList<String>();
 			if(userType.equals("2"))
 			{
 		
@@ -260,10 +272,10 @@ public class SearchCourseController2 implements Initializable
 			
 		    //TABLE VIEW AND DATA
 		    ObservableList<Course> data;
-		  //  private TableView tableview;
+		
 		    DAO dataAccess = new DAO();
-
-			      
+		    StringBuilder schedule=new StringBuilder();
+		  
 		          //data = new ObservableList<ObservableList>();
 		          data = FXCollections.observableArrayList();
 		          try{
@@ -275,14 +287,28 @@ public class SearchCourseController2 implements Initializable
 		             * TABLE COLUMN ADDED DYNAMICALLY *
 		             **********************************/
                     titledPane.setExpanded(true);
+                	
                     //System.out.println(rs.getString("title"));
                     while(rs.next())
                     {
                     TextFieldCourseTitle.setText(rs.getString("title"));
                     TextFieldCourseDescription.setText(rs.getString("description"));
                     TextFieldNumCredits.setText(rs.getString("units"));
+                    textFieldInstructor.setText(rs.getString("instructor_name"));
+                    textFieldRoomNumber.setText(rs.getString("room_no"));
+                    textFieldAddress.setText(rs.getString("address"));
+                    start_time = rs.getString("start_time");
+                    end_time = rs.getString("end_time");
                     course_details_id=rs.getString("course_details_id");
+                    System.out.println(rs.getString("day"));
+                     scheduleDay.add(rs.getString("day"));
                     }
+                    System.out.println(scheduleDay.size());
+                    for(int i=0;i<scheduleDay.size();i++)
+                    {schedule.append(scheduleDay.get(i)).append(" ");}
+                    schedule.append(start_time).append(" ");
+                    schedule.append(end_time).append(" ");
+                    textFieldSchedule.setText(schedule.toString());
                     AddCourseButton.setVisible(true);
         			}
  

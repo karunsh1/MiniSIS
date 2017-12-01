@@ -66,7 +66,7 @@ public class MenuBarController implements Initializable {
 
 	@FXML MenuItem mViewSchedule;
 	@FXML Menu mMenuPayFee;
-
+	@FXML MenuItem menuItemWaiveOffPreRequisite;
 	@FXML
 	private void onLogout() {
 
@@ -206,6 +206,7 @@ public class MenuBarController implements Initializable {
 		// TODO Auto-generated method stub
 		mMenuPayFee.visibleProperty().set(true);
 		mViewSchedule.visibleProperty().set(true);
+		menuItemWaiveOffPreRequisite.setVisible(false);
 		String userType = null;
 
 		userType = Singleton.getInstance().getUserType().getText();
@@ -213,6 +214,7 @@ public class MenuBarController implements Initializable {
 		if (!userType.equals("1")) {
 			mMenuPayFee.visibleProperty().set(false);
 			mViewSchedule.visibleProperty().set(false);
+			//menuItemWaiveOffPreRequisite.setVisible(true);
 		}
 
 		System.out.println("User Type  " + userType);
@@ -221,8 +223,15 @@ public class MenuBarController implements Initializable {
 			addGrades.visibleProperty().set(true);
 			mCourseDetail.visibleProperty().set(false);
 			mResult.visibleProperty().set(false);
+			
 		}
-
+		if (userType.equals("4")) {
+			addGrades.visibleProperty().set(true);
+			mCourseDetail.visibleProperty().set(false);
+			mResult.visibleProperty().set(false);
+			menuItemWaiveOffPreRequisite.setVisible(true);
+			
+		}
 	}
 
 	@FXML
@@ -255,4 +264,17 @@ public class MenuBarController implements Initializable {
 		showItemPane.getChildren().add(newLoadedPane);
 	}
 
+	@FXML public void onWaiveOffCourse(ActionEvent event) {
+	showItemPane.getChildren().clear();
+	BorderPane newLoadedPane = null;
+
+	try {
+		newLoadedPane = FXMLLoader.load(getClass().getResource("/view/WaiveOffCourse.fxml"));
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+
+	showItemPane.getChildren().add(newLoadedPane);
+}
 }
