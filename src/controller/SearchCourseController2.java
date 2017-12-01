@@ -232,7 +232,7 @@ public class SearchCourseController2 implements Initializable
 					String course_details_id=rs.getString("course_details_id");
 					Integer term_id=Integer.parseInt(rs.getString("term_id"));
 					String program=rs.getString("term_id");
-					Boolean success=dataAccess.addCourse(studentID,term_id,course_details_id,userType,program);
+					Boolean success=dataAccess.addCourse(studentID,term_id,course_details_id,userType,program,levelDisplay,courseIdDisplay);
 					Alert alert = new Alert(AlertType.INFORMATION);
 					alert.setTitle("Information Dialog");
 					alert.setHeaderText("Course Registeration");

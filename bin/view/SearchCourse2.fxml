@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -15,24 +14,24 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="searchCourseBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="514.0" prefWidth="930.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SearchCourseController2">
+<BorderPane fx:id="searchCourseBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="626.0" prefWidth="657.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SearchCourseController2">
    <top>
-      <GridPane vgap="10.0" BorderPane.alignment="CENTER">
+      <GridPane prefHeight="274.0" prefWidth="637.0" vgap="10.0" BorderPane.alignment="CENTER">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="459.0" minWidth="10.0" prefWidth="338.0" />
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="589.0" minWidth="10.0" prefWidth="199.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="459.0" minWidth="10.0" prefWidth="204.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="589.0" minWidth="10.0" prefWidth="292.0" />
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="589.0" minWidth="10.0" prefWidth="161.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="589.0" minWidth="10.0" prefWidth="178.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="31.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="31.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="41.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="20.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="25.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="49.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="69.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="79.0" minHeight="0.0" prefHeight="21.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="79.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="79.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="93.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" text="Search Course" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
@@ -45,41 +44,56 @@
             </Label>
             <Label text="Select Term" GridPane.rowIndex="3">
                <font>
-                  <Font size="20.0" />
+                  <Font size="14.0" />
                </font>
+               <GridPane.margin>
+                  <Insets left="30.0" />
+               </GridPane.margin>
             </Label>
-            <ComboBox fx:id="termComboBox" prefHeight="35.0" prefWidth="142.0" promptText="Select Term" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <ComboBox fx:id="termComboBox" prefHeight="25.0" prefWidth="151.0" promptText="Select Term" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
             </ComboBox>
-            <Label text="Course Id" GridPane.rowIndex="6">
+            <Label text="Course Id" GridPane.rowIndex="8">
                <font>
-                  <Font size="20.0" />
+                  <Font size="14.0" />
                </font>
+               <GridPane.margin>
+                  <Insets left="30.0" />
+               </GridPane.margin>
             </Label>
             <Label prefHeight="21.0" prefWidth="118.0" text="Program" GridPane.rowIndex="5">
                <font>
-                  <Font size="20.0" />
+                  <Font size="14.0" />
                </font>
+               <GridPane.margin>
+                  <Insets left="30.0" />
+               </GridPane.margin>
             </Label>
             <ComboBox fx:id="ComboboxProgram" prefWidth="150.0" promptText="Program" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Button fx:id="SearchButton" mnemonicParsing="false" onAction="#onSearchCourse" prefHeight="31.0" prefWidth="142.0" text="Search" GridPane.columnIndex="2" GridPane.rowIndex="6">
+            <Button fx:id="SearchButton" mnemonicParsing="false" onAction="#onSearchCourse" prefHeight="18.0" prefWidth="113.0" text="Search" GridPane.columnIndex="2" GridPane.rowIndex="8">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <ComboBox fx:id="CourseIdComboBox" prefWidth="150.0" promptText="Course Id" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <ComboBox fx:id="CourseIdComboBox" prefHeight="7.0" prefWidth="150.0" promptText="Course Id" GridPane.columnIndex="1" GridPane.rowIndex="8" />
             <Label text="Level" GridPane.rowIndex="4">
                <font>
-                  <Font size="20.0" />
+                  <Font size="14.0" />
                </font>
+               <GridPane.margin>
+                  <Insets left="30.0" />
+               </GridPane.margin>
             </Label>
             <ComboBox fx:id="LevelCombobox" prefWidth="150.0" promptText="Level" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label fx:id="studentIdLabel" text="Student Id" GridPane.rowIndex="1">
                <font>
-                  <Font size="18.0" />
+                  <Font size="14.0" />
                </font>
+               <GridPane.margin>
+                  <Insets left="30.0" />
+               </GridPane.margin>
             </Label>
             <TextField fx:id="studentIdTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
@@ -95,29 +109,34 @@
          </children></HBox>
    </bottom>
    <center>
-      <Accordion BorderPane.alignment="CENTER">
-        <panes>
-          <TitledPane fx:id="titledPane" animated="false" prefHeight="92.0" prefWidth="930.0" text="Course Info">
+      <HBox alignment="CENTER_LEFT" minHeight="-Infinity" prefHeight="307.0" prefWidth="657.0" BorderPane.alignment="CENTER">
+         <children>
+          <TitledPane fx:id="titledPane" animated="false" minHeight="-Infinity" prefHeight="284.0" prefWidth="610.0" text="Course Info">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="258.0" prefWidth="575.0">
                      <children>
-                        <Label fx:id="LabelCourseTitle" layoutX="126.0" layoutY="27.0" text="Course Title" />
-                        <Label fx:id="LabelCourseDescription" layoutX="126.0" layoutY="60.0" text="Course Description" />
-                        <Label fx:id="LabelNumCredits" layoutX="126.0" layoutY="91.0" text="Number of Credits" />
-                        <TextField fx:id="TextFieldCourseTitle" editable="false" layoutX="390.0" layoutY="23.0" prefHeight="25.0" prefWidth="460.0" />
-                        <TextField fx:id="TextFieldCourseDescription" editable="false" layoutX="390.0" layoutY="56.0" prefHeight="25.0" prefWidth="462.0" />
-                        <TextField fx:id="TextFieldNumCredits" editable="false" layoutX="390.0" layoutY="87.0" />
+                        <Label fx:id="LabelCourseTitle" layoutX="27.0" layoutY="19.0" text="Course Title" />
+                        <Label fx:id="LabelCourseDescription" layoutX="27.0" layoutY="48.0" text="Course Description" />
+                        <Label fx:id="LabelNumCredits" layoutX="29.0" layoutY="79.0" text="Number of Credits" />
+                        <TextField fx:id="TextFieldCourseTitle" editable="false" layoutX="153.0" layoutY="15.0" prefHeight="25.0" prefWidth="394.0" />
+                        <TextField fx:id="TextFieldCourseDescription" editable="false" layoutX="153.0" layoutY="44.0" prefHeight="8.0" prefWidth="394.0" />
+                        <TextField fx:id="TextFieldNumCredits" editable="false" layoutX="152.0" layoutY="75.0" prefHeight="25.0" prefWidth="391.0" />
+                        <Label fx:id="labelInstructorName" layoutX="27.0" layoutY="112.0" text="Instructor" />
+                        <TextField fx:id="textFieldInstructor" editable="false" layoutX="152.0" layoutY="108.0" prefHeight="25.0" prefWidth="391.0" />
+                        <Label fx:id="labelRoomNumber" layoutX="29.0" layoutY="142.0" text="Room Number" />
+                        <TextField fx:id="textFieldRoomNumber" editable="false" layoutX="152.0" layoutY="138.0" prefHeight="25.0" prefWidth="389.0" />
+                        <Label fx:id="labelAddress" layoutX="29.0" layoutY="171.0" text="Address" />
+                        <TextField fx:id="textFieldAddress" editable="false" layoutX="153.0" layoutY="167.0" prefHeight="25.0" prefWidth="388.0" />
+                        <TextField fx:id="textFieldSchedule" editable="false" layoutX="154.0" layoutY="193.0" prefHeight="25.0" prefWidth="386.0" />
+                        <Label fx:id="labelSchedule" layoutX="27.0" layoutY="205.0" text="Schedule" />
                      </children>
                   </AnchorPane>
             </content>
                <padding>
-                  <Insets left="20.0" />
+                  <Insets left="60.0" />
                </padding>
           </TitledPane>
-        </panes>
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
-      </Accordion>
+         </children>
+      </HBox>
    </center>
 </BorderPane>

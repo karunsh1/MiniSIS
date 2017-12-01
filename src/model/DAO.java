@@ -237,7 +237,7 @@ public class DAO {
 
 	public ResultSet CourseInfo(int course_code,String term, String program,String level) {
 		String sql = null;
-		
+
 		sql = "SELECT *,concat(first_name, \" \", last_name) as instructor_name, course.program, course.title, course_details.id as course_details_id ,course.course_code,course.description,course.level, course.units,course_details.id as course_details_id,term_info.term from course join course_details on course.id \r\n" + 
 				"		=course_details.course_id inner join \r\n" + 
 				"				term_info on  course_details.term_id= term_info.id join instructor on instructor.id"
@@ -298,7 +298,7 @@ public class DAO {
 					System.out.println(courseDetailIdsList.get(i));
 					System.out.println(courseDetailIdsList.size());
 				}
-				
+
 
 			}
 
@@ -309,13 +309,16 @@ public class DAO {
 		//System.out.println("size in DAO course--------" +courseDetailIdsList.size());
 		return courseDetailIdsList;
 	}
-
+	
+	
+	
 	boolean alreadyExists;
 	boolean alreadyThree;
 	boolean sameProgram;
-    boolean availibility;
-    boolean feePaid;
-	public boolean addCourse(String studentId,int term_id,String course_details_id,String userType, String program) {
+	boolean availibility;
+	boolean feePaid;
+	boolean scheduleConflict;
+	public boolean addCourse(String studentId,int term_id,String course_details_id,String userType, String program, String level, Integer courseId) {
 
 		System.out.println("in getCourseIdlist");
 		MySQLAccess obj = new MySQLAccess();
@@ -323,7 +326,6 @@ public class DAO {
 		int studentID = Integer.parseInt(studentId)	;	
 		int termId = term_id;
 		SearchCourseController2 getCourseDetailId=new SearchCourseController2();
-		//String course_details_id = getCourseDetailId.search();
 		String course_id = null;
 		ArrayList enrollCourseList = null;
 		String sqlQuery = "";
@@ -332,6 +334,7 @@ public class DAO {
 		sameProgram=false;
 		availibility=false;
 		feePaid=false;
+		scheduleConflict=false;
 		try {
 
 			sqlQuery = "SELECT * ,CONCAT(instructor.first_name,' ',instructor.last_name) as instructor, course.id as course_id from  registration join course_details on  course_details.id=registration.course_details_id join" +
@@ -366,8 +369,6 @@ public class DAO {
 				//System.out.println(courseDetailIdsList.size());
 			}
 			System.out.println("in addcourse-----------------");
-			//courseDetailIdsList=getCourseDetailIds(Integer.parseInt(studentId),term_id);
-			//System.out.println("The number of elements is : " + courseDetailIdsList == null ? 0 : courseDetailIdsList.size());
 			for(int i=0;i<courseDetailIdsList.size();i++)
 			{  System.out.println("course details id for chk" +course_details_id);
 			if(courseDetailIdsList.get(i).equals(course_details_id)&& courseDetailIdsList!=null ){
@@ -376,14 +377,36 @@ public class DAO {
 				//break;
 			}
 			}
+			ArrayList schedules=getAlreadyEnrolledSchedule(studentID, termId);
+			ArrayList scheduleCourse=getSearchSchedule(level, term_id,program,courseId);
+			System.out.println("--------schedule comparison---------");
+			for(int i=0;i<schedules.size();i++) {
+				System.out.println("schedules "+ schedules.get(i));
+			}
+			for(int j=0;j<scheduleCourse.size();j++) {
+				System.out.println("schedule course"+scheduleCourse.get(j));
+			}
+			for(int i=0;i<schedules.size();i++)
+			{
+				for(int j=0;j<scheduleCourse.size();j++) {
+					
+					
+					if(schedules.get(i).equals(scheduleCourse.get(j))) {
+						
+						scheduleConflict=true;
+						break;
+					}
+				}
+			}
+			System.out.println("schedule conflict"+scheduleConflict);
 			int class_availability=getClassAvailability(course_details_id);
 			if(getClassAvailability(course_details_id)>0)
 				availibility=true;
 			if(count_courses==3)
 				alreadyThree=true;
 			System.out.println("fee from get function "+getDuePayment(term_id,studentId));
-            if(getDuePayment(term_id,studentId)==0.0)
-            		feePaid=true;
+			if(getDuePayment(term_id,studentId)==0.0)
+				feePaid=true;
 			String sql = null;
 			String sql1 = null;
 			String sql2 = null;
@@ -393,6 +416,14 @@ public class DAO {
 				alert.setTitle("Information Dialog");
 				alert.setHeaderText("Course Registeration");
 				alert.setContentText("You have already registered in this course:))");	
+				alert.showAndWait();
+			}
+			if(scheduleConflict==true) {
+				System.out.println("in schedule conflict true");
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Information Dialog");
+				alert.setHeaderText("Course Registeration");
+				alert.setContentText("Cannot register ::You have a conflict with another course");	
 				alert.showAndWait();
 			}
 			System.out.println("same program" +sameProgram);
@@ -436,7 +467,7 @@ public class DAO {
 
 				sql1="INSERT INTO grade (course_id, student_id, term_id)"
 						+"VALUES ("+"\""+  course_id  +"\""+","+ "\""+ studentId+"\""+","+ "\""+ termId+"\""+")";
-				
+
 				sql2="update course_details set class_availability="+ "\""+(class_availability-1)  + "\""+  "where id=" + "\""+course_details_id  + "\"";
 				PreparedStatement ps = conn.prepareStatement(sql);
 				PreparedStatement ps1 = conn.prepareStatement(sql1);
@@ -450,7 +481,7 @@ public class DAO {
 				return true; }
 
 
-			
+
 
 		}
 
@@ -458,14 +489,14 @@ public class DAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        catch(NullPointerException ex) {
-        	ex.printStackTrace();
-        }
+		catch(NullPointerException ex) {
+			ex.printStackTrace();
+		}
 		return false;
 
 	}
-	
-	
+
+
 
 	private String getSubjectCode(String studentId) {
 		String subject_code=null;
@@ -479,20 +510,20 @@ public class DAO {
 		try {
 			PreparedStatement courselist = conn.prepareStatement(sql);
 			result = courselist.executeQuery();
-            while(result.next())
-            {
-             subject_code = result.getString("subject_code");
-            }
-            	
+			while(result.next())
+			{
+				subject_code = result.getString("subject_code");
+			}
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        System.out.println("payment due"+subject_code);
+		System.out.println("payment due"+subject_code);
 		return subject_code;
-		
+
 	}
-	
+
 	public boolean waiveOffCourse(String studentId,String course_code,String program) {
 		boolean doneWaiveOff=false;
 		String sql = null;
@@ -505,12 +536,12 @@ public class DAO {
 			PreparedStatement courselist = conn.prepareStatement(sql);
 			result = courselist.executeQuery();
 			doneWaiveOff=true;
-            	
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return doneWaiveOff;
-		
+
 	}
 
 	public boolean dropCourse(String studentId,String course_details_id) {
@@ -522,9 +553,9 @@ public class DAO {
 		String course_id=getCourseId(course_details_id).toString();
 		sql =sql ="INSERT INTO registration (student_id, course_details_id, status) \r\n" + 
 				"VALUES ("+"\""+ studentId+"\""+","+ "\""+ course_details_id+"\""+","+ "\""+ dropped+"\""+") ON DUPLICATE KEY UPDATE status ="+"\""+ dropped+"\"";
-		
+
 		sql1="DELETE FROM grade where course_id="+"\""+  course_id  +"\"";
-		
+
 		sql2="update course_details set class_availability="+ "\""+(class_availability+1)  + "\""+  "where id=" + "\""+course_details_id  + "\"";
 		System.out.println(sql);
 		System.out.println(sql1);
@@ -654,17 +685,17 @@ public class DAO {
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			result = ps.executeQuery();
-            while(result.next())
-            {
-            	amount_due=Double.parseDouble(result.getString("amount_due"));
-            	System.out.println("amount due in next loop"+amount_due);
-            }
-            	
+			while(result.next())
+			{
+				amount_due=Double.parseDouble(result.getString("amount_due"));
+				System.out.println("amount due in next loop"+amount_due);
+			}
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        System.out.println("payment due in DAO"+amount_due);
+		System.out.println("payment due in DAO"+amount_due);
 		return amount_due;
 
 	}
@@ -674,50 +705,50 @@ public class DAO {
 		int class_availability = 0;
 		ArrayList courseList = new ArrayList();
 		sql="select class_availability from course_details where id="+"\""+course_details_id  + "\""; 
-        System.out.println(sql);
+		System.out.println(sql);
 		MySQLAccess obj = new MySQLAccess();
 		Connection conn = obj.getConnection();
 		ResultSet result = null;
 		try {
 			PreparedStatement courselist = conn.prepareStatement(sql);
 			result = courselist.executeQuery();
-            while(result.next())
-            {
-            	class_availability=Integer.parseInt(result.getString("class_availability"));
-            }
-            
+			while(result.next())
+			{
+				class_availability=Integer.parseInt(result.getString("class_availability"));
+			}
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return class_availability;
-		
+
 
 	}
-	
+
 	public String getCourseId(String course_details_id) {
 		String sql = null;
 		String course_id = null;
 		ArrayList courseList = new ArrayList();
 		sql="select *,course_details.id as course_details_id from course join course_details on course.id=course_details.course_id where course_details.id="+"\""+course_details_id  + "\""; 
-        System.out.println(sql);
+		System.out.println(sql);
 		MySQLAccess obj = new MySQLAccess();
 		Connection conn = obj.getConnection();
 		ResultSet result = null;
 		try {
 			PreparedStatement courselist = conn.prepareStatement(sql);
 			result = courselist.executeQuery();
-            while(result.next())
-            {
-            	course_id=result.getString("course_id");
-            }
-            
+			while(result.next())
+			{
+				course_id=result.getString("course_id");
+			}
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return course_id;
-		
+
 
 	}
 	public boolean setPaymentDetails(String term, String StudentID, String AmountDue) {
@@ -788,17 +819,17 @@ public class DAO {
 			PreparedStatement courselist = conn.prepareStatement(sql);
 			result = courselist.executeQuery();
 			if(result.next()) {
-			while (result.next()) {
+				while (result.next()) {
 
 					courseList.add(result.getString("course_code"));
-					
-			}
-			waiveOffExists=true;
+
+				}
+				waiveOffExists=true;
 			}
 			else {
 				waiveOffExists=false;
 			}
-			
+
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -807,7 +838,7 @@ public class DAO {
 		return waiveOffExists;
 
 	}
-	
+
 	public ArrayList courseForWaiveOff(String studenId) {
 		String sql = null;
 		ResultSet result=null;
@@ -821,15 +852,15 @@ public class DAO {
 			PreparedStatement courselist = conn.prepareStatement(sql);
 			result = courselist.executeQuery();
 			if(result.next()) {
-			while (result.next()) {
+				while (result.next()) {
 
 					courseList.add(result.getString("course_code"));
-			}
+				}
 			}
 			else {
-				
+
 			}
-			
+
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -841,9 +872,9 @@ public class DAO {
 	public String courseForWaiveOffProgram(String studenId) {
 		String sql = null;
 		ResultSet result=null;
-	String program=null;
-	sql="SELECT * FROM pre_requisite join course on course.program=pre_requisite.program "
-			+" WHERE student_id ="+ "\""+ studenId +"\"";
+		String program=null;
+		sql="SELECT * FROM pre_requisite join course on course.program=pre_requisite.program "
+				+" WHERE student_id ="+ "\""+ studenId +"\"";
 		System.out.println(sql);
 		MySQLAccess obj = new MySQLAccess();
 		Connection conn = obj.getConnection();
@@ -851,13 +882,13 @@ public class DAO {
 			PreparedStatement courselist = conn.prepareStatement(sql);
 			result = courselist.executeQuery();
 			if(result.next()) {
-			while (result.next()) {
-				for (int i = 1; i <= 1; i++) {
+				while (result.next()) {
+					for (int i = 1; i <= 1; i++) {
 
-					program=result.getString("program");
-					;
+						program=result.getString("program");
+						;
+					}
 				}
-			}
 			}
 			else {
 				Alert alert = new Alert(AlertType.INFORMATION);
@@ -875,7 +906,7 @@ public class DAO {
 		return program;
 
 	}
-	
+
 	/**
 	 * 
 	 * @param term_id
@@ -1353,6 +1384,113 @@ public class DAO {
 			System.err.println(e.getMessage());
 		}
 		return dataobSchedule;
+	}
+
+
+
+	public ArrayList<String> getAlreadyEnrolledSchedule(int studentID, int termID) {	
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = null;
+		conn = obj.getConnection();
+		int studentId = studentID;		
+		int termId = termID;
+		
+		ArrayList<String> schedules=new ArrayList<String>();
+		String day;
+		String start_time;
+		String end_time;
+
+		System.out.println(studentId);
+		System.out.println(termId);
+
+		ArrayList enrollCourseList = null;
+		String sqlQuery = "";
+		String enrolled="enrolled";
+		try {
+
+			sqlQuery =	"select *, CONCAT(program ,course_code) as full_course_name, full_name as building_name from course_schedule join course_details on course_schedule.course_detail_id=course_details.id"+
+					" join schedule on schedule.id=course_schedule.schedule_id join course on course.id=course_details.course_id "+
+					" join room on room.id=course_details.room_id join term_info on term_info.id=course_details.term_id join registration on course_details.id=registration.course_details_id join student"+
+					" on student.id=registration.student_id join building on building.id=room.building_id where  student_id="+"\""+studentId +"\""+"and status="+"\""+enrolled+"\""+ "and term_id="+"\""+termId+"\"";
+
+			System.out.println(sqlQuery);
+			PreparedStatement scheduleList = conn.prepareStatement(sqlQuery);
+
+
+
+			ResultSet result = scheduleList.executeQuery();
+			while (result.next()) {
+				StringBuilder schedule=new StringBuilder();
+				day=result.getString("day");
+				System.out.println(result.getString("day"));
+				start_time=result.getString("start_time");	
+				System.out.println(result.getString("start_time"));
+				end_time=result.getString("end_time");
+				System.out.println(result.getString("end_time"));
+                schedule.append(day).append(" ").append(start_time).append(" ").append(end_time);
+                schedules.add(schedule.toString());
+			}
+			System.out.println("------------schedule------------------");
+			for(int i=0;i<schedules.size();i++)
+				System.out.println(schedules.get(i));
+
+		} catch (Exception e) {
+			System.out.println("Something went wrong. Please contact system admin.");
+			System.err.println(e.getMessage());
+		}
+		return schedules;
+	}
+	
+	public ArrayList<String> getSearchSchedule(String level, int termID,String program,int courseId) {	
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = null;
+		conn = obj.getConnection();
+		ArrayList<String> schedules=new ArrayList<String>();
+		String day;
+		String start_time;
+		String end_time;
+
+		ArrayList enrollCourseList = null;
+		String sqlQuery = "";
+
+		try {
+
+			sqlQuery =	"SELECT *\r\n" + 
+					"FROM course \r\n" + 
+					"JOIN course_details \r\n" + 
+					"ON course.id = course_details.course_id \r\n" + 
+					"JOIN course_schedule ON course_schedule.course_detail_id=course_details.id\r\n" + 
+					"join schedule on schedule.id=course_schedule.schedule_id\r\n" + 
+					"WHERE course_details.term_id =\r\n"  +"\""+termID +"\""+
+					"AND level = " +"\""+level +"\""+"AND program ="+"\""+program +"\"" +" and course_code="+ "\""+courseId +"\"";
+
+			System.out.println(sqlQuery);
+			PreparedStatement scheduleList = conn.prepareStatement(sqlQuery);
+			System.out.println("-----check----------");
+            System.out.println("course_code"+ courseId);
+
+
+			ResultSet result = scheduleList.executeQuery();
+			while (result.next()) {
+				StringBuilder schedule=new StringBuilder();
+				day=result.getString("day");
+				System.out.println(result.getString("day"));
+				start_time=result.getString("start_time");	
+				System.out.println(result.getString("start_time"));
+				end_time=result.getString("end_time");
+				System.out.println(result.getString("end_time"));
+                schedule.append(day).append(" ").append(start_time).append(" ").append(end_time);
+                schedules.add(schedule.toString());
+			}
+			System.out.println("------------schedule of course------------------");
+			for(int i=0;i<schedules.size();i++)
+				System.out.println(schedules.get(i));
+
+		} catch (Exception e) {
+			System.out.println("Something went wrong. Please contact system admin.");
+			System.err.println(e.getMessage());
+		}
+		return schedules;
 	}
 }
 
