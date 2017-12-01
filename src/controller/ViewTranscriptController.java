@@ -163,6 +163,7 @@ public class ViewTranscriptController extends StackPane implements Initializable
 
 			} else {
 				lblErrorTranscript.setText("Sorry!,No record is avaiable!");
+				hBoxSearchStudent.visibleProperty().set(false);
 			}
 
 		} else {
