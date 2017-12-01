@@ -2,6 +2,7 @@ package model;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -24,14 +25,14 @@ public class ViewCGPAModel {
 		DAO accessData = new DAO();
 		ArrayList<Float> listGPA = new ArrayList<Float>();
 		listGPA = accessData.getStudentGPA(studentID);
-		
+
 		int i = 0;
 		Iterator<Float> itratorGPA = listGPA.iterator();
 		System.out.println("total gpa single  " + listGPA);
 
 		while (itratorGPA.hasNext()) {
 			studentCGPA = studentCGPA + itratorGPA.next();
-			//System.out.println("total gpa single  " + itratorGPA.next());
+			// System.out.println("total gpa single " + itratorGPA.next());
 
 		}
 
@@ -42,29 +43,40 @@ public class ViewCGPAModel {
 		return studentCGPA;
 
 	}
-	public Float getCGPAPreRequisite(int studentID) {
+
+	public String getCGPAPreRequisite(int studentID) {
 
 		Float studentCGPA = 0f;
+		String CGPAwithNull = "";
 
 		DAO accessData = new DAO();
-		ArrayList<Float> listGPA = new ArrayList<Float>();
+		ArrayList<String> listGPA = new ArrayList<String>();
 		listGPA = accessData.getStudentGPAofPrerequisite(studentID);
-		
-		int i = 0;
-		Iterator<Float> itratorGPA = listGPA.iterator();
-		System.out.println("total gpa single  " + listGPA);
+		int count = accessData.studentGPAofPrerequisiteStatus(studentID);
+		System.out.println("count        "+count);
+		if (count <1) {
+			for (String gpa : listGPA) {
+				if (gpa.equals(null)) {
+					CGPAwithNull = studentCGPA + "-NA";
+				} else {
+					float studentCGPA1 = Float.parseFloat(gpa);
+					studentCGPA = studentCGPA1 + studentCGPA;
+				}
+			}
+			float totalGPA = studentCGPA / listGPA.size();
 
-		while (itratorGPA.hasNext()) {
-			studentCGPA = studentCGPA + itratorGPA.next();
-			//System.out.println("total gpa single  " + itratorGPA.next());
+			if (CGPAwithNull.contains("NA")) {
+				CGPAwithNull = "Prequisite Course is Pending";
+			} else {
+				DecimalFormat df = new DecimalFormat("###.#");
+				CGPAwithNull = String.valueOf(df.format(totalGPA));
 
+			}
+		}else{
+			CGPAwithNull = "Prequisite Course is Pending";
 		}
 
-		studentCGPA = studentCGPA / listGPA.size();
-
-		System.out.println("total gpa" + listGPA.size());
-
-		return studentCGPA;
+		return CGPAwithNull;
 
 	}
 

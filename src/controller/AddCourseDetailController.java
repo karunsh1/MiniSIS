@@ -62,6 +62,10 @@ public class AddCourseDetailController implements Initializable{
 	@FXML
 	private void selectTerm(){
 		selectTermName = cbTerm.getSelectionModel().getSelectedItem();
+		ObservableList<Integer> obDurationList = FXCollections.observableArrayList();
+		obDurationList.add(6);
+		obDurationList.add(13);
+		cbDuration.setItems(obDurationList);
 		
 	}
 	@FXML
@@ -123,10 +127,7 @@ public class AddCourseDetailController implements Initializable{
 		ObservableList<String> obBuidlingNamelist = FXCollections.observableArrayList(buidlingNamelist);
 		cbBuildingName.setItems(obBuidlingNamelist);
 		
-		ObservableList<Integer> obDurationList = FXCollections.observableArrayList();
-		obDurationList.add(6);
-		obDurationList.add(13);
-		cbDuration.setItems(obDurationList);
+		
 		
 	}
 	private void reset(){

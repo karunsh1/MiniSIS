@@ -30,6 +30,7 @@
                     <MenuItem fx:id="menuitemSearchCourse" mnemonicParsing="false" onAction="#onSearchCourse" text="Add Course" />
                         <MenuItem fx:id="MenuItemDropCourse" mnemonicParsing="false" onAction="#onDropCourse" text="Drop Course" />
                         <MenuItem fx:id="mItemCourseDetail" mnemonicParsing="false" onAction="#onAddCourseDetail" text="Add Course Detail" visible="false" />
+                        <MenuItem fx:id="mItemPreRequisite" mnemonicParsing="false" onAction="#onAddPreReqisiteCourseDetail" text="Add Pre-Requisite Course Detail" visible="false" />
                   </items>
                 </Menu>
                 <Menu fx:id="mResult" mnemonicParsing="false" text="Result">

@@ -23,6 +23,7 @@ import DTO.Student;
 import javafx.collections.ObservableList;
 import model.DAO;
 import model.ViewCGPAModel;
+import java.util.Random;
 
 public class PdfTranscript {
 
@@ -40,10 +41,10 @@ public class PdfTranscript {
 		bdCGPA = bdCGPA.setScale(1, BigDecimal.ROUND_HALF_UP);
 		String cGPA = bdCGPA.toString();
 		
-		float floatCgpaPreRqusite = getCGPAModel.getCGPAPreRequisite(studentID);
-		BigDecimal bdCGPAPreRqusite = new BigDecimal(Float.toString(floatCgpaPreRqusite));
-		bdCGPAPreRqusite = bdCGPAPreRqusite.setScale(1, BigDecimal.ROUND_HALF_UP);
-		String cGPAPreRqusite = bdCGPAPreRqusite.toString();
+		String floatCgpaPreRqusite = getCGPAModel.getCGPAPreRequisite(studentID);
+		System.out.println("floatCgpaPreRqusite   "+floatCgpaPreRqusite);
+		
+		
 		
 		String CareerName = (studentInfo.getCareer_Name().equals("G") ? "Graduate" : "Under Graduate");
 
@@ -106,7 +107,7 @@ public class PdfTranscript {
 		cell = new PdfPCell(new Phrase("CGPA for Pre-Rquisite courses"));
 		cell.setBackgroundColor(new BaseColor(20).LIGHT_GRAY);
 		table.addCell(cell);
-		cell = new PdfPCell(new Phrase(cGPAPreRqusite));
+		cell = new PdfPCell(new Phrase(floatCgpaPreRqusite));
 		table.addCell(cell);
 		
 		
@@ -206,16 +207,22 @@ public class PdfTranscript {
 		bdCGPA = bdCGPA.setScale(1, BigDecimal.ROUND_HALF_UP);
 		String cGPA = bdCGPA.toString();
 		
-		float floatCgpaPreRqusite = getCGPAModel.getCGPAPreRequisite(studentID);
-		BigDecimal bdCGPAPreRqusite = new BigDecimal(Float.toString(floatCgpaPreRqusite));
-		bdCGPAPreRqusite = bdCGPAPreRqusite.setScale(1, BigDecimal.ROUND_HALF_UP);
-		String cGPAPreRqusite = bdCGPAPreRqusite.toString();
+		String floatCgpaPreRqusite = getCGPAModel.getCGPAPreRequisite(studentID);
+		
+		if(floatCgpaPreRqusite.isEmpty())
+		{
+			System.out.println("floatCgpaPreRqusite   "+floatCgpaPreRqusite.length());
+		}
+		
+		
 		
 		String CareerName = (studentInfo.getCareer_Name().equals("G") ? "Graduate" : "Under Graduate");
 
 		Document document = new Document(PageSize.A4, 20, 20, 20, 20);
+		Random rand = new Random();
+		int  n = rand.nextInt(50) + 1;
 
-		File path = new File("results/Transcript.pdf");
+		File path = new File("results/Transcript"+n+".pdf");
 		FileOutputStream outfile = new FileOutputStream(path);
 		PdfWriter.getInstance(document, outfile);
 		document.open();
@@ -273,7 +280,7 @@ public class PdfTranscript {
 		cell = new PdfPCell(new Phrase("CGPA for Pre-Rquisite courses"));
 		cell.setBackgroundColor(new BaseColor(20).LIGHT_GRAY);
 		table.addCell(cell);
-		cell = new PdfPCell(new Phrase(cGPAPreRqusite));
+		cell = new PdfPCell(new Phrase(floatCgpaPreRqusite));
 		table.addCell(cell);
 		document.add(table);
 

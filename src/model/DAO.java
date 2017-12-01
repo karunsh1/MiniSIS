@@ -802,7 +802,7 @@ public class DAO {
 	 * @param courseCode
 	 * @param courseTitle
 	 */
-	
+
 	public boolean exportCSVStudent_Inst_uploadGrades(File file, String instructorID, String term, String dept,
 			String courseCode, String courseTitle) {
 
@@ -929,8 +929,8 @@ public class DAO {
 		Connection conn = obj.getConnection();
 		sql = "SELECT gpa FROM grade where student_id = " + studentID + " and gpa is not NULL and  course_id  not in("
 				+ "select course_id from minisis.course_details where course_id in(select id from minisis.course where course_code in("
-				+ "select course_code  from minisis.pre_requisite  where student_id = " + studentID + " and program in ("
-				+ "select subject_code from minisis.subject ))))";
+				+ "select course_code  from minisis.pre_requisite  where student_id = " + studentID
+				+ " and program in (" + "select subject_code from minisis.subject ))))";
 
 		try {
 			PreparedStatement gpaStatement = conn.prepareStatement(sql);
@@ -946,24 +946,24 @@ public class DAO {
 
 		return gpalist;
 	}
-	
-	public ArrayList<Float> getStudentGPAofPrerequisite(int studentID) {
-		ArrayList<Float> gpalist = new ArrayList<Float>();
+
+	public ArrayList<String> getStudentGPAofPrerequisite(int studentID) {
+		ArrayList<String> gpalist = new ArrayList<String>();
 		String sql = "";
 
 		MySQLAccess obj = new MySQLAccess();
 		Connection conn = obj.getConnection();
-		
-		sql = "SELECT gpa FROM grade where student_id = " + studentID + " and gpa is not NULL and  course_id in("
-				+ "select course_id from minisis.course_details where course_id in(select id from minisis.course where course_code in("
-				+ "select course_code  from minisis.pre_requisite  where student_id = " + studentID + " and program in ("
-				+ "select subject_code from minisis.subject ))))";
+
+		sql = "SELECT gpa FROM grade where student_id = " + studentID + "  and  course_id in("
+				+ "select course_id from course_details where course_id in(select id from course where course_code in("
+				+ "select course_code  from pre_requisite  where student_id = " + studentID + " and program in ("
+				+ "select subject_code from subject ))))";
 
 		try {
 			PreparedStatement gpaStatement = conn.prepareStatement(sql);
 			ResultSet result = gpaStatement.executeQuery();
 			while (result.next()) {
-				gpalist.add(result.getFloat("gpa"));
+				gpalist.add(result.getString("gpa"));
 			}
 
 		} catch (SQLException e) {
@@ -972,6 +972,35 @@ public class DAO {
 		}
 
 		return gpalist;
+	}
+
+	public int studentGPAofPrerequisiteStatus(int studentID) {
+
+		String sql = "";
+		int count = -1;
+
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = obj.getConnection();
+
+		sql = "SELECT count(course_id) as count FROM grade where student_id = " + studentID + "  and  course_id in("
+				+ "select course_id from course_details where course_id in(select id from course where course_code in("
+				+ "select course_code  from pre_requisite  where student_id = " + studentID + " and program in ("
+				+ "select subject_code from subject ))))";
+
+		try {
+			PreparedStatement gpaStatement = conn.prepareStatement(sql);
+			ResultSet result = gpaStatement.executeQuery();
+			while (result.next()) {
+				count = result.getInt("count");
+
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return count;
 	}
 
 	/**
@@ -1673,6 +1702,69 @@ public class DAO {
 				addStatus = false;
 			}
 
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return addStatus;
+
+	}
+
+	public boolean addPreRequisiteCourseDetails(String courseCode, String programName, int studentID) {
+
+		boolean addStatus = false;
+		String sql = "";
+
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = null;
+		conn = obj.getConnection();
+
+		sql = "INSERT INTO `pre_requisite` (`student_id`, `program`, `course_code`) VALUES ('" + studentID + "', '"
+				+ programName + "', '" + courseCode + "')";
+
+		Statement addPreRequisiteDetail;
+		if (isUniqePreRequisiteRecord(courseCode, programName, studentID)) {
+
+			try {
+				addPreRequisiteDetail = conn.createStatement();
+				int result = addPreRequisiteDetail.executeUpdate(sql);
+				if (result == 1) {
+					addStatus = true;
+				} else {
+					addStatus = false;
+				}
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			addStatus = false;
+		}
+
+		return addStatus;
+
+	}
+
+	public boolean isUniqePreRequisiteRecord(String courseCode, String programName, int studentID) {
+
+		boolean addStatus = true;
+		String sql = "";
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = null;
+		conn = obj.getConnection();
+		sql = "select * from pre_requisite where student_id = '" + studentID + "' and program = '" + programName
+				+ "' and course_code = '" + courseCode + "'";
+
+		try {
+			PreparedStatement psemailvalid = conn.prepareStatement(sql);
+			ResultSet result = psemailvalid.executeQuery();
+			System.out.println(psemailvalid);
+
+			while (result.next()) {
+				addStatus = false;
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
