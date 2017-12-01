@@ -1,9 +1,15 @@
 
+
 package controller;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.itextpdf.text.DocumentException;
+
 import DTO.Users;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -16,6 +22,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import util.PdfTranscript;
 import util.Singleton;
 import javafx.event.ActionEvent;
 
@@ -55,6 +62,7 @@ public class MenuBarController implements Initializable {
 	private MenuItem menuitemSearchCourse, mItemLogout, mItemViewGrade, mItemResetPassword, mItemAddTermDetail;
 	@FXML
 	private Menu mResult, mCourseDetail;
+    @FXML MenuItem menuItemWaiveOffPreRequisite;
 
 	@FXML
 	private void clcikOnMItemAddTermDetail() {
@@ -152,6 +160,9 @@ public class MenuBarController implements Initializable {
 	private void clickOnViewTranscript() {
 		showItemPane.getChildren().clear();
 		BorderPane newLoadedPane = null;
+		// if (!mItemViewCGPA.isDisable()) {
+
+
 
 		try {
 			newLoadedPane = FXMLLoader.load(getClass().getResource("/view/ViewTranscript.fxml"));
@@ -177,6 +188,7 @@ public class MenuBarController implements Initializable {
 			e.printStackTrace();
 		}
 
+		
 		showItemPane.getChildren().add(newLoadedPane);
 		// mItemViewCGPA.disableProperty().set(true);
 
@@ -258,6 +270,7 @@ public class MenuBarController implements Initializable {
 		onViewProfile();
 		mMenuPayFee.visibleProperty().set(true);
 		mViewSchedule.visibleProperty().set(true);
+		menuItemWaiveOffPreRequisite.setVisible(false);
 		String userType = null;
 
 		userType = Singleton.getInstance().getUserType().getText();
@@ -286,9 +299,14 @@ public class MenuBarController implements Initializable {
 			mItemAddTermDetail.visibleProperty().set(true);
 			mItemCourseDetail.visibleProperty().set(true);
 		}
-
+		if (userType.equals("4")) {
+			addGrades.visibleProperty().set(true);
+			mCourseDetail.visibleProperty().set(false);
+			mResult.visibleProperty().set(false);
+			menuItemWaiveOffPreRequisite.setVisible(true);
+			
+		}
 	}
-	
 	@FXML
 	private void onAddCourseDetail(){
 		showItemPane.getChildren().clear();
@@ -302,7 +320,6 @@ public class MenuBarController implements Initializable {
 		}
 
 	}
-
 	@FXML
 	public void OnClickPay(ActionEvent event) {
 		showItemPane.getChildren().clear();
@@ -319,8 +336,7 @@ public class MenuBarController implements Initializable {
 		showItemPane.getChildren().add(newLoadedPane);
 	}
 
-	@FXML
-	public void onViewSchedule(ActionEvent event) {
+	@FXML public void onViewSchedule(ActionEvent event) {
 		showItemPane.getChildren().clear();
 		BorderPane newLoadedPane = null;
 
@@ -334,4 +350,17 @@ public class MenuBarController implements Initializable {
 		showItemPane.getChildren().add(newLoadedPane);
 	}
 
+	@FXML public void onWaiveOffCourse(ActionEvent event) {
+	showItemPane.getChildren().clear();
+	BorderPane newLoadedPane = null;
+
+	try {
+		newLoadedPane = FXMLLoader.load(getClass().getResource("/view/WaiveOffCourse.fxml"));
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+
+	showItemPane.getChildren().add(newLoadedPane);
+}
 }

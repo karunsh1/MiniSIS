@@ -1,2 +1,5 @@
-/util/
 /controller/
+/database/
+/model/
+/test/
+/util/
