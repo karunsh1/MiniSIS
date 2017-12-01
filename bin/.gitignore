@@ -1,4 +1,10 @@
-/util/
 /controller/
+<<<<<<< HEAD
 /model/
+=======
+/database/
+/model/
+/test/
+/util/
+>>>>>>> 05bd93c47e0ac2cbd322dab9d113c25def840af4
 /view/

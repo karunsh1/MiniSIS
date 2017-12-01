@@ -56,6 +56,7 @@ import javafx.scene.control.Label;
 public class SearchCourseController2 implements Initializable
 {   String userType ;
     String studentID;
+    
 	private TextField ErrorMsgField;
 	//private TableView<Course> searchCourseTableView;
 	ArrayList courseListArray;
@@ -69,7 +70,6 @@ public class SearchCourseController2 implements Initializable
 	private ComboBox<String> LevelCombobox;
 	@FXML
 	private ComboBox<String> CourseIdComboBox;
-
 	@FXML
 	private ComboBox<String> termComboBox;
 
@@ -95,6 +95,15 @@ public class SearchCourseController2 implements Initializable
 	@FXML TextField TextFieldCourseDescription;
     @FXML TextField TextFieldNumCredits;
     @FXML TextField studentIdTextField;
+	@FXML Label labelInstructorName;
+	@FXML TextField textFieldInstructor;
+	@FXML Label labelRoomNumber;
+	@FXML TextField textFieldRoomNumber;
+	@FXML Label labelAddress;
+	@FXML TextField textFieldAddress;
+	@FXML TextField textFieldSchedule;
+	@FXML Label labelSchedule;
+	@FXML Button resetButton;
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb)
@@ -150,18 +159,18 @@ public class SearchCourseController2 implements Initializable
 			@Override
 			public void changed(ObservableValue<? extends String> ov, String t, String t1)
 			{   
-				int intermediate_term_id=termComboBox.getSelectionModel().getSelectedIndex();//0-Fall, 1-Winter
-                term_id=intermediate_term_id+1;
-		        if(term_id==1)
-		        	termDisplay="Fall 2016";
-		        else if(term_id==2)
-		        	termDisplay="Winter 2017";
+				termDisplay=termComboBox.getSelectionModel().getSelectedItem();//0-Fall, 1-Winter
+                term_id=dataAccess.getTermId(termDisplay);
+//		        if(term_id==1)
+//		        	termDisplay="Fall 2016";
+//		        else if(term_id==2)
+//		        	termDisplay="Winter 2017";
 				LevelCombobox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
 				{
 					@Override
 					public void changed(ObservableValue<? extends String> ov, String t, String t1)
 					{
-						level=LevelCombobox.getValue();
+						level=(LevelCombobox.getValue().equals("Graduate")?"G":"UG");
 						System.out.println(level);
 					    levelDisplay=level;
 					    ComboboxProgram.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
@@ -174,6 +183,16 @@ public class SearchCourseController2 implements Initializable
 							    programDisplay=program;
 							    
 				      courseListArray = dataAccess.courseList(term_id,level,program);
+				      System.out.println("course list empty"+courseListArray.isEmpty());
+//				      if(courseListArray.isEmpty())
+//				      { Alert alert = new Alert(AlertType.INFORMATION);
+//						alert.setTitle("Information Dialog");
+//						alert.setHeaderText("Course Registeration");
+//						
+//						alert.setContentText("No course matches search criteria.Please try to use other criteria");
+//					
+//				    	  clearAll();
+//				      }
 				      System.out.println(courseListArray);
 					ObservableList courselist = FXCollections.observableArrayList(courseListArray);
 					System.out.println(courselist);
@@ -223,7 +242,7 @@ public class SearchCourseController2 implements Initializable
 					String course_details_id=rs.getString("course_details_id");
 					Integer term_id=Integer.parseInt(rs.getString("term_id"));
 					String program=rs.getString("term_id");
-					Boolean success=dataAccess.addCourse(studentID,term_id,course_details_id,userType,program);
+					Boolean success=dataAccess.addCourse(studentID,term_id,course_details_id,userType,program,levelDisplay,courseIdDisplay);
 					Alert alert = new Alert(AlertType.INFORMATION);
 					alert.setTitle("Information Dialog");
 					alert.setHeaderText("Course Registeration");
@@ -251,6 +270,9 @@ public class SearchCourseController2 implements Initializable
 		
 		public String search() {
 			String course_details_id = null;
+			 String start_time =null;
+			 String end_time=null;
+			ArrayList<String> scheduleDay = new ArrayList<String>();
 			if(userType.equals("2"))
 			{
 		
@@ -260,10 +282,10 @@ public class SearchCourseController2 implements Initializable
 			
 		    //TABLE VIEW AND DATA
 		    ObservableList<Course> data;
-		  //  private TableView tableview;
+		
 		    DAO dataAccess = new DAO();
-
-			      
+		    StringBuilder schedule=new StringBuilder();
+		  
 		          //data = new ObservableList<ObservableList>();
 		          data = FXCollections.observableArrayList();
 		          try{
@@ -275,14 +297,28 @@ public class SearchCourseController2 implements Initializable
 		             * TABLE COLUMN ADDED DYNAMICALLY *
 		             **********************************/
                     titledPane.setExpanded(true);
+                	
                     //System.out.println(rs.getString("title"));
                     while(rs.next())
                     {
                     TextFieldCourseTitle.setText(rs.getString("title"));
                     TextFieldCourseDescription.setText(rs.getString("description"));
                     TextFieldNumCredits.setText(rs.getString("units"));
+                    textFieldInstructor.setText(rs.getString("instructor_name"));
+                    textFieldRoomNumber.setText(rs.getString("room_no"));
+                    textFieldAddress.setText(rs.getString("address"));
+                    start_time = rs.getString("start_time");
+                    end_time = rs.getString("end_time");
                     course_details_id=rs.getString("course_details_id");
+                    System.out.println(rs.getString("day"));
+                     scheduleDay.add(rs.getString("day"));
                     }
+                    System.out.println(scheduleDay.size());
+                    for(int i=0;i<scheduleDay.size();i++)
+                    {schedule.append(scheduleDay.get(i)).append(" ");}
+                    schedule.append(start_time).append(" ");
+                    schedule.append(end_time).append(" ");
+                    textFieldSchedule.setText(schedule.toString());
                     AddCourseButton.setVisible(true);
         			}
  
@@ -292,6 +328,25 @@ public class SearchCourseController2 implements Initializable
 		          }
 				return course_details_id;
 			
+		}
+
+public void clearAll() {
+	ComboboxProgram.getSelectionModel().clearSelection();
+	 LevelCombobox.getSelectionModel().clearSelection();;
+	 CourseIdComboBox.getSelectionModel().clearSelection();
+	termComboBox.getSelectionModel().clearSelection();
+	TextFieldCourseTitle.setText("");
+	TextFieldCourseDescription.setText("");
+	TextFieldNumCredits.setText("");
+	studentIdTextField.setText("");
+	textFieldInstructor.setText("");
+	textFieldRoomNumber.setText("");
+	textFieldAddress.setText("");
+	textFieldSchedule.setText("");
+}
+		
+		@FXML public void onReset(ActionEvent event) {
+			clearAll();
 		}
 		
 	}

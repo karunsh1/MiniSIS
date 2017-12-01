@@ -4,27 +4,22 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="searchCourseBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="465.0" prefWidth="930.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DropCourseController">
-   <center>
-      <ScrollPane prefHeight="332.0" prefWidth="930.0" BorderPane.alignment="CENTER" />
-   </center>
+<BorderPane fx:id="searchCourseBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="465.0" prefWidth="898.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DropCourseController">
    <top>
-      <GridPane vgap="10.0" BorderPane.alignment="CENTER">
+      <GridPane prefHeight="443.0" prefWidth="912.0" vgap="10.0" BorderPane.alignment="CENTER">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="459.0" minWidth="10.0" prefWidth="338.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="459.0" minWidth="10.0" prefWidth="338.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="589.0" minWidth="10.0" prefWidth="199.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="459.0" minWidth="10.0" prefWidth="358.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="459.0" minWidth="10.0" prefWidth="151.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="589.0" minWidth="10.0" prefWidth="109.0" />
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="589.0" minWidth="10.0" prefWidth="161.0" />
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="589.0" minWidth="10.0" prefWidth="178.0" />
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="589.0" minWidth="10.0" prefWidth="178.0" />
@@ -32,10 +27,6 @@
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -45,42 +36,42 @@
             <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="41.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="20.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="105.0" prefWidth="162.0" text="Drop Course" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="43.0" prefWidth="239.0" text="Drop Course" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" GridPane.vgrow="NEVER">
                <font>
                   <Font size="29.0" />
                </font>
                <GridPane.margin>
                   <Insets top="10.0" />
                </GridPane.margin>
+               <padding>
+                  <Insets right="20.0" />
+               </padding>
             </Label>
-          <AnchorPane fx:id="SearchCourseAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="231.0" prefWidth="928.0" GridPane.rowIndex="13">
+          <AnchorPane fx:id="SearchCourseAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="231.0" prefWidth="928.0" GridPane.rowIndex="9">
                <children>
-                  <TableView fx:id="searchCourseTableView" layoutY="-182.0" onMouseClicked="#onRowClick" prefHeight="407.0" prefWidth="920.0">
+                  <TableView fx:id="searchCourseTableView" layoutX="15.0" layoutY="-182.0" onMouseClicked="#onRowClick" prefHeight="231.0" prefWidth="879.0">
                     <columns>
                       <TableColumn fx:id="ColumnProgram" prefWidth="75.0" text="Program" />
-                      <TableColumn fx:id="ColumnCourseTitle" prefWidth="124.0" text="CourseTitle" />
-                        <TableColumn fx:id="ColumnCourseId" prefWidth="89.0" text="CourseID" />
+                      <TableColumn fx:id="ColumnCourseTitle" prefWidth="130.0" text="CourseTitle" />
+                        <TableColumn fx:id="ColumnCourseId" prefWidth="83.0" text="CourseID" />
                         <TableColumn fx:id="ColumnLevel" prefWidth="71.0" text="Level" />
-                        <TableColumn fx:id="ColumnNumCredits" prefWidth="89.0" text="NumOfCredits" />
-                        <TableColumn fx:id="ColumnTerm" prefWidth="101.0" text="Term" />
-                        <TableColumn fx:id="ColumnDescription" prefWidth="255.0" text="Description" />
-                        <TableColumn fx:id="ColumnInstructorName" prefWidth="115.0" text="InstructorName" />
+                        <TableColumn fx:id="ColumnNumCredits" prefWidth="101.0" text="NumOfCredits" />
+                        <TableColumn fx:id="ColumnTerm" prefWidth="76.0" text="Term" />
+                        <TableColumn fx:id="ColumnDescription" maxWidth="3000.0" prefWidth="188.0" text="Description" />
+                        <TableColumn fx:id="ColumnInstructorName" maxWidth="3000.0" prefWidth="188.0" text="InstructorName" />
                     </columns>
                   </TableView>
                </children>
             </AnchorPane>
-            <Button fx:id="DropCourseButton" mnemonicParsing="false" onAction="#onDropCourse" prefHeight="31.0" prefWidth="115.0" text="Drop" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Button fx:id="DropCourseButton" mnemonicParsing="false" onAction="#onDropCourse" prefHeight="31.0" prefWidth="115.0" text="Drop" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <ComboBox fx:id="TermCombobox" prefWidth="150.0" promptText="Choose term" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button fx:id="resetButton" mnemonicParsing="false" onAction="#onReset" prefHeight="25.0" prefWidth="117.0" text="Reset" GridPane.columnIndex="1" GridPane.rowIndex="10" />
          </children>
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
       </GridPane>
    </top>
-   <bottom>
-      <HBox alignment="CENTER" prefHeight="41.0" prefWidth="930.0" BorderPane.alignment="CENTER" />
-   </bottom>
 </BorderPane>
