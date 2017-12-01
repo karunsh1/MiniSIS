@@ -127,7 +127,7 @@ CREATE TABLE `course_details` (
 
 LOCK TABLES `course_details` WRITE;
 /*!40000 ALTER TABLE `course_details` DISABLE KEYS */;
-INSERT INTO `course_details` VALUES (1,15,11,1,6,1,50,10),(2,16,10,1,6,10,90,25),(3,13,11,2,13,1,50,10),(4,15,1,2,6,1,30,30),(5,6,2,2,13,2,50,50);
+INSERT INTO `course_details` VALUES (1,13,11,2,6,1,50,10),(2,16,10,1,6,10,90,25),(3,15,11,2,13,1,50,10),(4,15,1,2,6,1,30,30),(5,6,2,2,13,2,50,50);
 /*!40000 ALTER TABLE `course_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -206,7 +206,7 @@ CREATE TABLE `grade` (
 
 LOCK TABLES `grade` WRITE;
 /*!40000 ALTER TABLE `grade` DISABLE KEYS */;
-INSERT INTO `grade` VALUES (1,15,2,1,4),(2,10,2,1,3.4),(3,11,2,2,NULL),(4,2,2,2,4),(5,12,2,1,3),(6,11,2,1,NULL),(7,10,2,1,3.5);
+INSERT INTO `grade` VALUES (1,15,2,1,3.6),(2,10,2,1,3.4),(3,11,2,2,NULL),(4,13,6,2,3.7),(5,12,2,1,3),(6,13,2,2,3.6),(7,10,2,1,3.5);
 /*!40000 ALTER TABLE `grade` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -304,7 +304,7 @@ CREATE TABLE `pre_requisite` (
   `program` varchar(45) DEFAULT NULL,
   `course_code` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1001 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1002 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -313,6 +313,7 @@ CREATE TABLE `pre_requisite` (
 
 LOCK TABLES `pre_requisite` WRITE;
 /*!40000 ALTER TABLE `pre_requisite` DISABLE KEYS */;
+INSERT INTO `pre_requisite` VALUES (1001,2,'INSE',6260);
 /*!40000 ALTER TABLE `pre_requisite` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -338,7 +339,7 @@ CREATE TABLE `registration` (
 
 LOCK TABLES `registration` WRITE;
 /*!40000 ALTER TABLE `registration` DISABLE KEYS */;
-INSERT INTO `registration` VALUES (1,2,1,'enrolled');
+INSERT INTO `registration` VALUES (1,2,1,'enrolled'),(2,6,3,'enrolled'),(3,6,1,'enrolled');
 /*!40000 ALTER TABLE `registration` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -471,7 +472,7 @@ CREATE TABLE `student` (
 
 LOCK TABLES `student` WRITE;
 /*!40000 ALTER TABLE `student` DISABLE KEYS */;
-INSERT INTO `student` VALUES (1,'nafiz','islam','na_islam@concordia.ca','5144735006','Montreal, Quebec, Canada','G',2),(2,'a','a','a','5145135394','22h','G',2),(3,'omar','khan','omarfaruk.sust@gmail.com','5124878890','montreal','G',3),(4,'','','abc@gmail.com','',NULL,NULL,NULL),(6,'Karun','Sharma','karunsh1@gmail.com','5145135394','1650, Rene levesque		','G',2);
+INSERT INTO `student` VALUES (1,'nafiz','islam','na_islam@concordia.ca','5144735006','Montreal, Quebec, Canada','G',2),(2,'a','a','a','5145135394','22h','G',2),(3,'omar','khan','omarfaruk.sust@gmail.com','5124878890','montreal','G',3),(6,'Karun','Sharma','karunsh1@gmail.com','5145135394','1650, Rene levesque		','G',2);
 /*!40000 ALTER TABLE `student` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -595,4 +596,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-30 21:40:47
+-- Dump completed on 2017-12-01 11:29:11

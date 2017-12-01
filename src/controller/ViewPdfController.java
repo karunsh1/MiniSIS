@@ -79,6 +79,7 @@ public class ViewPdfController {
 		createAndConfigureImageLoadService();
 		//createAndConfigureFileChooser();
 		
+		
 		currentFile = new SimpleObjectProperty<>();
 		updateWindowTitleWhenFileChanges();
 		
@@ -98,7 +99,6 @@ public class ViewPdfController {
 		
 		bindPaginationToCurrentFile();
 		createPaginationPageFactory();
-		
 	}
 
 	private void createAndConfigureImageLoadService() {
@@ -112,6 +112,25 @@ public class ViewPdfController {
 		});
 	}
 
+	/*private void createAndConfigureFileChooser() {
+		fileChooser = new FileChooser();
+		fileChooser.setInitialDirectory(Paths.get(System.getProperty("user.home")).toFile());
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("PDF Files", "*.pdf", "*.PDF"));
+		PdfTranscript pdfview = new PdfTranscript();
+		System.out.println("studentSearchID"+studentSearchID);
+		try {
+			if(userType.equals("1")){
+				pdfview.pdfgenratoViewr(Integer.parseInt(studentID));				
+			}else{
+				pdfview.pdfgenratoViewr(studentSearchID);
+			}
+			
+		} catch (NumberFormatException | DocumentException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+*/
 	private void updateWindowTitleWhenFileChanges() {
 		currentFile.addListener(new ChangeListener<PDFFile>() {
 			@Override

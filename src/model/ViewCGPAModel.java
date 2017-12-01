@@ -24,17 +24,45 @@ public class ViewCGPAModel {
 		DAO accessData = new DAO();
 		ArrayList<Float> listGPA = new ArrayList<Float>();
 		listGPA = accessData.getStudentGPA(studentID);
+		
 		int i = 0;
 		Iterator<Float> itratorGPA = listGPA.iterator();
+		System.out.println("total gpa single  " + listGPA);
 
 		while (itratorGPA.hasNext()) {
 			studentCGPA = studentCGPA + itratorGPA.next();
+			//System.out.println("total gpa single  " + itratorGPA.next());
 
 		}
 
 		studentCGPA = studentCGPA / listGPA.size();
 
-		System.out.println("total gpa" + studentCGPA);
+		System.out.println("total gpa" + listGPA.size());
+
+		return studentCGPA;
+
+	}
+	public Float getCGPAPreRequisite(int studentID) {
+
+		Float studentCGPA = 0f;
+
+		DAO accessData = new DAO();
+		ArrayList<Float> listGPA = new ArrayList<Float>();
+		listGPA = accessData.getStudentGPAofPrerequisite(studentID);
+		
+		int i = 0;
+		Iterator<Float> itratorGPA = listGPA.iterator();
+		System.out.println("total gpa single  " + listGPA);
+
+		while (itratorGPA.hasNext()) {
+			studentCGPA = studentCGPA + itratorGPA.next();
+			//System.out.println("total gpa single  " + itratorGPA.next());
+
+		}
+
+		studentCGPA = studentCGPA / listGPA.size();
+
+		System.out.println("total gpa" + listGPA.size());
 
 		return studentCGPA;
 

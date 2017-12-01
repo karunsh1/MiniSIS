@@ -43,7 +43,7 @@ public class AddGradesController implements Initializable {
 	@FXML
 	private Button btnUploadTemplate;
 	@FXML
-	private Label lblFileName;
+	private Label lblFileName,lblerrorDownLoadCSV,lblErrorUpload;
 	@FXML
 	private Tab tbGradeTemplate, tbUploadGrades;
 	@FXML
@@ -59,12 +59,13 @@ public class AddGradesController implements Initializable {
 	@FXML
 	private void onSelecttbUploadGrades(){
 		
-		cbSelectTerm.getSelectionModel().clearSelection();
+		resetUpload();
 		
 	}
 	@FXML
 	private void onSelecttbGradeTemplate(){
-		cbSelectTermUpload.getSelectionModel().clearSelection();
+		resetDownload();
+	
 		
 		
 	}
@@ -72,7 +73,7 @@ public class AddGradesController implements Initializable {
 	private void onSelectTerm()
 
 	{
-		selectTerm = null;
+		//selectTerm = null;
 		selectTerm = cbSelectTerm.getSelectionModel().getSelectedItem().toString();
 		System.out.println(selectTerm);
 		ArrayList departmentNames = dataAccess.Instructor_Dept(Integer.parseInt(instructorID), selectTerm);
@@ -83,8 +84,10 @@ public class AddGradesController implements Initializable {
 
 	@FXML
 	private void onSelectDept() {
-		selectDept = null;
+		//selectDept = null;
+	//cbCourseName.getSelectionModel().clearSelection();
 		selectDept = cbDeptName.getSelectionModel().getSelectedItem().toString();
+		System.out.println("selectDept"+ selectDept);
 		if(!selectDept.equals(null)){
 		ArrayList courseNames = dataAccess.instructor_Courses(Integer.parseInt(instructorID), selectDept);
 		ObservableList courseNamelist = FXCollections.observableArrayList(courseNames);
@@ -97,7 +100,7 @@ public class AddGradesController implements Initializable {
 
 	@FXML
 	private void onSelectCourseName() {
-		selectCourse = null;
+		//selectCourse = null;
 		selectCourse = cbCourseName.getSelectionModel().getSelectedItem().toString();
 
 	}
@@ -109,7 +112,7 @@ public class AddGradesController implements Initializable {
 		String selectCourseCode = selectCourse.substring(0, selectCourse.lastIndexOf("-")).trim();
 		System.out.println("select course " + selectCourse);
 		String selectCourseTitle = selectCourse
-				.substring((selectCourse.lastIndexOf("-") + 1), (selectCourse.length() - 1)).trim();
+				.substring((selectCourse.lastIndexOf("-")+1)).trim();
 		System.out.println("select course " + selectCourseTitle);
 
 		FileChooser fileSave = new FileChooser();
@@ -119,8 +122,14 @@ public class AddGradesController implements Initializable {
 		File file = fileSave.showSaveDialog(stage);
 		if (file != null) {
 
-			dataAccess.exportCSVStudent_Inst_uploadGrades(file, instructorID, selectTerm, selectDept, selectCourseCode,
+			boolean exportStatus = dataAccess.exportCSVStudent_Inst_uploadGrades(file, instructorID, selectTerm, selectDept, selectCourseCode,
 					selectCourseTitle);
+			if(exportStatus){
+				resetDownload();
+				lblerrorDownLoadCSV.setText("The file has been downloaded at:"+file);
+			}else{
+				lblerrorDownLoadCSV.setText("No Student is enrolled for selected Course");
+			}
 
 		}
 
@@ -183,12 +192,18 @@ public class AddGradesController implements Initializable {
 		String selectCourseCode = selectCourse.substring(0, selectCourse.lastIndexOf("-")).trim();
 		System.out.println("select course " + selectCourse);
 		String selectCourseTitle = selectCourse
-				.substring((selectCourse.lastIndexOf("-") + 1), (selectCourse.length() - 1)).trim();
+				.substring((selectCourse.lastIndexOf("-") + 1)).trim();
 		System.out.println("select course " + selectCourseTitle);
 
 		try {
-			dataAccess.importCSVGPA_Instrutor(filepath, Integer.parseInt(instructorID), selectTerm, selectDept,
+			boolean importStatus = dataAccess.importCSVGPA_Instrutor(filepath, Integer.parseInt(instructorID), selectTerm, selectDept,
 					selectCourseCode, selectCourseTitle);
+			if(importStatus){
+				resetUpload();
+				lblErrorUpload.setText("Grades has been uploaded Successfully");
+			}else{
+				lblErrorUpload.setText("Please check uploaded file again");
+			}
 			System.out.println("uploaded");
 		} catch (FileNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
@@ -211,6 +226,22 @@ public class AddGradesController implements Initializable {
 		ObservableList termlistUpload = FXCollections.observableArrayList(termListArrayUpload);
 		cbSelectTermUpload.setItems(termlistUpload);
 
+	}
+	private void resetUpload(){
+		cbCourseName.getSelectionModel().clearSelection();
+		cbCourseNameUpload.getSelectionModel().clearSelection();
+		cbDeptName.getSelectionModel().clearSelection();
+		cbDeptNameUpload.getSelectionModel().clearSelection();
+		cbSelectTerm.getSelectionModel().clearSelection();
+		cbSelectTermUpload.getSelectionModel().clearSelection();
+		lblFileName.setText("");
+		lblErrorUpload.setText("");
+	}
+	private void resetDownload(){
+		cbCourseName.getSelectionModel().clearSelection();		
+		cbDeptName.getSelectionModel().clearSelection();		
+		cbSelectTerm.getSelectionModel().clearSelection();
+		lblerrorDownLoadCSV.setText("");
 	}
 
 }

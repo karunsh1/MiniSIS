@@ -9,6 +9,7 @@ import com.itextpdf.text.DocumentException;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -29,6 +30,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
+import javafx.stage.WindowEvent;
 import model.DAO;
 import util.PdfTranscript;
 import util.Singleton;
@@ -120,6 +122,15 @@ public class ViewTranscriptController extends StackPane implements Initializable
 			// popupLayout.initStyle(StageStyle.UNDECORATED);
 			popupLayout.setScene(scene);
 			popupLayout.show();
+			popupLayout.setOnCloseRequest(new EventHandler<WindowEvent>() {
+				
+				@Override
+				public void handle(WindowEvent event) {
+					PdfTranscript pdfGenrator = new PdfTranscript();
+					pdfGenrator.closeFileOutPutStreaam();
+					
+				}
+			});
 
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block

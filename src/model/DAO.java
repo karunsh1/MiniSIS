@@ -802,10 +802,12 @@ public class DAO {
 	 * @param courseCode
 	 * @param courseTitle
 	 */
-	public void exportCSVStudent_Inst_uploadGrades(File file, String instructorID, String term, String dept,
+	
+	public boolean exportCSVStudent_Inst_uploadGrades(File file, String instructorID, String term, String dept,
 			String courseCode, String courseTitle) {
 
 		String sql = "";
+		boolean exportStatus = false;
 
 		MySQLAccess obj = new MySQLAccess();
 		Connection conn = obj.getConnection();
@@ -814,7 +816,7 @@ public class DAO {
 				+ "SELECT id FROM course_details WHERE instructor_id =" + instructorID + " AND term_id IN ("
 				+ "SELECT id  FROM  term_info   WHERE  term = '" + term + "') AND course_id IN ("
 				+ "SELECT id FROM  course  WHERE course_code =" + courseCode + "  AND title = '" + courseTitle
-				+ "'  AND subject_id IN (" + "SELECT id  FROM  subject  WHERE  subject_code = '" + dept + "'))))";
+				+ "'  AND subject_id IN (SELECT id  FROM  subject  WHERE  subject_code = '" + dept + "'))))";
 
 		boolean alreadyExists = file.exists();
 
@@ -829,14 +831,15 @@ public class DAO {
 			}
 
 			PreparedStatement studentInfo = conn.prepareStatement(sql);
+			System.out.println("studentInfo  " + studentInfo);
 			ResultSet result = studentInfo.executeQuery();
 			while (result.next()) {
-				for (int i = 1; i <= 1; i++) {
-					csvStudentFile.write(result.getString("id"));
-					csvStudentFile.write(result.getString("first_Name"));
-					csvStudentFile.write(result.getString("last_name"));
-					csvStudentFile.endRecord();
-				}
+
+				csvStudentFile.write(result.getString("id"));
+				csvStudentFile.write(result.getString("first_Name"));
+				csvStudentFile.write(result.getString("last_name"));
+				csvStudentFile.endRecord();
+				exportStatus = true;
 
 			}
 			csvStudentFile.close();
@@ -846,6 +849,7 @@ public class DAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return exportStatus;
 
 	}
 
@@ -861,9 +865,9 @@ public class DAO {
 	 * @throws SQLException
 	 */
 
-	public void importCSVGPA_Instrutor(String filePath, int instructorID, String term, String subject_code,
+	public boolean importCSVGPA_Instrutor(String filePath, int instructorID, String term, String subject_code,
 			String course_Code, String course_title) throws FileNotFoundException, SQLException {
-
+		boolean uploadStatus = false;
 		CsvReader csvGPAFile;
 		String strudentID = null;
 		String studentGPA = null;
@@ -881,7 +885,7 @@ public class DAO {
 				studentGPA = csvGPAFile.get("GPA");
 				System.out.println("gpa " + studentGPA);
 
-				updateSQL = "UPDATE grade SET `gpa`='" + studentGPA + "' WHERE `student_id`='" + strudentID
+				updateSQL = "UPDATE ignore grade SET `gpa`='" + studentGPA + "' WHERE `student_id`='" + strudentID
 						+ "' and course_id in(" + "select course_id from course_details where instructor_id="
 						+ instructorID + " and  course_id in(" + "select  course_id from course where course_code = "
 						+ course_Code + " and title = '" + course_title + "' and subject_id in("
@@ -892,8 +896,10 @@ public class DAO {
 
 				result = selectStatement.executeUpdate();
 				if (result == 1) {
+					uploadStatus = true;
 					System.out.println("Updated" + strudentID);
 				} else {
+					uploadStatus = false;
 					System.out.println("Wrong ID " + strudentID);
 
 				}
@@ -906,6 +912,7 @@ public class DAO {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		return uploadStatus;
 
 	}
 
@@ -920,7 +927,37 @@ public class DAO {
 
 		MySQLAccess obj = new MySQLAccess();
 		Connection conn = obj.getConnection();
-		sql = "SELECT gpa FROM grade where student_id = " + studentID + " and gpa is not NULL";
+		sql = "SELECT gpa FROM grade where student_id = " + studentID + " and gpa is not NULL and  course_id  not in("
+				+ "select course_id from minisis.course_details where course_id in(select id from minisis.course where course_code in("
+				+ "select course_code  from minisis.pre_requisite  where student_id = " + studentID + " and program in ("
+				+ "select subject_code from minisis.subject ))))";
+
+		try {
+			PreparedStatement gpaStatement = conn.prepareStatement(sql);
+			ResultSet result = gpaStatement.executeQuery();
+			while (result.next()) {
+				gpalist.add(result.getFloat("gpa"));
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return gpalist;
+	}
+	
+	public ArrayList<Float> getStudentGPAofPrerequisite(int studentID) {
+		ArrayList<Float> gpalist = new ArrayList<Float>();
+		String sql = "";
+
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = obj.getConnection();
+		
+		sql = "SELECT gpa FROM grade where student_id = " + studentID + " and gpa is not NULL and  course_id in("
+				+ "select course_id from minisis.course_details where course_id in(select id from minisis.course where course_code in("
+				+ "select course_code  from minisis.pre_requisite  where student_id = " + studentID + " and program in ("
+				+ "select subject_code from minisis.subject ))))";
 
 		try {
 			PreparedStatement gpaStatement = conn.prepareStatement(sql);
@@ -1542,7 +1579,6 @@ public class DAO {
 			ResultSet resultSubject = psSQue.executeQuery();
 			while (resultSubject.next()) {
 				courseList.add(resultSubject.getString("courseName"));
-				
 
 			}
 
@@ -1622,9 +1658,9 @@ public class DAO {
 				+ "select course.id,minisis.instructor.id,term_info.id,'" + duration
 				+ "',room.id,room.capacity,room.capacity from "
 				+ "course join instructor join term_info join room where "
-				+ "concat(course.course_code,'-',course.title) = '" + courseName + "' and " + "room.room_no ='"
-				+ roomNo + "' and" + " concat(instructor.first_name,' ',instructor.last_name) ='"
-				+ instructorName + "'" + " and term_info.term ='" + TermName + "';";
+				+ "concat(course.course_code,'-',course.title) = '" + courseName + "' and " + "room.room_no ='" + roomNo
+				+ "' and" + " concat(instructor.first_name,' ',instructor.last_name) ='" + instructorName + "'"
+				+ " and term_info.term ='" + TermName + "';";
 
 		Statement addCourseDetail;
 
@@ -1645,23 +1681,23 @@ public class DAO {
 		return addStatus;
 
 	}
-	
-	public ArrayList<String> selectInstructorName(){
-		
+
+	public ArrayList<String> selectInstructorName() {
+
 		String sql = "";
 		ArrayList<String> instructorNameList = new ArrayList<>();
 
 		MySQLAccess obj = new MySQLAccess();
 		Connection conn = null;
-		
+
 		conn = obj.getConnection();
-		
+
 		sql = "SELECT concat(first_name,' ',last_name) as full_Name FROM instructor";
 		try {
 			PreparedStatement psSQue = conn.prepareStatement(sql);
 			ResultSet resultSubject = psSQue.executeQuery();
 			while (resultSubject.next()) {
-				
+
 				instructorNameList.add(resultSubject.getString("full_Name"));
 
 			}
@@ -1671,8 +1707,7 @@ public class DAO {
 			e.printStackTrace();
 		}
 
-		
 		return instructorNameList;
-		
+
 	}
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
@@ -74,6 +75,15 @@
 										</Button>
 									</children>
 								</HBox>
+                        <HBox alignment="CENTER" layoutX="24.0" layoutY="243.0" prefHeight="55.0" prefWidth="571.0">
+                           <children>
+                              <Label fx:id="lblerrorDownLoadCSV" prefHeight="55.0" prefWidth="571.0" textFill="#e41717" wrapText="true">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
 							</children>
 						</AnchorPane>
 					</content>
@@ -116,14 +126,14 @@
                                     <Font size="20.0" />
                                  </font>
                               </Label>
-                              <HBox alignment="CENTER_LEFT" maxHeight="35.0" maxWidth="300.0" prefHeight="42.0" prefWidth="306.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                              <HBox alignment="CENTER_LEFT" maxHeight="35.0" maxWidth="346.0" prefHeight="35.0" prefWidth="346.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                  <children>
                                     <HBox maxHeight="35.0" maxWidth="100.0" minWidth="0.0" prefHeight="35.0" prefWidth="96.0">
                                        <children>
                                           <Button fx:id="btnFileChooser" maxWidth="100.0" mnemonicParsing="false" onAction="#clickOnFileChooser" prefHeight="35.0" prefWidth="87.0" text="Select File" />
                                        </children>
                                     </HBox>
-                                    <Label fx:id="lblFileName" prefHeight="21.0" prefWidth="155.0" />
+                                    <Label fx:id="lblFileName" prefHeight="45.0" prefWidth="251.0" />
                                  </children>
                               </HBox>
                            </children>
@@ -138,8 +148,16 @@
                               <RowConstraints maxHeight="147.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                         </GridPane>
-                        <HBox alignment="CENTER" layoutX="2.0" layoutY="287.0" prefHeight="43.0" prefWidth="575.0">
+                        <HBox alignment="CENTER_RIGHT" layoutX="41.0" layoutY="287.0" prefHeight="43.0" prefWidth="444.0">
                            <children>
+                              <Label fx:id="lblErrorUpload" prefHeight="36.0" prefWidth="322.0" textFill="#da1111" wrapText="true">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
                               <Button fx:id="btnUploadTemplate" mnemonicParsing="false" onAction="#UploadCSV" prefHeight="38.0" prefWidth="110.0" text="Submit" textAlignment="CENTER">
                                  <font>
                                     <Font size="18.0" />

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<BorderPane fx:id="bPaneAddUser" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="594.0" prefWidth="758.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddCourseDetailController">
+   <center>
+      <GridPane BorderPane.alignment="CENTER">
+         <children>
+            <Label prefHeight="36.0" prefWidth="135.0" text="Program Name">
+               <effect>
+                  <Glow />
+               </effect>
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label prefHeight="36.0" prefWidth="154.0" text="Course Name" GridPane.rowIndex="1">
+               <effect>
+                  <Glow />
+               </effect>
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label prefHeight="36.0" prefWidth="163.0" text="Instructor" GridPane.rowIndex="2">
+               <effect>
+                  <Glow />
+               </effect>
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+               <children>
+                  <Button fx:id="btnSave" mnemonicParsing="false" onAction="#clickOnSaveButton" prefHeight="48.0" prefWidth="113.0" text="Save">
+                     <effect>
+                        <SepiaTone level="0.0">
+                           <input>
+                              <InnerShadow />
+                           </input>
+                        </SepiaTone>
+                     </effect>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnReset" mnemonicParsing="false" onAction="#clickOnResetButton" prefHeight="48.0" prefWidth="113.0" text="Reset">
+                     <effect>
+                        <InnerShadow />
+                     </effect>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+            </HBox>
+            <Label fx:id="lblError" prefHeight="57.0" prefWidth="396.0" textFill="#e81717" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <Label prefHeight="36.0" prefWidth="163.0" text="Term" GridPane.rowIndex="3">
+               <effect>
+                  <Glow />
+               </effect>
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label prefHeight="36.0" prefWidth="163.0" text="Duration" GridPane.rowIndex="4">
+               <effect>
+                  <Glow />
+               </effect>
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label prefHeight="36.0" prefWidth="163.0" text="Buidling Name" GridPane.rowIndex="5">
+               <effect>
+                  <Glow />
+               </effect>
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label prefHeight="36.0" prefWidth="163.0" text="Room No." GridPane.rowIndex="6">
+               <effect>
+                  <Glow />
+               </effect>
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="cbRoom" onAction="#selectRoomNo" prefHeight="47.0" prefWidth="258.0" promptText="Select Program" GridPane.columnIndex="1" GridPane.rowIndex="6">
+               <effect>
+                  <InnerShadow />
+               </effect>
+               <GridPane.margin>
+                  <Insets right="200.0" />
+               </GridPane.margin>
+            </ComboBox>
+            <ComboBox fx:id="cbInstructor" onAction="#selectInstructor" prefHeight="47.0" prefWidth="258.0" promptText="Select Instructor" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <effect>
+                  <InnerShadow />
+               </effect>
+               <GridPane.margin>
+                  <Insets right="200.0" />
+               </GridPane.margin>
+            </ComboBox>
+            <ComboBox fx:id="cbProgram" onAction="#selectProgram" prefHeight="47.0" prefWidth="258.0" promptText="Select Program" GridPane.columnIndex="1">
+               <effect>
+                  <InnerShadow />
+               </effect>
+               <GridPane.margin>
+                  <Insets right="200.0" />
+               </GridPane.margin>
+            </ComboBox>
+            <ComboBox fx:id="cbCourseName" onAction="#selectCourse" prefHeight="47.0" prefWidth="258.0" promptText="Select Course" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <effect>
+                  <InnerShadow />
+               </effect>
+               <GridPane.margin>
+                  <Insets right="200.0" />
+               </GridPane.margin>
+            </ComboBox>
+            <ComboBox fx:id="cbTerm" onAction="#selectTerm" prefHeight="47.0" prefWidth="258.0" promptText="Select Term" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <effect>
+                  <InnerShadow />
+               </effect>
+               <GridPane.margin>
+                  <Insets right="200.0" />
+               </GridPane.margin>
+            </ComboBox>
+            <ComboBox fx:id="cbBuildingName" onAction="#selectBuildName" prefHeight="47.0" prefWidth="258.0" promptText="Select Program" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <effect>
+                  <InnerShadow />
+               </effect>
+               <GridPane.margin>
+                  <Insets right="200.0" />
+               </GridPane.margin>
+            </ComboBox>
+            <ComboBox fx:id="cbDuration" onAction="#selectDuration" prefHeight="47.0" prefWidth="258.0" promptText="Select Duration" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <effect>
+                  <InnerShadow />
+               </effect>
+               <GridPane.margin>
+                  <Insets right="200.0" />
+               </GridPane.margin>
+            </ComboBox>
+         </children>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="294.0" minWidth="10.0" prefWidth="173.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="477.0" minWidth="10.0" prefWidth="427.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="107.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="194.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="231.0" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="194.0" minHeight="10.0" prefHeight="56.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="194.0" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="194.0" minHeight="10.0" prefHeight="64.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="194.0" minHeight="10.0" prefHeight="68.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="194.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="194.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+   </center>
+   <top>
+      <HBox alignment="CENTER" prefHeight="66.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" prefHeight="39.0" prefWidth="219.0" text="Add Course Detail" textAlignment="CENTER">
+               <effect>
+                  <Lighting bumpInput="$null">
+                     <light>
+                        <Light.Spot color="#0f2b57" />
+                     </light>
+                  </Lighting>
+               </effect>
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+   </top>
+</BorderPane>
