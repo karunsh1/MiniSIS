@@ -1987,4 +1987,31 @@ public class DAO {
 		return instructorNameList;
 
 	}
+	public int getTermId(String term) {
+
+		String sql = "";
+		int term_id=0;
+
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = null;
+
+		conn = obj.getConnection();
+
+		sql = "select term_info.id from term_info where term="+ "\"" + term + "\"" ;
+		try {
+			PreparedStatement psSQue = conn.prepareStatement(sql);
+			ResultSet result = psSQue.executeQuery();
+			while (result.next()) {
+
+				term_id=Integer.parseInt(result.getString("id"));
+
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return term_id;
+		
+	}
 }

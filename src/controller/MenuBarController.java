@@ -337,6 +337,7 @@ public class MenuBarController implements Initializable {
 	}
 
 	@FXML public void onViewSchedule(ActionEvent event) {
+		
 		showItemPane.getChildren().clear();
 		BorderPane newLoadedPane = null;
 

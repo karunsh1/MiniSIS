@@ -159,18 +159,18 @@ public class SearchCourseController2 implements Initializable
 			@Override
 			public void changed(ObservableValue<? extends String> ov, String t, String t1)
 			{   
-				int intermediate_term_id=termComboBox.getSelectionModel().getSelectedIndex();//0-Fall, 1-Winter
-                term_id=intermediate_term_id+1;
-		        if(term_id==1)
-		        	termDisplay="Fall 2016";
-		        else if(term_id==2)
-		        	termDisplay="Winter 2017";
+				termDisplay=termComboBox.getSelectionModel().getSelectedItem();//0-Fall, 1-Winter
+                term_id=dataAccess.getTermId(termDisplay);
+//		        if(term_id==1)
+//		        	termDisplay="Fall 2016";
+//		        else if(term_id==2)
+//		        	termDisplay="Winter 2017";
 				LevelCombobox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
 				{
 					@Override
 					public void changed(ObservableValue<? extends String> ov, String t, String t1)
 					{
-						level=LevelCombobox.getValue();
+						level=(LevelCombobox.getValue().equals("Graduate")?"G":"UG");
 						System.out.println(level);
 					    levelDisplay=level;
 					    ComboboxProgram.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()

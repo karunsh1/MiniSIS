@@ -14,9 +14,15 @@ public class TestDAO {
 	public void testGetCourseId() {
 		String course_details_id="1";
 		String courseId=dataAccessObject.getCourseId(course_details_id);
-		assertEquals("15", courseId);
+		assertEquals("13", courseId);
 	}
 	
+	@Test
+	public void testGetTermId() {
+		String term="Fall 2017";
+		int termId=dataAccessObject.getTermId(term);
+		assertEquals(1, termId);
+	}
 	
 	
 
