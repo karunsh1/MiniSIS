@@ -39,12 +39,6 @@ import javafx.scene.input.MouseEvent;
 
 public class DropCourseController implements Initializable {
 	
-
-	
-	
-	
-	
-
 	
 	@FXML AnchorPane SearchCourseAnchorPane;
 	@FXML TableView<Course> searchCourseTableView;
@@ -67,6 +61,7 @@ public class DropCourseController implements Initializable {
     String term_from_view,  program_from_view,level_from_view;
     Integer course_id_from_view;
      CourseModel coursemodel = new CourseModel();
+	@FXML Button resetButton;
      
 	@SuppressWarnings("unchecked")
 	@Override
@@ -157,6 +152,14 @@ public class DropCourseController implements Initializable {
 		 level_from_view= selectedItems.getLevel();
 		 
 		//System.out.println(courseId);
+	}
+
+
+
+	@FXML public void onReset(ActionEvent event) {
+		TermCombobox.getSelectionModel().clearSelection();
+		searchCourseTableView.getItems().clear();
+		
 	}
     
 	
