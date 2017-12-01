@@ -1,0 +1,23 @@
+package test.model;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+import model.DAO;
+
+public class TestDAO {
+ 
+	DAO dataAccessObject=new DAO();
+
+	
+	@Test
+	public void testGetCourseId() {
+		String course_details_id="1";
+		String courseId=dataAccessObject.getCourseId(course_details_id);
+		assertEquals("15", courseId);
+	}
+	
+	
+	
+
+}
