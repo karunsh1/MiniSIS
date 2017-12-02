@@ -116,7 +116,7 @@
    <top>
       <HBox alignment="CENTER" prefHeight="58.0" prefWidth="777.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Add Pre-requisite Course" textAlignment="CENTER">
+            <Label prefHeight="33.0" prefWidth="479.0" text="Add Pre-requisite Course Detail" textAlignment="CENTER">
                <font>
                   <Font name="Arial Bold" size="29.0" />
                </font>
