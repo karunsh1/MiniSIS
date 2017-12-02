@@ -20,7 +20,7 @@
       <TextField fx:id="TextFieldAmountDue" editable="false" layoutX="202.0" layoutY="91.0" />
       <TextField fx:id="TextFieldPayAmount" layoutX="202.0" layoutY="139.0" />
       <Label layoutX="25.0" layoutY="135.0" text="Amount you want  to pay" />
-      <Label fx:id="LabelTerm" layoutX="92.0" layoutY="50.0" prefHeight="9.0" prefWidth="28.0" text="Term" />
+      <Label fx:id="LabelTerm" layoutX="69.0" layoutY="50.0" prefHeight="17.0" prefWidth="51.0" text="Term" />
       <ComboBox fx:id="ComboboxTerm" layoutX="201.0" layoutY="46.0" prefWidth="150.0" />
    </children>
 </AnchorPane>
