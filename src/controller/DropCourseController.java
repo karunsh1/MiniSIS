@@ -129,7 +129,7 @@ public class DropCourseController implements Initializable {
 
 	
 	@FXML public void onDropCourse(ActionEvent event) {
-		
+		String course_details_id=null;
 		 DAO dataAccess = new DAO();
 		 System.out.println(course_id_from_view);
 		 System.out.println(term_from_view);
@@ -141,24 +141,24 @@ public class DropCourseController implements Initializable {
        try {System.out.println("in try");
 				while(rs.next())
 				{
-					String course_details_id=rs.getString("course_details_id");
-					Boolean success=dataAccess.dropCourse(studentID,course_details_id);
-					clear();
-					Alert alert = new Alert(AlertType.INFORMATION);
-					alert.setTitle("Information Dialog");
-					alert.setHeaderText("Course Registeration");
-					searchCourseTableView.setItems(coursemodel.EnrollCourseList(Integer.parseInt(studentID), term_id));
-					if(success) {
-					alert.setContentText("Course deleted successfully :))");
-					}
-					else
-					{
-						alert.setContentText("Course dropping Failed.Contact your admin");
-						}
-					alert.showAndWait();
-					System.out.println(success);
+				 course_details_id=rs.getString("course_details_id");
+					
 				}
-				
+				Boolean success=dataAccess.dropCourse(studentID,course_details_id);
+				clear();
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Information Dialog");
+				alert.setHeaderText("Course Registeration");
+				searchCourseTableView.setItems(coursemodel.EnrollCourseList(Integer.parseInt(studentID), term_id));
+				if(success) {
+				alert.setContentText("Course deleted successfully :))");
+				}
+				else
+				{
+					alert.setContentText("Course dropping Failed.Contact your admin");
+					}
+				alert.showAndWait();
+				System.out.println(success);
 			} catch (SQLException e) {
 				System.out.print("error in SQL drop");
 				e.printStackTrace();

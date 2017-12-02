@@ -25,6 +25,7 @@
             <Button fx:id="buttonSearch" layoutX="436.0" layoutY="198.0" mnemonicParsing="false" onAction="#onSearch" text="Search" />
             <Label fx:id="labelProgram" layoutX="111.0" layoutY="151.0" text="Program" />
             <Label fx:id="labelProgramValue" layoutX="265.0" layoutY="160.0" />
+            <Button fx:id="btnReset" layoutX="347.0" layoutY="250.0" mnemonicParsing="false" onAction="#onReset" text="Reset" />
 			</children>
 		</AnchorPane>
 	</top>

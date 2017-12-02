@@ -54,6 +54,8 @@ public class WaiveOffCourseController implements Initializable {
 	@FXML Button buttonSearch;
 	@FXML Label labelProgram;
 	@FXML Label labelProgramValue;
+
+	@FXML Button btnReset;
 	;
 
 	@Override
@@ -120,6 +122,11 @@ public class WaiveOffCourseController implements Initializable {
 		}
 
 	}
+	
+	public void reset() {
+		textFieldStudentId.setText(" ");
+		comboBoxCourseIds.getSelectionModel().clearSelection();
+	}
 	@FXML public void onSearch(ActionEvent event) {
 		labelProgram.setVisible(true);
 		if(dataAccess.WaiveOffExists(studentID)) {
@@ -138,10 +145,12 @@ public class WaiveOffCourseController implements Initializable {
 			alert.setContentText("Student has no pre-requisite");
 			alert.showAndWait();
 			
-			textFieldStudentId.setText(" ");
-			comboBoxCourseIds.getSelectionModel().clearSelection();
+			
 
 		}
+	}
+	@FXML public void onReset(ActionEvent event) {
+		reset();
 	}
 }
 
