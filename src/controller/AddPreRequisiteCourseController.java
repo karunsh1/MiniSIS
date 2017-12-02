@@ -78,7 +78,7 @@ public class AddPreRequisiteCourseController implements Initializable {
 	@FXML
 	private void clickOnResetButton() {
 		reset();
-
+		acPaneAddPrerequisite.visibleProperty().set(false);
 	}
 
 	@FXML
