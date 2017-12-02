@@ -208,7 +208,7 @@ CREATE TABLE `grade` (
 
 LOCK TABLES `grade` WRITE;
 /*!40000 ALTER TABLE `grade` DISABLE KEYS */;
-INSERT INTO `grade` VALUES (1,15,2,1,3.6),(2,10,2,1,3.4),(3,11,2,2,NULL),(4,13,6,2,3.7),(5,12,2,1,3),(6,13,2,2,3.6),(7,10,2,1,3.5);
+INSERT INTO `grade` VALUES (1,15,2,1,3.6),(2,10,2,1,3.4),(3,11,2,2,NULL),(5,12,2,1,3),(7,10,2,1,3.5);
 /*!40000 ALTER TABLE `grade` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -290,7 +290,7 @@ CREATE TABLE `payment` (
 
 LOCK TABLES `payment` WRITE;
 /*!40000 ALTER TABLE `payment` DISABLE KEYS */;
-INSERT INTO `payment` VALUES (1,1,7000,7000,'Fall 2017'),(2,2,6000,7000,'Winter 2018');
+INSERT INTO `payment` VALUES (1,1,7000,7000,'Fall 2017'),(2,2,0,7000,'Winter 2018');
 /*!40000 ALTER TABLE `payment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -333,7 +333,7 @@ CREATE TABLE `registration` (
   `course_details_id` int(11) NOT NULL,
   `status` enum('enrolled','dropped','completed','disc') NOT NULL DEFAULT 'enrolled',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -342,7 +342,7 @@ CREATE TABLE `registration` (
 
 LOCK TABLES `registration` WRITE;
 /*!40000 ALTER TABLE `registration` DISABLE KEYS */;
-INSERT INTO `registration` VALUES (1,2,1,'enrolled'),(2,6,3,'enrolled'),(3,6,1,'enrolled'),(6,2,2,'enrolled'),(7,2,2,'dropped'),(8,2,2,'dropped'),(9,2,2,'dropped'),(10,2,2,'dropped');
+INSERT INTO `registration` VALUES (1,2,1,'enrolled'),(2,6,3,'enrolled'),(3,6,1,'enrolled'),(6,2,2,'enrolled'),(7,2,2,'dropped'),(8,2,2,'dropped'),(9,2,2,'dropped'),(10,2,2,'dropped'),(11,2,1,'dropped'),(12,2,1,'dropped');
 /*!40000 ALTER TABLE `registration` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -600,4 +600,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-01 20:16:07
+-- Dump completed on 2017-12-02 16:11:13
