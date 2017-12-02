@@ -97,6 +97,7 @@
                </GridPane.margin>
             </Label>
             <TextField fx:id="studentIdTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button fx:id="getCourseIds" mnemonicParsing="false" onAction="#onGetCourseIds" text="Get Course Ids" GridPane.columnIndex="2" GridPane.rowIndex="5" />
          </children>
          <BorderPane.margin>
             <Insets left="20.0" />

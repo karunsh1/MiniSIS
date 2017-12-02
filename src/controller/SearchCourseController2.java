@@ -56,7 +56,7 @@ import javafx.scene.control.Label;
 public class SearchCourseController2 implements Initializable
 {   String userType ;
     String studentID;
-    
+    DAO dataAccess = new DAO();
 	private TextField ErrorMsgField;
 	ArrayList courseListArray;
 	static ResultSet availcourses;
@@ -101,6 +101,7 @@ public class SearchCourseController2 implements Initializable
 	@FXML TextField textFieldSchedule;
 	@FXML Label labelSchedule;
 	@FXML Button resetButton;
+	@FXML Button getCourseIds;
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb)
@@ -135,7 +136,7 @@ public class SearchCourseController2 implements Initializable
 		
 		AddCourseButton.setVisible(false);
 		titledPane.setExpanded(false);
-		DAO dataAccess = new DAO();
+		
 		ArrayList termListArray = dataAccess.termNames();
 		ArrayList deptListArray = dataAccess.departmentNames();
 		List<String> levelListArray= new ArrayList();
@@ -155,14 +156,14 @@ public class SearchCourseController2 implements Initializable
 		{ 
 			@Override
 			public void changed(ObservableValue<? extends String> ov, String t, String t1)
-			{   clearAll();
+			{   //clearAll();
 				/*ComboboxProgram.getSelectionModel().clearSelection();
 				 LevelCombobox.getSelectionModel().clearSelection();
 				 CourseIdComboBox.getSelectionModel().clearSelection();*/
 				LevelCombobox.setItems(levellist);
 				termDisplay=termComboBox.getSelectionModel().getSelectedItem();//0-Fall, 1-Winter
                 term_id=dataAccess.getTermId(termDisplay);
-                termDisplay="Winter 2017";
+                //termDisplay="Winter 2017";
 				LevelCombobox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
 				{  
 					@Override
@@ -177,21 +178,12 @@ public class SearchCourseController2 implements Initializable
 						{ 
 							@Override
 							public void changed(ObservableValue<? extends String> ov, String t, String t1)
-							{ CourseIdComboBox.getSelectionModel().clearSelection();
+							{ //CourseIdComboBox.getSelectionModel().clearSelection();
 								program=ComboboxProgram.getValue();
 								System.out.println(program);
 							    programDisplay=program;
 							
-				      courseListArray = dataAccess.courseList(term_id,level,program);
-				      //ArrayList temp = new ArrayList(courseListArray);
-				      //System.out.println("course list empty"+courseListArray.isEmpty());
-				      //if(temp.isEmpty())
 				     
-				     // }
-				      System.out.println(courseListArray);
-					ObservableList courselist = FXCollections.observableArrayList(courseListArray);
-					System.out.println(courselist);
-					CourseIdComboBox.setItems(courselist);
 							  
 					CourseIdComboBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
 					{
@@ -241,7 +233,7 @@ public class SearchCourseController2 implements Initializable
 					String course_details_id=rs.getString("course_details_id");
 					Integer term_id=Integer.parseInt(rs.getString("term_id"));
 					String program=rs.getString("term_id");
-					Boolean success=dataAccess.addCourse(studentID,term_id,course_details_id,userType,program,levelDisplay,courseIdDisplay);
+					Boolean success=dataAccess.addCourse(studentID,term_id,course_details_id,userType,program,levelDisplay,courseIdDisplay,termDisplay);
 					Alert alert = new Alert(AlertType.INFORMATION);
 					alert.setTitle("Information Dialog");
 					alert.setHeaderText("Course Registeration");
@@ -349,6 +341,20 @@ public void clearAll() {
 	}
 		@FXML public void onReset(ActionEvent event) {
 			clearAll();
+		}
+
+
+		@FXML public void onGetCourseIds(ActionEvent event) {
+			 courseListArray = dataAccess.courseList(term_id,level,program);
+		      //ArrayList temp = new ArrayList(courseListArray);
+		      //System.out.println("course list empty"+courseListArray.isEmpty());
+		      //if(temp.isEmpty())
+		     
+		     // }
+		      System.out.println(courseListArray);
+			ObservableList courselist = FXCollections.observableArrayList(courseListArray);
+			System.out.println(courselist);
+			CourseIdComboBox.setItems(courselist);
 		}
 		
 	}

@@ -318,7 +318,7 @@ public class DAO {
 	boolean availibility;
 	boolean feePaid;
 	boolean scheduleConflict;
-	public boolean addCourse(String studentId,int term_id,String course_details_id,String userType, String program, String level, Integer courseId) {
+	public boolean addCourse(String studentId,int term_id,String course_details_id,String userType, String program, String level, Integer courseId,String term) {
 
 
 		System.out.println("in getCourseIdlist");
@@ -402,13 +402,13 @@ public class DAO {
 				}
 			}
 			System.out.println("schedule conflict"+scheduleConflict);
-			int class_availability=getClassAvailability(course_details_id);
+			//int class_availability=getClassAvailability(course_details_id);
 			if(getClassAvailability(course_details_id)>0)
 				availibility=true;
 			if(count_courses==3)
 				alreadyThree=true;
-			System.out.println("fee from get function "+getDuePayment(term_id,studentId));
-			if(getDuePayment(term_id,studentId)==0.0)
+			//System.out.println("fee from get function "+getDuePayment(term,studentId));
+			if(getDuePayment(term,studentId)==0.0)
 				feePaid=true;
 			String sql = null;
 			String sql1 = null;
@@ -478,7 +478,7 @@ public class DAO {
 				sql1="INSERT INTO grade (course_id, student_id, term_id)"
 						+"VALUES ("+"\""+  course_id  +"\""+","+ "\""+ studentId+"\""+","+ "\""+ termId+"\""+")";
 
-				sql2="update course_details set class_availability="+ "\""+(class_availability-1)  + "\""+  "where id=" + "\""+course_details_id  + "\"";
+				sql2="update course_details set class_availability="+ "\""+(getClassAvailability(course_details_id)-1)  + "\""+  "where id=" + "\""+course_details_id  + "\"";
 
 				PreparedStatement ps = conn.prepareStatement(sql);
 				PreparedStatement ps1 = conn.prepareStatement(sql1);
@@ -684,13 +684,13 @@ public class DAO {
 
 	}
 
-	public double getDuePayment(int term_id, String StudentID) {
+	public double getDuePayment(String term, String StudentID) {
 		double amount_due = 0;
 		String sql = null;
 		System.out.println("in get due payment");
-		System.out.println(term_id);
+		System.out.println(term);
 		System.out.println(StudentID);
-		sql = "SELECT amount_due from payment where term_id=" + "\"" + term_id + "\"" + "and student_id=" + "\""
+		sql = "SELECT amount_due from payment where term=" + "\"" + term + "\"" + "and student_id=" + "\""
 				+ StudentID + "\"";
 
 		System.out.println(sql);
