@@ -814,11 +814,46 @@ public class DAO {
 
 					courseList.add(result.getString("course_code"));
 					
-				}
-
-			
+				}	
 }
+			
+		} catch (SQLException e) {
 
+			e.printStackTrace();
+		}
+
+		return courseList;
+
+	}
+	public ArrayList courseListForAdd(int term_id, String level, String program) {
+		String sql = null;
+		ArrayList courseList = new ArrayList();
+int loop_count=0;
+		sql = "SELECT course.course_code\r\n" + "FROM course \r\n" + "JOIN course_details \r\n"
+				+ "ON course.id = course_details.course_id \r\n" + "WHERE course_details.term_id =" + term_id + " \r\n"
+				+ "AND level = " + "\"" + level + "\"" + "AND program = " + "\"" + program + "\"";
+
+		System.out.println(sql);
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = obj.getConnection();
+		try {
+			PreparedStatement courselist = conn.prepareStatement(sql);
+			ResultSet result = courselist.executeQuery();
+
+			while (result.next()) {
+				for (int i = 1; i <= 1; i++) {
+
+					courseList.add(result.getString("course_code"));
+					loop_count++;
+				}	
+}
+			if(loop_count==0) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Information Dialog");
+				alert.setHeaderText("Course Registeration");
+					alert.setContentText("Please select different criteria to find courses.This is not matching any records");
+				  alert.showAndWait();
+			}
 		} catch (SQLException e) {
 
 			e.printStackTrace();
