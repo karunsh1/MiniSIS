@@ -221,7 +221,9 @@ public class SearchCourseController2 implements Initializable
 
 
 		@FXML public void onAddCourse(ActionEvent event) {
-			 DAO dataAccess = new DAO();
+			String course_details_id = null;
+			System.out.println("in add button controller");
+		 DAO dataAccess = new DAO();
 			ResultSet rs = dataAccess.CourseInfo(courseIdDisplay,termDisplay,programDisplay,levelDisplay);
             System.out.println("resultset" +rs);
 
@@ -230,23 +232,25 @@ public class SearchCourseController2 implements Initializable
             try {
 				while(rs.next())
 				{
-					String course_details_id=rs.getString("course_details_id");
+					course_details_id=rs.getString("course_details_id");
 					Integer term_id=Integer.parseInt(rs.getString("term_id"));
 					String program=rs.getString("term_id");
-					Boolean success=dataAccess.addCourse(studentID,term_id,course_details_id,userType,program,levelDisplay,courseIdDisplay,termDisplay);
-					Alert alert = new Alert(AlertType.INFORMATION);
-					alert.setTitle("Information Dialog");
-					alert.setHeaderText("Course Registeration");
-					if(success) {
-					alert.setContentText("Course Added :))");
-					}
-					else
-					{
-						alert.setContentText("Course Registeration Failed.Contact your admin");
-						}
-					alert.showAndWait();
-					System.out.println(success);
+				
 				}
+				
+				Boolean success=dataAccess.addCourse(studentID,term_id,course_details_id,userType,program,levelDisplay,courseIdDisplay,termDisplay);
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Information Dialog");
+				alert.setHeaderText("Course Registeration");
+				if(success) {
+				alert.setContentText("Course Added :))");
+				}
+				else
+				{
+					alert.setContentText("Course Registeration Failed.Contact your admin");
+					}
+				alert.showAndWait();
+				System.out.println(success);
 				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
