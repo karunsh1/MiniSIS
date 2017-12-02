@@ -1988,7 +1988,7 @@ if(result.next()) {
 		Connection conn = null;
 		conn = obj.getConnection();
 
-		sql = "INSERT ignore INTO `course_details` ( `course_id`, `instructor_id`, `term_id`, `duration`, `room_id`,`class_Capacity`,`class_availablity`) "
+		sql = "INSERT ignore INTO `course_details` ( `course_id`, `instructor_id`, `term_id`, `duration`, `room_id`,`class_Capacity`,`class_availability`) "
 				+ "select course.id,minisis.instructor.id,term_info.id,'" + duration
 				+ "',room.id,room.capacity,room.capacity from "
 				+ "course join instructor join term_info join room where "
