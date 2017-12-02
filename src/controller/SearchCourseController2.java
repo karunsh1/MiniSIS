@@ -149,16 +149,20 @@ public class SearchCourseController2 implements Initializable
 		ObservableList termlist = FXCollections.observableArrayList(termListArray);
 		termComboBox.setItems(termlist);
 		ObservableList deptlist = FXCollections.observableArrayList(deptListArray);
-		ComboboxProgram.setItems(deptlist);
+		
 		ObservableList levellist = FXCollections.observableArrayList(levelListArray);
-		LevelCombobox.setItems(levellist);
+		
 		System.out.println("till level done");
 
 		termComboBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
-		{
+		{ 
 			@Override
 			public void changed(ObservableValue<? extends String> ov, String t, String t1)
-			{   
+			{   clearSearchInfo();
+				ComboboxProgram.getSelectionModel().clearSelection();
+				 LevelCombobox.getSelectionModel().clearSelection();
+				 CourseIdComboBox.getSelectionModel().clearSelection();
+				LevelCombobox.setItems(levellist);
 				termDisplay=termComboBox.getSelectionModel().getSelectedItem();//0-Fall, 1-Winter
                 term_id=dataAccess.getTermId(termDisplay);
 //		        if(term_id==1)
@@ -166,37 +170,36 @@ public class SearchCourseController2 implements Initializable
 //		        else if(term_id==2)
 //		        	termDisplay="Winter 2017";
 				LevelCombobox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
-				{
+				{  
 					@Override
 					public void changed(ObservableValue<? extends String> ov, String t, String t1)
-					{
+					{ ComboboxProgram.getSelectionModel().clearSelection();
+					 CourseIdComboBox.getSelectionModel().clearSelection();
+						ComboboxProgram.setItems(deptlist);
 						level=(LevelCombobox.getValue().equals("Graduate")?"G":"UG");
 						System.out.println(level);
 					    levelDisplay=level;
 					    ComboboxProgram.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
-						{
+						{ 
 							@Override
 							public void changed(ObservableValue<? extends String> ov, String t, String t1)
-							{
+							{ CourseIdComboBox.getSelectionModel().clearSelection();
 								program=ComboboxProgram.getValue();
 								System.out.println(program);
 							    programDisplay=program;
-							    
+							  // if(dataAccess.hasCourseList(term_id,level,program)) 
+							 //  {
 				      courseListArray = dataAccess.courseList(term_id,level,program);
-				      System.out.println("course list empty"+courseListArray.isEmpty());
-//				      if(courseListArray.isEmpty())
-//				      { Alert alert = new Alert(AlertType.INFORMATION);
-//						alert.setTitle("Information Dialog");
-//						alert.setHeaderText("Course Registeration");
-//						
-//						alert.setContentText("No course matches search criteria.Please try to use other criteria");
-//					
-//				    	  clearAll();
-//				      }
+				      //ArrayList temp = new ArrayList(courseListArray);
+				      //System.out.println("course list empty"+courseListArray.isEmpty());
+				      //if(temp.isEmpty())
+				     
+				     // }
 				      System.out.println(courseListArray);
 					ObservableList courselist = FXCollections.observableArrayList(courseListArray);
 					System.out.println(courselist);
 					CourseIdComboBox.setItems(courselist);
+							  
 					CourseIdComboBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
 					{
 						@Override
@@ -204,8 +207,11 @@ public class SearchCourseController2 implements Initializable
 						{
 					         courseIdDisplay=Integer.valueOf((String)CourseIdComboBox.getValue());
 					        }
-				});
-			}
+				});}
+					/*else {
+							
+					   }*/	
+			//}
 		});
 			}
 		});
@@ -332,19 +338,22 @@ public class SearchCourseController2 implements Initializable
 
 public void clearAll() {
 	ComboboxProgram.getSelectionModel().clearSelection();
-	 LevelCombobox.getSelectionModel().clearSelection();;
+	 LevelCombobox.getSelectionModel().clearSelection();
 	 CourseIdComboBox.getSelectionModel().clearSelection();
 	termComboBox.getSelectionModel().clearSelection();
-	TextFieldCourseTitle.setText("");
-	TextFieldCourseDescription.setText("");
-	TextFieldNumCredits.setText("");
-	studentIdTextField.setText("");
-	textFieldInstructor.setText("");
-	textFieldRoomNumber.setText("");
-	textFieldAddress.setText("");
-	textFieldSchedule.setText("");
+	clearSearchInfo();
+
 }
-		
+	public void clearSearchInfo() {
+		TextFieldCourseTitle.setText("");
+		TextFieldCourseDescription.setText("");
+		TextFieldNumCredits.setText("");
+		studentIdTextField.setText("");
+		textFieldInstructor.setText("");
+		textFieldRoomNumber.setText("");
+		textFieldAddress.setText("");
+		textFieldSchedule.setText("");
+	}
 		@FXML public void onReset(ActionEvent event) {
 			clearAll();
 		}
