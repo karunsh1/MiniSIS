@@ -50,12 +50,18 @@ public class PayFeesController implements Initializable {
 	Integer moneyToBePaid;
 	DAO dataAccess = new DAO();
 	String AmountDueString;
+	@FXML Label labelExpiryDate;
+	@FXML Label LabelAmountDue;
+	@FXML Label LabelAmountToPay;
+	@FXML Label messageLabel;
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		 
-		
+		LabelDebitCardNum.setVisible(false);
+		LabelTerm.setVisible(true);
+		ComboboxTerm.setVisible(true);
+		disableAll();
 	    ObservableList<String> monthsObservableList = FXCollections.observableArrayList();
 	    ObservableList<Integer> yearObservableList = FXCollections.observableArrayList();
 	 
@@ -89,15 +95,23 @@ public class PayFeesController implements Initializable {
          
            ResultSet rs = dataAccess.getPaymentDetails(term,studentID);
            System.out.println("resultset" +rs);
-           //System.out.println(rs.getString("title"));
-           while(rs.next())
-           {
-        	   TextFieldAmountDue.setText(rs.getString("amount_due"));
+  
+           if(rs.next())
+           {   if(rs.getString("amount_due").equals("0")) {
+        	   messageLabel.setText("\"Braavo!!!!!  You have already paid the fees:))\"");
+        	   disableAll();
+        	   }
+           else {
+                  	   TextFieldAmountDue.setText(rs.getString("amount_due"));
         	   System.out.println(rs.getString("amount_due"));
+        	   messageLabel.setText("");
+        	   enableAll();
            }
-           //AddCourseButton.setVisible(true);
-			//}
-
+           }
+           else {
+        	   messageLabel.setText("\"Braavo!!!!!  You have already paid the fees:))\"");
+        	   disableAll();
+           }
 	}
  catch(SQLException ex) {
         	 
@@ -141,16 +155,6 @@ public class PayFeesController implements Initializable {
 					
 	            }
 
-//	            else {
-//	            Alert alert = new Alert(AlertType.INFORMATION);
-//				alert.setTitle("Information Dialog");
-//				alert.setHeaderText("Payment");
-//				alert.setContentText("Payment Done Successfully ");
-//				alert.showAndWait();
-//	            System.out.println(MonthCombobox.getValue());}
-//	        //}
-
-//	    });
 	}
 	
     public boolean validateData() {
@@ -188,6 +192,39 @@ public class PayFeesController implements Initializable {
     }
 	
 	
+	public void disableAll() {
+		
+		TextFieldDebitCardNum.setVisible(false);
+		MonthCombobox.setVisible(false);
+		YearCombobox.setVisible(false);
+		LabelCVV.setVisible(false);
+		TextFieldCVV.setVisible(false);
+		 ButtonPay.setVisible(false);
+		 TextFieldAmountDue.setVisible(false);
+		LabelTerm.setVisible(false);
+		TextFieldPayAmount.setVisible(false);
+		labelExpiryDate.setVisible(false);
+		LabelAmountDue.setVisible(false);
+		LabelAmountToPay.setVisible(false);
+		
 	
+	}
+	public void enableAll() {
+		LabelDebitCardNum.setVisible(true);
+		TextFieldDebitCardNum.setVisible(true);
+		MonthCombobox.setVisible(true);
+		YearCombobox.setVisible(true);
+		LabelCVV.setVisible(true);
+		TextFieldCVV.setVisible(true);
+		 ButtonPay.setVisible(true);
+		 TextFieldAmountDue.setVisible(true);
+		LabelTerm.setVisible(true);
+		TextFieldPayAmount.setVisible(true);
+		labelExpiryDate.setVisible(true);
+		LabelAmountDue.setVisible(true);
+		LabelAmountToPay.setVisible(true);
+		
+		
+	}
 
 }

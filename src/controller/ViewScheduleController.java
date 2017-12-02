@@ -42,6 +42,7 @@ public class ViewScheduleController implements Initializable {
 	public DAO dataAccess = new DAO();
 	public String selectTerm = null;
 	public int studentIDSearch = 0;
+	String term=null;
 	@FXML BorderPane searchCourseBorderPane;
 	@FXML ComboBox TermCombobox;
 	@FXML BorderPane ViewScheduleBorderPane;
@@ -60,6 +61,7 @@ public class ViewScheduleController implements Initializable {
 	Integer room_num;
 	String building;
 	protected int term_id;
+	@FXML Button resetButton;
 	@FXML
 	private void onSelectTerm() {
 		if (userType.equals("1")) {
@@ -91,9 +93,9 @@ public class ViewScheduleController implements Initializable {
 		{
 			@Override
 			public void changed(ObservableValue<? extends String> ov, String t, String t1)
-			{   
-				int intermediate_term_id=TermCombobox.getSelectionModel().getSelectedIndex();//0-Fall, 1-Winter
-                term_id=intermediate_term_id+1;
+			{   viewScheduleTableView.setItems(null);
+				term=(String) TermCombobox.getSelectionModel().getSelectedItem();//0-Fall, 1-Winter
+				 term_id=dataAccess.getTermId(term);
 		        ArrayList data = new ArrayList();
 				ColumnCourse.setCellValueFactory(new PropertyValueFactory<>("course"));
 				ColumnDay.setCellValueFactory(new PropertyValueFactory<>("day"));
@@ -127,6 +129,7 @@ public class ViewScheduleController implements Initializable {
 	@FXML public void onViewSchedule(ActionEvent event) {}
 
 	@FXML public void onRowClick(MouseEvent event) {}
-	
+
+
 
 }

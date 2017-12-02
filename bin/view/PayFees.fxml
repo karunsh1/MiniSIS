@@ -12,15 +12,16 @@
       <TextField fx:id="TextFieldDebitCardNum" layoutX="39.0" layoutY="261.0" prefHeight="25.0" prefWidth="342.0" />
       <ComboBox fx:id="MonthCombobox" layoutX="123.0" layoutY="342.0" prefHeight="25.0" prefWidth="74.0" promptText="MM" />
       <ComboBox fx:id="YearCombobox" layoutX="239.0" layoutY="342.0" prefHeight="25.0" prefWidth="66.0" promptText="YY" />
-      <Label layoutX="180.0" layoutY="312.0" text="Expiry Date" />
+      <Label fx:id="labelExpiryDate" layoutX="180.0" layoutY="312.0" text="Expiry Date" />
       <Label fx:id="LabelCVV" layoutX="95.0" layoutY="412.0" text="CVV" />
       <TextField fx:id="TextFieldCVV" layoutX="226.0" layoutY="408.0" />
       <Button fx:id="ButtonPay" layoutX="191.0" layoutY="517.0" mnemonicParsing="false" onAction="#onClickPay" text="Pay" />
-      <Label layoutX="59.0" layoutY="95.0" text="Amount due" />
+      <Label fx:id="LabelAmountDue" layoutX="59.0" layoutY="95.0" text="Amount due" />
       <TextField fx:id="TextFieldAmountDue" editable="false" layoutX="202.0" layoutY="91.0" />
       <TextField fx:id="TextFieldPayAmount" layoutX="202.0" layoutY="139.0" />
-      <Label layoutX="25.0" layoutY="135.0" text="Amount you want  to pay" />
+      <Label fx:id="LabelAmountToPay" layoutX="25.0" layoutY="135.0" text="Amount you want  to pay" />
       <Label fx:id="LabelTerm" layoutX="69.0" layoutY="50.0" prefHeight="17.0" prefWidth="51.0" text="Term" />
-      <ComboBox fx:id="ComboboxTerm" layoutX="201.0" layoutY="46.0" prefWidth="150.0" />
+      <ComboBox fx:id="ComboboxTerm" layoutX="201.0" layoutY="46.0" prefWidth="150.0" promptText="Select Term" />
+      <Label fx:id="messageLabel" layoutX="187.0" layoutY="185.0" />
    </children>
 </AnchorPane>

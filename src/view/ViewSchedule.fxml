@@ -47,8 +47,18 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="31.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="31.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="31.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="31.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="31.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="31.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="31.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="31.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="31.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
@@ -56,7 +66,7 @@
             <RowConstraints maxHeight="20.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="43.0" prefWidth="204.0" text="View Schedule" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="43.0" prefWidth="204.0" text="View Schedule" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="11" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                <font>
                   <Font size="29.0" />
                </font>
@@ -64,9 +74,9 @@
                   <Insets top="10.0" />
                </GridPane.margin>
             </Label>
-          <AnchorPane fx:id="SearchCourseAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="231.0" prefWidth="928.0" GridPane.rowIndex="23">
+          <AnchorPane fx:id="SearchCourseAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="231.0" prefWidth="928.0" GridPane.rowIndex="33">
                <children>
-                  <TableView fx:id="viewScheduleTableView" layoutX="60.0" layoutY="-252.0" onMouseClicked="#onRowClick" prefHeight="197.0" prefWidth="757.0">
+                  <TableView fx:id="viewScheduleTableView" layoutX="60.0" layoutY="-372.0" onMouseClicked="#onRowClick" prefHeight="191.0" prefWidth="757.0">
                     <columns>
                       <TableColumn fx:id="ColumnCourse" prefWidth="154.0" text="Course" />
                         <TableColumn fx:id="ColumnDay" prefWidth="109.0" text="Day of Week" />
@@ -78,7 +88,7 @@
                   </TableView>
                </children>
             </AnchorPane>
-            <ComboBox fx:id="TermCombobox" prefWidth="150.0" promptText="Choose term" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <ComboBox fx:id="TermCombobox" prefWidth="150.0" promptText="Choose term" GridPane.columnIndex="1" GridPane.rowIndex="10" />
          </children>
          <BorderPane.margin>
             <Insets />

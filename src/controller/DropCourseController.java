@@ -36,9 +36,10 @@ import javafx.scene.control.TableColumn;
 import javafx.event.ActionEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.control.TextField;
 
 public class DropCourseController implements Initializable {
-	
+	String userType;
 	
 	@FXML AnchorPane SearchCourseAnchorPane;
 	@FXML TableView<Course> searchCourseTableView;
@@ -57,17 +58,45 @@ public class DropCourseController implements Initializable {
 	@FXML BorderPane searchCourseBorderPane;
 	@FXML ComboBox TermCombobox;
     int term_id;
-    String termDisplay;
+    String termDisplay=null;
     String term_from_view,  program_from_view,level_from_view;
     Integer course_id_from_view;
      CourseModel coursemodel = new CourseModel();
 	@FXML Button resetButton;
+	@FXML Label labelStudentId;
+	@FXML TextField textFieldStudentId;
      
 	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		
+		labelStudentId.setVisible(false);
+		textFieldStudentId.setVisible(false);
+	/*studentID = Singleton.getInstance().getUserDataAccessID().getText();*/
+	userType = Singleton.getInstance().getUserType().getText();
+	System.out.println(userType);
+	if(userType.equals("1"))
+	{
+	   studentID = Singleton.getInstance().getUserAcessID().getText();
+	   System.out.println("student_id"+studentID);
+	}
+	if(userType.equals("2")||userType.equals("4"))
+	{
+		labelStudentId.setVisible(true);
+		textFieldStudentId.setVisible(true);
+	}
+	
+	else {
+		System.out.println("no match"+studentID);
+	}
+		if(studentID=="") {
+			if(userType.equals("1"))
+					 studentID = Singleton.getInstance().getUserAcessID().getText();
+			else if(userType.equals("2")||userType.equals("4")) {
+				studentID=textFieldStudentId.getText();
+				System.out.println("2nd tym" +"student_id"+studentID);
+		}
+		}
 		ArrayList termListArray = dataAccess.termNames();
 		
 		ObservableList termlist = FXCollections.observableArrayList(termListArray);
@@ -77,13 +106,8 @@ public class DropCourseController implements Initializable {
 			@Override
 			public void changed(ObservableValue<? extends String> ov, String t, String t1)
 			{   
-				int intermediate_term_id=TermCombobox.getSelectionModel().getSelectedIndex();//0-Fall, 1-Winter
-                term_id=intermediate_term_id+1;
-		        if(term_id==1)
-		        	termDisplay="Fall 2016";
-		        else if(term_id==2)
-		        	termDisplay="Winter 2017";
-		       // Course  course= coursemodel.EnrollCourseList(Integer.parseInt(studentID), term_id);
+				termDisplay=(String) TermCombobox.getSelectionModel().getSelectedItem();//0-Fall, 1-Winter
+				 term_id=dataAccess.getTermId(termDisplay);
 		        ArrayList data = new ArrayList();
 		      	      ColumnProgram.setCellValueFactory(new PropertyValueFactory<Course,String>("Program"));
 		      	      ColumnCourseTitle.setCellValueFactory(new PropertyValueFactory<Course,String>("CourseTitle"));
@@ -119,6 +143,7 @@ public class DropCourseController implements Initializable {
 				{
 					String course_details_id=rs.getString("course_details_id");
 					Boolean success=dataAccess.dropCourse(studentID,course_details_id);
+					clear();
 					Alert alert = new Alert(AlertType.INFORMATION);
 					alert.setTitle("Information Dialog");
 					alert.setHeaderText("Course Registeration");
@@ -157,11 +182,14 @@ public class DropCourseController implements Initializable {
 
 
 	@FXML public void onReset(ActionEvent event) {
-		TermCombobox.getSelectionModel().clearSelection();
-		searchCourseTableView.getItems().clear();
+		
+		clear();
 		
 	}
     
-	
+	public void clear() {
+		TermCombobox.getSelectionModel().clearSelection();
+		searchCourseTableView.getItems().clear();
+	}
 	
 	}

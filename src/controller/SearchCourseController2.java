@@ -58,7 +58,6 @@ public class SearchCourseController2 implements Initializable
     String studentID;
     
 	private TextField ErrorMsgField;
-	//private TableView<Course> searchCourseTableView;
 	ArrayList courseListArray;
 	static ResultSet availcourses;
 	public   ObservableList<ObservableList> data;
@@ -78,8 +77,6 @@ public class SearchCourseController2 implements Initializable
 	@FXML
 	private Button AddCourseButton;
 
-	//    @FXML
-	//    private Button cancelButton;
 	@FXML
 	private BorderPane searchCourseBorderPane;   
 	static Statement statement;
@@ -158,23 +155,20 @@ public class SearchCourseController2 implements Initializable
 		{ 
 			@Override
 			public void changed(ObservableValue<? extends String> ov, String t, String t1)
-			{   clearSearchInfo();
-				ComboboxProgram.getSelectionModel().clearSelection();
+			{   clearAll();
+				/*ComboboxProgram.getSelectionModel().clearSelection();
 				 LevelCombobox.getSelectionModel().clearSelection();
-				 CourseIdComboBox.getSelectionModel().clearSelection();
+				 CourseIdComboBox.getSelectionModel().clearSelection();*/
 				LevelCombobox.setItems(levellist);
 				termDisplay=termComboBox.getSelectionModel().getSelectedItem();//0-Fall, 1-Winter
                 term_id=dataAccess.getTermId(termDisplay);
-//		        if(term_id==1)
-//		        	termDisplay="Fall 2016";
-//		        else if(term_id==2)
-//		        	termDisplay="Winter 2017";
+                termDisplay="Winter 2017";
 				LevelCombobox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
 				{  
 					@Override
 					public void changed(ObservableValue<? extends String> ov, String t, String t1)
-					{ ComboboxProgram.getSelectionModel().clearSelection();
-					 CourseIdComboBox.getSelectionModel().clearSelection();
+					{ /*ComboboxProgram.getSelectionModel().clearSelection();
+					 CourseIdComboBox.getSelectionModel().clearSelection();*/
 						ComboboxProgram.setItems(deptlist);
 						level=(LevelCombobox.getValue().equals("Graduate")?"G":"UG");
 						System.out.println(level);
@@ -187,8 +181,7 @@ public class SearchCourseController2 implements Initializable
 								program=ComboboxProgram.getValue();
 								System.out.println(program);
 							    programDisplay=program;
-							  // if(dataAccess.hasCourseList(term_id,level,program)) 
-							 //  {
+							
 				      courseListArray = dataAccess.courseList(term_id,level,program);
 				      //ArrayList temp = new ArrayList(courseListArray);
 				      //System.out.println("course list empty"+courseListArray.isEmpty());

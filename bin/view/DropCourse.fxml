@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -18,9 +19,9 @@
       <GridPane prefHeight="443.0" prefWidth="912.0" vgap="10.0" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="459.0" minWidth="10.0" prefWidth="358.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="459.0" minWidth="10.0" prefWidth="151.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="589.0" minWidth="10.0" prefWidth="109.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="589.0" minWidth="10.0" prefWidth="161.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="459.0" minWidth="10.0" prefWidth="195.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="589.0" minWidth="0.0" prefWidth="0.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="589.0" minWidth="10.0" prefWidth="178.0" />
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="589.0" minWidth="10.0" prefWidth="178.0" />
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="589.0" minWidth="10.0" prefWidth="178.0" />
         </columnConstraints>
@@ -38,7 +39,7 @@
             <RowConstraints maxHeight="41.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="43.0" prefWidth="239.0" text="Drop Course" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" GridPane.vgrow="NEVER">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="43.0" prefWidth="253.0" text="Drop Course" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" GridPane.vgrow="NEVER">
                <font>
                   <Font size="29.0" />
                </font>
@@ -65,9 +66,15 @@
                   </TableView>
                </children>
             </AnchorPane>
-            <Button fx:id="DropCourseButton" mnemonicParsing="false" onAction="#onDropCourse" prefHeight="31.0" prefWidth="115.0" text="Drop" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <ComboBox fx:id="TermCombobox" prefWidth="150.0" promptText="Choose term" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button fx:id="DropCourseButton" mnemonicParsing="false" onAction="#onDropCourse" prefHeight="29.0" prefWidth="159.0" text="Drop" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <ComboBox fx:id="TermCombobox" prefHeight="25.0" prefWidth="154.0" promptText="Choose term" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Button fx:id="resetButton" mnemonicParsing="false" onAction="#onReset" prefHeight="25.0" prefWidth="117.0" text="Reset" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <Label fx:id="labelStudentId" prefHeight="17.0" prefWidth="79.0" text="Student Id" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="120.0" />
+               </GridPane.margin>
+            </Label>
+            <TextField fx:id="textFieldStudentId" prefHeight="25.0" prefWidth="142.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
          <BorderPane.margin>
             <Insets />

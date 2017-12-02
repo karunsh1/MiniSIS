@@ -1,5 +1,5 @@
 package model;
-
+import controller.SearchCourseController2;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -35,7 +35,7 @@ public class DAO {
 	private ArrayList<String> dataobSchedule;
 	private Schedule schedule;
 	private ArrayList<String> courseDetailIdsList = new ArrayList<String>();
-
+    boolean hasCourseList;
 	/**
 	 * 
 	 * @param studentId
@@ -808,27 +808,17 @@ public class DAO {
 		try {
 			PreparedStatement courselist = conn.prepareStatement(sql);
 			ResultSet result = courselist.executeQuery();
-if(result.next()) {
-	System.out.println("in courselist");
+
 			while (result.next()) {
 				for (int i = 1; i <= 1; i++) {
 
 					courseList.add(result.getString("course_code"));
-					;
+					
 				}
 
-			}
+			
 }
-else {
-	System.out.println("no courselist");
-	Alert alert = new Alert(AlertType.INFORMATION);
-	alert.setTitle("Information Dialog");
-	alert.setHeaderText("Register Course");
-	alert.setContentText("Register Course");
-	alert.setContentText("Please select different criteria to get course ids");
-	//clearAll();
-	alert.showAndWait();
-}
+
 		} catch (SQLException e) {
 
 			e.printStackTrace();
