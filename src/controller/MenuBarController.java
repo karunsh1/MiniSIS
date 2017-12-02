@@ -1,5 +1,3 @@
-
-
 package controller;
 
 import java.io.FileNotFoundException;
@@ -53,7 +51,7 @@ public class MenuBarController implements Initializable {
 	@FXML
 	private MenuBar menuBar;
 	@FXML
-	private MenuItem mItemViewTranscript, mItemAddUser, mItemUpdateSequrityQue,mItemCourseDetail;
+	private MenuItem mItemViewTranscript, mItemAddUser, mItemUpdateSequrityQue,mItemCourseDetail,mItemPreRequisite;
 	@FXML
 	MenuItem menuitemPay;
 	@FXML
@@ -63,6 +61,21 @@ public class MenuBarController implements Initializable {
 	@FXML
 	private Menu mResult, mCourseDetail;
     @FXML MenuItem menuItemWaiveOffPreRequisite;
+    
+    
+    @FXML
+	private void onAddPreReqisiteCourseDetail(){
+		showItemPane.getChildren().clear();
+		BorderPane newLoadedPane = null;
+
+		try {
+			newLoadedPane = FXMLLoader.load(getClass().getResource("/view/addPreRequisite.fxml"));
+		} catch (IOException e) { // TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		showItemPane.getChildren().add(newLoadedPane);
+	}
 
 	@FXML
 	private void clcikOnMItemAddTermDetail() {
@@ -281,6 +294,7 @@ public class MenuBarController implements Initializable {
 			mItemResetPassword.visibleProperty().set(false);
 			mItemAddTermDetail.visibleProperty().set(false);
 			mItemCourseDetail.visibleProperty().set(false);
+			mItemPreRequisite.visibleProperty().set(false);
 		}
 
 		System.out.println("User Type  " + userType);
@@ -292,18 +306,21 @@ public class MenuBarController implements Initializable {
 			mItemResetPassword.visibleProperty().set(false);
 			mItemAddTermDetail.visibleProperty().set(false);
 			mItemCourseDetail.visibleProperty().set(false);
+			mItemPreRequisite.visibleProperty().set(false);
 
 		} else if (userType.equals("2")) {
 			mItemAddUser.visibleProperty().set(true);
 			mItemResetPassword.visibleProperty().set(true);
 			mItemAddTermDetail.visibleProperty().set(true);
 			mItemCourseDetail.visibleProperty().set(true);
+			mItemPreRequisite.visibleProperty().set(true);
 		}
 		if (userType.equals("4")) {
 			addGrades.visibleProperty().set(true);
 			mCourseDetail.visibleProperty().set(false);
 			mResult.visibleProperty().set(false);
 			menuItemWaiveOffPreRequisite.setVisible(true);
+			mItemPreRequisite.visibleProperty().set(false);
 			
 		}
 	}
@@ -365,3 +382,4 @@ public class MenuBarController implements Initializable {
 	showItemPane.getChildren().add(newLoadedPane);
 }
 }
+

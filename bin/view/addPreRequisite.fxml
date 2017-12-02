@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane prefHeight="673.0" prefWidth="899.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddPreRequisiteCourseController">
+   <bottom>
+      <AnchorPane fx:id="acPaneAddPrerequisite" prefHeight="433.0" prefWidth="899.0" visible="false" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_LEFT" layoutX="201.0" layoutY="33.0" prefHeight="141.0" prefWidth="540.0">
+               <children>
+                  <GridPane prefHeight="251.0" prefWidth="442.0">
+                     <children>
+                        <Label prefHeight="37.0" prefWidth="208.0" text="Select Program">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="cbSelectProgram" onAction="#onSelectProgramName" prefHeight="46.0" prefWidth="215.0" promptText="Please Select Program" GridPane.columnIndex="1" />
+                        <Label prefHeight="37.0" prefWidth="208.0" text="Select Course Name" GridPane.rowIndex="1">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="cbSelectCourseName" onAction="#onSelectCourseName" prefHeight="46.0" prefWidth="215.0" promptText="Please Select Course" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                     </children>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="144.0" minHeight="10.0" prefHeight="118.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="195.0" minHeight="10.0" prefHeight="96.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </GridPane>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="533.0" layoutY="195.0" prefHeight="100.0" prefWidth="249.0">
+               <children>
+                  <Button fx:id="btnSave" mnemonicParsing="false" onAction="#clickOnSaveButton" prefHeight="47.0" prefWidth="90.0" text="Save">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnReset" mnemonicParsing="false" onAction="#clickOnResetButton" prefHeight="47.0" prefWidth="94.0" text="Reset">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </bottom>
+   <center>
+      <AnchorPane prefHeight="279.0" prefWidth="899.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" prefHeight="104.0" prefWidth="763.0">
+               <children>
+                  <GridPane prefHeight="80.0" prefWidth="487.0">
+                     <children>
+                        <Label prefHeight="21.0" prefWidth="208.0" text="Search Student">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="txtSearchStudentID" prefHeight="45.0" prefWidth="143.0" promptText="Enter Student ID" GridPane.columnIndex="1">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </TextField>
+                        <Button fx:id="btnSearchViewCGPA" mnemonicParsing="false" onAction="#ClickOnBtnSearchStudentDetail" prefHeight="44.0" prefWidth="129.0" text="Search" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Button>
+                     </children>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="144.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="144.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </GridPane>
+               </children>
+            </HBox>
+            <Label fx:id="lblError" alignment="CENTER" contentDisplay="CENTER" layoutY="104.0" prefHeight="60.0" prefWidth="546.0" textFill="#d30b0b" wrapText="true">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </center>
+   <top>
+      <HBox alignment="CENTER" prefHeight="58.0" prefWidth="777.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label prefHeight="33.0" prefWidth="479.0" text="Add Pre-requisite Course Detail" textAlignment="CENTER">
+               <font>
+                  <Font name="Arial Bold" size="29.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+   </top>
+</BorderPane>
