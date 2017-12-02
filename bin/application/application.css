@@ -81,3 +81,13 @@
     -fx-padding: 3px 10px 3px 10px;
     -fx-background-color: linear-gradient(orange, orangered );
 }
+#buttonSearch {
+    -fx-background-radius: 30, 30, 29, 28;
+    -fx-padding: 3px 10px 3px 10px;
+    -fx-background-color: linear-gradient(orange, orangered );
+}
+#buttonWaiveOff {
+    -fx-background-radius: 30, 30, 29, 28;
+    -fx-padding: 3px 10px 3px 10px;
+    -fx-background-color: linear-gradient(orange, orangered );
+}
