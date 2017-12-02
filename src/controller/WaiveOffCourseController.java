@@ -137,13 +137,9 @@ public class WaiveOffCourseController implements Initializable {
 			alert.setContentText("Waive Off Course");
 			alert.setContentText("Student has no pre-requisite");
 			alert.showAndWait();
-			labelProgram.setVisible(false);
-			buttonWaiveOff.setVisible(false);;
-			comboBoxCourseIds.setVisible(false);
-			labelCourseId.setVisible(false);
-			buttonSearch.setVisible(false);;
-			labelProgram.setVisible(false);;
-			labelProgramValue.setVisible(false);
+			
+			textFieldStudentId.setText(" ");
+			comboBoxCourseIds.getSelectionModel().clearSelection();
 
 		}
 	}

@@ -542,10 +542,10 @@ public class DAO {
 		System.out.println(sql);
 		MySQLAccess obj = new MySQLAccess();
 		Connection conn = obj.getConnection();
-		ResultSet result = null;
+		int result = 0;
 		try {
 			PreparedStatement courselist = conn.prepareStatement(sql);
-			result = courselist.executeQuery();
+			result = courselist.executeUpdate();
 			doneWaiveOff=true;
 
 		} catch (SQLException e) {
@@ -927,23 +927,22 @@ if(result.next()) {
 		String sql = null;
 		ResultSet result=null;
 		ArrayList courseList = new ArrayList();
-		sql="SELECT * FROM pre_requisite join course on course.program=pre_requisite.program "
-				+" WHERE student_id ="+ "\""+ studenId +"\"";
+		sql="SELECT course.course_code FROM pre_requisite join course on course.program=pre_requisite.program "
+				+" WHERE student_id ="+ "\""+ studenId +"\""+"and pre_requisite.course_code=course.course_code";
 		System.out.println(sql);
 		MySQLAccess obj = new MySQLAccess();
 		Connection conn = obj.getConnection();
 		try {
 			PreparedStatement courselist = conn.prepareStatement(sql);
 			result = courselist.executeQuery();
-			if(result.next()) {
+			
 				while (result.next()) {
 
 					courseList.add(result.getString("course_code"));
+				System.out.println(result.getString("course_code"));
 				}
-			}
-			else {
-
-			}
+			
+			
 
 		} catch (SQLException e) {
 
