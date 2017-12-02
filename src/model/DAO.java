@@ -808,7 +808,8 @@ public class DAO {
 		try {
 			PreparedStatement courselist = conn.prepareStatement(sql);
 			ResultSet result = courselist.executeQuery();
-
+if(result.next()) {
+	System.out.println("in courselist");
 			while (result.next()) {
 				for (int i = 1; i <= 1; i++) {
 
@@ -817,12 +818,49 @@ public class DAO {
 				}
 
 			}
+}
+else {
+	System.out.println("no courselist");
+	Alert alert = new Alert(AlertType.INFORMATION);
+	alert.setTitle("Information Dialog");
+	alert.setHeaderText("Register Course");
+	alert.setContentText("Register Course");
+	alert.setContentText("Please select different criteria to get course ids");
+	//clearAll();
+	alert.showAndWait();
+}
 		} catch (SQLException e) {
 
 			e.printStackTrace();
 		}
 
 		return courseList;
+
+	}
+	public boolean hasCourseList(int term_id, String level, String program) {
+		String sql = null;
+		ArrayList courseList = new ArrayList();
+
+		sql = "SELECT course.course_code\r\n" + "FROM course \r\n" + "JOIN course_details \r\n"
+				+ "ON course.id = course_details.course_id \r\n" + "WHERE course_details.term_id =" + term_id + " \r\n"
+				+ "AND level = " + "\"" + level + "\"" + "AND program = " + "\"" + program + "\"";
+
+		System.out.println(sql);
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = obj.getConnection();
+		try {
+			PreparedStatement courselist = conn.prepareStatement(sql);
+			ResultSet result = courselist.executeQuery();
+if(result.next()) {
+	return true;
+}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+		return false;
 
 	}
 
