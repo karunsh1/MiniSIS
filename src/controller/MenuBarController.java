@@ -287,7 +287,6 @@ public class MenuBarController implements Initializable {
 		String userType = null;
 
 		userType = Singleton.getInstance().getUserType().getText();
-
 		if (!userType.equals("1")) {
 			mMenuPayFee.visibleProperty().set(false);
 			mViewSchedule.visibleProperty().set(false);
@@ -316,12 +315,11 @@ public class MenuBarController implements Initializable {
 			mItemPreRequisite.visibleProperty().set(true);
 		}
 		if (userType.equals("4")) {
-			addGrades.visibleProperty().set(true);
+			addGrades.visibleProperty().set(false);
 			mCourseDetail.visibleProperty().set(false);
 			mResult.visibleProperty().set(false);
 			menuItemWaiveOffPreRequisite.setVisible(true);
 			mItemPreRequisite.visibleProperty().set(false);
-			
 		}
 	}
 	@FXML

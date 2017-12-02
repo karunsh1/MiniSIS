@@ -168,7 +168,7 @@ public class LoginController {
 
 					userType = "admin";
 					userId = admin.getId();
-				}else{
+				}else if(type.equals("3")){
 					DAO dataAccess = new DAO();
 					Instructor instructor = new Instructor();
 					instructor = dataAccess.selectInstructor(dbEmail);
@@ -177,6 +177,15 @@ public class LoginController {
 					userID = instructor.getId();					
 					
 				}
+				else if(type.equals("4")) {
+					AdminModel adminModel = new AdminModel();
+					Admin admin = adminModel.selectAdmin(dbEmail);
+					name = admin.getFirst_name() + " " + admin.getLast_name();
+
+					userType = "admin";
+					userId = admin.getId();
+				}
+				
 				lblUserAccessID.setText(Integer.toString(userID));
 				lblUserRole.setText(userType);
 				Singleton.getInstance().setEmailID(userName);
