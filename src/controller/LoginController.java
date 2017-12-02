@@ -167,7 +167,7 @@ public class LoginController {
 					name = admin.getFirst_name() + " " + admin.getLast_name();
 
 					userType = "admin";
-					userId = admin.getId();
+					userID = admin.getId();
 				}else if(type.equals("3")){
 					DAO dataAccess = new DAO();
 					Instructor instructor = new Instructor();
@@ -183,7 +183,7 @@ public class LoginController {
 					name = admin.getFirst_name() + " " + admin.getLast_name();
 
 					userType = "admin";
-					userId = admin.getId();
+					userID = admin.getId();
 				}
 				
 				lblUserAccessID.setText(Integer.toString(userID));
