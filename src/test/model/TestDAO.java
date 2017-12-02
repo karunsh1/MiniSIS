@@ -31,6 +31,11 @@ public class TestDAO {
 		assertEquals(3, termId);
 	}
 	
+	@Test
+	public void testGetCurrentTermId() {
+		int termId=dataAccessObject.getCurrentTermId();
+		assertEquals(1, termId);
+	}
 //	@Test
 //	public void testGetDuePayment() {
 //		int term_id=1;
@@ -39,4 +44,6 @@ public class TestDAO {
 //		assertEquals(0.0, due_payment);
 //	}
 
+	
+	
 }

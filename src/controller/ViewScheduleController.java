@@ -44,7 +44,6 @@ public class ViewScheduleController implements Initializable {
 	public int studentIDSearch = 0;
 	String term=null;
 	@FXML BorderPane searchCourseBorderPane;
-	@FXML ComboBox TermCombobox;
 	@FXML BorderPane ViewScheduleBorderPane;
 	@FXML TableView viewScheduleTableView;
 	@FXML TableColumn ColumnCourse;
@@ -62,16 +61,8 @@ public class ViewScheduleController implements Initializable {
 	String building;
 	protected int term_id;
 	@FXML Button resetButton;
+	@FXML Button viewSchedule;
 	@FXML
-	private void onSelectTerm() {
-		if (userType.equals("1")) {
-			selectTerm = TermCombobox.getSelectionModel().getSelectedItem().toString();
-			tableViewdDtailPopUp(Integer.parseInt(studentID), selectTerm);
-		}else{
-			selectTerm = TermCombobox.getSelectionModel().getSelectedItem().toString();
-			tableViewdDtailPopUp(studentIDSearch, selectTerm);
-		}
-	}
 
 	private void tableViewdDtailPopUp(int studentID, String selectTerm2) {
 
@@ -87,46 +78,38 @@ public class ViewScheduleController implements Initializable {
 		
 		ArrayList termListArray = dataAccess.termNames();
 		
-		ObservableList termlist = FXCollections.observableArrayList(termListArray);
-		TermCombobox.setItems(termlist);
-		TermCombobox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
-		{
-			@Override
-			public void changed(ObservableValue<? extends String> ov, String t, String t1)
-			{   viewScheduleTableView.setItems(null);
-				term=(String) TermCombobox.getSelectionModel().getSelectedItem();//0-Fall, 1-Winter
-				 term_id=dataAccess.getTermId(term);
-		        ArrayList data = new ArrayList();
-				ColumnCourse.setCellValueFactory(new PropertyValueFactory<>("course"));
-				ColumnDay.setCellValueFactory(new PropertyValueFactory<>("day"));
-				ColumnStartTime.setCellValueFactory(new PropertyValueFactory<>("start_time"));
-				ColumnEndTime.setCellValueFactory(new PropertyValueFactory<>("end_time"));
-				ColumnRoomNumber.setCellValueFactory(new PropertyValueFactory<>("room_num"));
-				ColumnBuilding.setCellValueFactory(new PropertyValueFactory<>("building"));
-				if((!dataAccess.ViewSchedule(Integer.parseInt(studentID), term_id).isEmpty())) {
-				viewScheduleTableView.setItems(dataAccess.ViewSchedule(Integer.parseInt(studentID), term_id));
-				System.out.println("data there" +dataAccess.ViewSchedule(Integer.parseInt(studentID), term_id));}
-				else
-				{       System.out.println("data not there" +dataAccess.ViewSchedule(Integer.parseInt(studentID), term_id));
-					    Alert alert = new Alert(AlertType.INFORMATION);
-						alert.setTitle("Information Dialog");
-						alert.setHeaderText("Schedule");
-						alert.setContentText("Not registered in any course for this term. Please register in a course to view schedule");
-						alert.showAndWait();
-				
-				}		
-		        			
-			}
-		});
+		
 
 	}
 	public void clearFields(){
-		TermCombobox.setItems(null);
 		viewScheduleTableView.setItems(null);
 		
 	}
 
-	@FXML public void onViewSchedule(ActionEvent event) {}
+	@FXML public void onViewSchedule(ActionEvent event) {
+		 viewScheduleTableView.setItems(null);
+	        ArrayList data = new ArrayList();
+			ColumnCourse.setCellValueFactory(new PropertyValueFactory<>("course"));
+			ColumnDay.setCellValueFactory(new PropertyValueFactory<>("day"));
+			ColumnStartTime.setCellValueFactory(new PropertyValueFactory<>("start_time"));
+			ColumnEndTime.setCellValueFactory(new PropertyValueFactory<>("end_time"));
+			ColumnRoomNumber.setCellValueFactory(new PropertyValueFactory<>("room_num"));
+			ColumnBuilding.setCellValueFactory(new PropertyValueFactory<>("building"));
+			if((!dataAccess.ViewSchedule(Integer.parseInt(studentID)).isEmpty())) {
+			viewScheduleTableView.setItems(dataAccess.ViewSchedule(Integer.parseInt(studentID)));
+			System.out.println("data there" +dataAccess.ViewSchedule(Integer.parseInt(studentID)));}
+			else
+			{       System.out.println("data not there" +dataAccess.ViewSchedule(Integer.parseInt(studentID)));
+				    Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Information Dialog");
+					alert.setHeaderText("Schedule");
+					alert.setContentText("Not registered in any course for this term. Please register in a course to view schedule");
+					alert.showAndWait();
+			
+			}		
+	        			
+		}
+	
 
 	@FXML public void onRowClick(MouseEvent event) {}
 

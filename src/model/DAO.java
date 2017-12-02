@@ -1730,25 +1730,55 @@ if(result.next()) {
 		return addStatus;
 
 	}
+    
+	public int getCurrentTermId() {
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = null;
+		int term_id=0;
+		conn = obj.getConnection();
+		String sqlQuery = "";
+		sqlQuery = "\r\n" + 
+				"SELECT     term_info.id\r\n" + 
+				"FROM       term_info\r\n" + 
+				"WHERE      term_info.start_date <=curdate() and curdate()<term_info.end_date";
 
-	public ObservableList<Schedule> ViewSchedule(int studentID, int termID) {
+		try {
+			PreparedStatement psemailvalid = conn.prepareStatement(sqlQuery);
+			ResultSet result = psemailvalid.executeQuery();
+
+			while (result.next()) {
+				term_id=Integer.parseInt(result.getString("id"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return term_id;
+		
+	}
+	public ObservableList<Schedule> ViewSchedule(int studentID) {
 		MySQLAccess obj = new MySQLAccess();
 		Connection conn = null;
 		conn = obj.getConnection();
 
 		ObservableList<Schedule> dataobSchedule = FXCollections.observableArrayList();
 		int studentId = studentID;
-		int termId = termID;
-
+		int termId=0;
+		termId=getCurrentTermId();
+		if(termId==0) {
+			 Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Information Dialog");
+				alert.setHeaderText("Schedule");
+				alert.setContentText("Current Term is unknown.Please contact the admin");
+				alert.showAndWait();
+		}
 		String course;
 		String day;
 		String start_time;
 		String end_time;
 		int room_num;
 		String building;
-
-		System.out.println(studentId);
-		System.out.println(termId);
 
 		ArrayList enrollCourseList = null;
 		String sqlQuery = "";
