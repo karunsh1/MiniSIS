@@ -202,21 +202,6 @@ public void initialize(URL url, ResourceBundle rb)
 	//
 }
 
-
-char charLevel(String level)
-{
-	if ("Graduate".equals(level))
-	{
-		return 'G';
-	}
-	else 
-	{
-		return 'U';
-	}
-
-}
-
-
 @FXML public void onAddCourse(ActionEvent event) {
 	String course_details_id = null;
 	System.out.println("in add button controller");

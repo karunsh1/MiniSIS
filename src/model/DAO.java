@@ -318,9 +318,8 @@ public class DAO {
 	boolean availibility;
 	boolean feePaid;
 	boolean scheduleConflict;
-	public boolean addCourse(String studentId,int term_id,String course_details_id,String userType, String program, String level, Integer courseId,String term) {
-
-
+	boolean isCompleted;
+		public boolean addCourse(String studentId,int term_id,String course_details_id,String userType, String program, String level, Integer courseId,String term) {
 		System.out.println("in getCourseIdlist");
 		MySQLAccess obj = new MySQLAccess();
 		Connection conn = obj.getConnection();
@@ -336,7 +335,7 @@ public class DAO {
 		availibility=false;
 		feePaid=false;
 		scheduleConflict=false;
-
+        isCompleted=false;
 		try {
 
 			sqlQuery = "SELECT * ,CONCAT(instructor.first_name,' ',instructor.last_name) as instructor, course.id as course_id from  registration join course_details on  course_details.id=registration.course_details_id join"
@@ -369,7 +368,6 @@ public class DAO {
 			for (int i = 0; i < courseDetailIdsList.size(); i++) {
 				System.out.println("courseIdListValyes");
 				System.out.println(courseDetailIdsList.get(i));
-				// System.out.println(courseDetailIdsList.size());
 			}
 			System.out.println("in addcourse-----------------");
 	for(int i=0;i<courseDetailIdsList.size();i++)
@@ -405,6 +403,9 @@ public class DAO {
 			//int class_availability=getClassAvailability(course_details_id);
 			if(getClassAvailability(course_details_id)>0)
 				availibility=true;
+			if(isCourseCompleted(course_details_id,studentId)==true)
+				isCompleted=true;
+			System.out.println("is competed"+isCompleted);
 			if(count_courses==3)
 				alreadyThree=true;
 			//System.out.println("fee from get function "+getDuePayment(term,studentId));
@@ -419,6 +420,14 @@ public class DAO {
 				alert.setTitle("Information Dialog");
 				alert.setHeaderText("Course Registeration");
 				alert.setContentText("You have already registered in this course:))");
+				alert.showAndWait();
+			}
+			if (isCompleted == true) {
+				System.out.println("is completed");
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Information Dialog");
+				alert.setHeaderText("Course Registeration");
+				alert.setContentText("You have already completed the degree.You dont need to register any more :))");
 				alert.showAndWait();
 			}
 
@@ -467,7 +476,7 @@ public class DAO {
 			}
 
 			if (alreadyExists == false && alreadyThree == false && sameProgram == true && availibility == true
-					&& feePaid == true) {
+					&& feePaid == true && isCompleted == false) {
 				sql = "INSERT INTO registration (student_id, course_details_id, status) \r\n" + "VALUES (" + "\""
 						+ studentId + "\"" + "," + "\"" + course_details_id + "\"" + "," + "\"" + enrolled + "\""
 						+ ") ON DUPLICATE KEY UPDATE status =" + "\"" + enrolled + "\"";
@@ -684,6 +693,31 @@ public class DAO {
 
 	}
 
+	public boolean isCourseCompleted(String course_details_id, String StudentID) {
+		String sql = null;
+         String status=null;
+		sql = "SELECT status from registration where course_details_id=" + "\"" + course_details_id + "\"" + "and student_id=" + "\"" + StudentID + "\"";
+
+		System.out.println(sql);
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = obj.getConnection();
+		ResultSet result = null;
+		try {
+			PreparedStatement courselist = conn.prepareStatement(sql);
+			result = courselist.executeQuery();
+            while(result.next()) {
+            	status=result.getString("status");
+            }
+            if(status.equals("completed"))
+            	return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return false;
+
+	}
 	public double getDuePayment(String term, String StudentID) {
 		double amount_due = 0;
 		String sql = null;
