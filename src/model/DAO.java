@@ -427,7 +427,7 @@ public class DAO {
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Information Dialog");
 				alert.setHeaderText("Course Registeration");
-				alert.setContentText("You have already completed the degree.You dont need to register any more :))");
+				alert.setContentText("You have already completed this course.Hence cannot register :))");
 				alert.showAndWait();
 			}
 
