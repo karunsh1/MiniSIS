@@ -2333,10 +2333,12 @@ public class DAO {
 
 		conn = obj.getConnection();
 
+
 		sql = "select count(id) as count from minisis.registration where status ='completed' and course_details_id  not in ( "
 				+ "select id from minisis.course_details where course_id in ("
 				+ "select id from minisis.course where concat(course_code,program) in("
 				+ "select concat(course_code,program) from minisis.pre_requisite where student_id='"+studentID+"')))";
+
 		try {
 			PreparedStatement psSQue = conn.prepareStatement(sql);
 			ResultSet result = psSQue.executeQuery();
