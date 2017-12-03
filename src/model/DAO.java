@@ -528,7 +528,7 @@ public class DAO {
 
 
 
-	private String getProgramOfCourse(String course_details_id) {
+	public String getProgramOfCourse(String course_details_id) {
 		String subject_code = null;
 		String sql = null;
 		//ArrayList courseList = new ArrayList();
@@ -555,7 +555,7 @@ public class DAO {
 		
 	}
 
-	private String getSubjectCode(String studentId) {
+	public String getSubjectCode(String studentId) {
 		String subject_code = null;
 		String sql = null;
 		//ArrayList courseList = new ArrayList();
