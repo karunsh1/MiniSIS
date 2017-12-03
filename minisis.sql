@@ -174,7 +174,7 @@ CREATE TABLE `grade` (
   `term_id` int(11) NOT NULL,
   `gpa` float DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -183,6 +183,7 @@ CREATE TABLE `grade` (
 
 LOCK TABLES `grade` WRITE;
 /*!40000 ALTER TABLE `grade` DISABLE KEYS */;
+INSERT INTO `grade` VALUES (13,14,1000004,1001,4.3),(12,11,1000004,1001,3.3),(11,2,1000004,1001,3),(10,12,1000004,1002,4),(9,1,1000004,1003,3.4),(15,5,1000004,1006,3.7),(16,12,1000004,1007,NULL);
 /*!40000 ALTER TABLE `grade` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -282,9 +283,8 @@ CREATE TABLE `registration` (
   `course_details_id` int(11) NOT NULL,
   `status` enum('enrolled','dropped','completed','disc') NOT NULL DEFAULT 'enrolled',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `student_id_UNIQUE` (`student_id`),
-  UNIQUE KEY `course_details_id_UNIQUE` (`course_details_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -293,7 +293,7 @@ CREATE TABLE `registration` (
 
 LOCK TABLES `registration` WRITE;
 /*!40000 ALTER TABLE `registration` DISABLE KEYS */;
-INSERT INTO `registration` VALUES (13,1000006,6,'completed');
+INSERT INTO `registration` VALUES (14,1000004,10,'completed'),(16,1000004,19,'completed'),(19,1000004,23,'completed'),(21,1000004,25,'completed'),(22,1000004,26,'completed'),(23,1000004,38,'enrolled'),(24,1000004,45,'completed');
 /*!40000 ALTER TABLE `registration` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -526,4 +526,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-03  0:59:24
+-- Dump completed on 2017-12-03 11:31:54
