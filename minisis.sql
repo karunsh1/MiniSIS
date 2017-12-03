@@ -147,7 +147,7 @@ CREATE TABLE `course_schedule` (
   `course_detail_id` int(11) NOT NULL,
   `schedule_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -156,7 +156,7 @@ CREATE TABLE `course_schedule` (
 
 LOCK TABLES `course_schedule` WRITE;
 /*!40000 ALTER TABLE `course_schedule` DISABLE KEYS */;
-INSERT INTO `course_schedule` VALUES (5,27,11),(6,31,12),(7,32,13),(8,33,21),(9,34,22),(10,35,23),(11,36,24),(12,37,25),(13,38,13),(14,39,14),(15,47,15),(16,48,24);
+INSERT INTO `course_schedule` VALUES (5,27,11),(6,31,12),(7,32,13),(8,33,21),(9,34,22),(10,35,23),(11,36,24),(12,37,25),(13,38,13),(14,39,14),(15,47,15),(16,48,24),(17,6,13),(18,20,20);
 /*!40000 ALTER TABLE `course_schedule` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -174,7 +174,7 @@ CREATE TABLE `grade` (
   `term_id` int(11) NOT NULL,
   `gpa` float DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -183,7 +183,7 @@ CREATE TABLE `grade` (
 
 LOCK TABLES `grade` WRITE;
 /*!40000 ALTER TABLE `grade` DISABLE KEYS */;
-INSERT INTO `grade` VALUES (13,14,1000004,1001,4.3),(12,11,1000004,1001,3.3),(11,2,1000004,1001,3),(10,12,1000004,1002,4),(9,1,1000004,1003,3.4),(15,5,1000004,1006,3.7),(16,12,1000004,1007,NULL);
+INSERT INTO `grade` VALUES (13,14,1000004,1001,4),(12,11,1000004,1001,3.3),(11,2,1000004,1001,3),(10,12,1000004,1002,4),(9,1,1000004,1003,3.4),(15,5,1000004,1006,3.7),(17,15,1000004,1006,NULL),(18,15,1000005,1006,NULL),(16,12,1000004,1007,NULL);
 /*!40000 ALTER TABLE `grade` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -282,9 +282,11 @@ CREATE TABLE `registration` (
   `student_id` int(11) NOT NULL,
   `course_details_id` int(11) NOT NULL,
   `status` enum('enrolled','dropped','completed','disc') NOT NULL DEFAULT 'enrolled',
+  `student_course` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  UNIQUE KEY `student_course_UNIQUE` (`student_course`)
+) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -293,7 +295,7 @@ CREATE TABLE `registration` (
 
 LOCK TABLES `registration` WRITE;
 /*!40000 ALTER TABLE `registration` DISABLE KEYS */;
-INSERT INTO `registration` VALUES (14,1000004,10,'completed'),(16,1000004,19,'completed'),(19,1000004,23,'completed'),(21,1000004,25,'completed'),(22,1000004,26,'completed'),(23,1000004,38,'enrolled'),(24,1000004,45,'completed');
+INSERT INTO `registration` VALUES (14,1000004,10,'completed',NULL),(16,1000004,19,'completed',NULL),(19,1000004,23,'completed',NULL),(21,1000004,25,'completed',NULL),(22,1000004,26,'completed',NULL),(23,1000004,38,'enrolled',NULL),(24,1000004,45,'completed',NULL),(26,1000005,6,'enrolled',NULL),(27,1000004,6,'enrolled',NULL);
 /*!40000 ALTER TABLE `registration` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -526,4 +528,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-03 11:31:54
+-- Dump completed on 2017-12-03 12:54:44
