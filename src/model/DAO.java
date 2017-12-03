@@ -1393,7 +1393,7 @@ public class DAO {
 
 		sql = "SELECT  subject.subject_code,course.course_code,course.title,course.units,grade.gpa  FROM "
 				+ "subject inner join  course inner join grade on "
-				+ "course.subject_id = subject.id  and course.id = grade.course_id " + "and grade.term_id in ("
+				+ "course.subject_id = subject.id  and course.id = grade.course_id " + "and  grade.term_id in ("
 				+ "select term_info.id from minisis.term_info where term_info.term = '" + term
 				+ "' ) and grade.student_id= " + studentID;
 		MySQLAccess obj = new MySQLAccess();
@@ -1458,7 +1458,7 @@ public class DAO {
 			grade = "B+";
 		} else if (gpa < 4) {
 
-			grade = "A";
+			grade = "A-";
 		} else if (gpa == 4) {
 
 			grade = "A+";
