@@ -483,12 +483,12 @@ public class DAO {
 				alert.setContentText("Your degree is completed.Have fun.YOu are not authorized to do any course anymore");
 				alert.showAndWait();
 			}
-
+String student_course=studentId+"-" +course_details_id;
 			if (alreadyExists == false && alreadyThree == false && sameProgram == true && availibility == true
 					&& feePaid == true && isCompleted == false && isDegreeCompleted==false) {
-				sql = "INSERT INTO registration (student_id, course_details_id, status) \r\n" + "VALUES (" + "\""
+				sql = "INSERT INTO registration (student_id, course_details_id, status,student_course) \r\n" + "VALUES (" + "\""
 						+ studentId + "\"" + "," + "\"" + course_details_id + "\"" + "," + "\"" + enrolled + "\""
-						+ ") ON DUPLICATE KEY UPDATE status =" + "\"" + enrolled + "\"";
+						 + "," + "\"" + student_course + "\""+ " ) ON DUPLICATE KEY UPDATE status =" + "\"" + enrolled + "\"";
 
 				sql1 = "INSERT INTO grade (course_id, student_id, term_id)" + "VALUES (" + "\"" + course_id + "\"" + ","
 						+ "\"" + studentId + "\"" + "," + "\"" + termId + "\"" + ")";
@@ -610,9 +610,10 @@ public class DAO {
 		String dropped = "dropped";
 		int class_availability = getClassAvailability(course_details_id);
 		String course_id = getCourseId(course_details_id).toString();
-		sql = sql = "INSERT INTO registration (student_id, course_details_id, status) \r\n" + "VALUES (" + "\""
+		String student_course=studentId+"-" +course_details_id;
+		sql = sql = "INSERT INTO registration (student_id, course_details_id, status,student_course) \r\n" + "VALUES (" + "\""
 				+ studentId + "\"" + "," + "\"" + course_details_id + "\"" + "," + "\"" + dropped + "\""
-				+ ") ON DUPLICATE KEY UPDATE status =" + "\"" + dropped + "\"";
+				  + "," + "\"" + student_course + "\""+") ON DUPLICATE KEY UPDATE status =" + "\"" + dropped + "\"";
 
 		sql1 = "DELETE FROM grade where course_id=" + "\"" + course_id + "\"";
 
