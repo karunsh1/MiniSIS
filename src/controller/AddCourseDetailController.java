@@ -89,6 +89,8 @@ public class AddCourseDetailController implements Initializable{
 			boolean addCourseDetail = dataAccess.addCourseDetail(selectCourseName, roomNo, instructorName,selectTermName,duration);
 			if(addCourseDetail){
 				lblError.setText("Course detail has been added successfully!");
+			}else {
+				lblError.setText("Selected Course detail is already exist!");
 			}
 		}else{
 			lblError.setText("");

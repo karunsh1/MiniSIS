@@ -44,7 +44,15 @@ public class PdfTranscript {
 		String floatCgpaPreRqusite = getCGPAModel.getCGPAPreRequisite(studentID);
 		System.out.println("floatCgpaPreRqusite   "+floatCgpaPreRqusite);
 		
-		
+		int courseCompletedCount = dataAccess.studentDegreeStatus(studentID);
+		String degreeStatus = "";
+		if(courseCompletedCount==11){
+			degreeStatus = "Completed";
+			
+		}else{
+			degreeStatus ="Continue";
+			
+		}
 		
 		String CareerName = (studentInfo.getCareer_Name().equals("G") ? "Graduate" : "Under Graduate");
 
@@ -108,6 +116,12 @@ public class PdfTranscript {
 		cell.setBackgroundColor(new BaseColor(20).LIGHT_GRAY);
 		table.addCell(cell);
 		cell = new PdfPCell(new Phrase(floatCgpaPreRqusite));
+		table.addCell(cell);
+		
+		cell = new PdfPCell(new Phrase("Degree Status"));
+		cell.setBackgroundColor(new BaseColor(20).LIGHT_GRAY);
+		table.addCell(cell);
+		cell = new PdfPCell(new Phrase(degreeStatus));
 		table.addCell(cell);
 		
 		
