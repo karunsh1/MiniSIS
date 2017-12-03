@@ -189,7 +189,7 @@ public void initialize(URL url, ResourceBundle rb)
 							{
 								@Override
 								public void changed(ObservableValue<? extends String> ov, String t, String t1)
-								{
+								{ if(!CourseIdComboBox.getSelectionModel().isEmpty())
 									courseIdDisplay=Integer.parseInt(CourseIdComboBox.getValue());
 									//Integer.valueOf((String)CourseIdComboBox.getValue());
 								}

@@ -353,15 +353,16 @@ public class DAO {
 				count_courses++;
 				// course_id = result.getString("course_id");
 				System.out.println("course_details_id" + course_details_id);
-				program = result.getString("program");
+				
 				courseDetailIdsList.add(result.getString("course_details_id"));
 			}
+			program = getProgramOfCourse(course_details_id);
 			course_id = getCourseId(course_details_id).toString();
 			subject_code = getSubjectCode(studentId);
 			System.out.println("program" + program);
 			System.out.println("subjct code" + subject_code);
 			System.out.println("user type" + userType);
-			if (program.equals(subject_code) || userType != "1")
+			if (program.equals(subject_code) || (userType == "2") || (userType == "4"))
 				sameProgram = true;
 			System.out.println("sameProgram" + sameProgram);
 			System.out.println("courses" + count_courses);
@@ -525,10 +526,39 @@ public class DAO {
 
 	}
 
+
+
+	private String getProgramOfCourse(String course_details_id) {
+		String subject_code = null;
+		String sql = null;
+		//ArrayList courseList = new ArrayList();
+		sql = "SELECT subject.subject_code FROM course_details join course on course.id=course_details.course_id join subject on subject.id =course.subject_id where course_details.id=" 
+		+ "\""+ course_details_id + "\"";
+		System.out.println(sql);
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = obj.getConnection();
+		ResultSet result = null;
+		try {
+			PreparedStatement courselist = conn.prepareStatement(sql);
+			result = courselist.executeQuery();
+			while (result.next()) {
+
+				subject_code = result.getString("subject_code");
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("course belongs to" + subject_code);
+		return subject_code;
+		
+	}
+
 	private String getSubjectCode(String studentId) {
 		String subject_code = null;
 		String sql = null;
-		ArrayList courseList = new ArrayList();
+		//ArrayList courseList = new ArrayList();
 		sql = "select subject_code from subject join student on subject.id=student.subject_id where student.id=" + "\""
 				+ studentId + "\"";
 		System.out.println(sql);
@@ -547,7 +577,7 @@ public class DAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("payment due" + subject_code);
+		System.out.println("subject code of student" + subject_code);
 		return subject_code;
 
 	}
@@ -717,11 +747,14 @@ public class DAO {
 		try {
 			PreparedStatement courselist = conn.prepareStatement(sql);
 			result = courselist.executeQuery();
-			while (result.next()) {
+			if (result.next()) {
 				status = result.getString("status");
+				if (status.equals("completed"))
+					return true;
+				else 
+					return false;
 			}
-			if (status.equals("completed"))
-				return true;
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -2300,7 +2333,7 @@ public class DAO {
 
 		conn = obj.getConnection();
 
-		sql = "select count(id) from minisis.registration where status ='completed' and course_details_id  not in ( "
+		sql = "select count(id) as count from minisis.registration where status ='completed' and course_details_id  not in ( "
 				+ "select id from minisis.course_details where course_id in ("
 				+ "select id from minisis.course where concat(course_code,program) in("
 				+ "select concat(course_code,program) from minisis.pre_requisite where student_id='"+studentID+"')))";
