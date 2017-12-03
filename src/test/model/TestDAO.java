@@ -53,8 +53,8 @@ public class TestDAO {
 	
 	@Test
 	public void testIsCourseCompleted() {
-		String course_details_id="6";
-		String student_id="1000006";
+		String course_details_id="45";
+		String student_id="1000004";
 		boolean completed=dataAccessObject.isCourseCompleted(course_details_id, student_id);
 		assertEquals(true, completed);
 	}
@@ -87,7 +87,7 @@ public class TestDAO {
 		String term="Summer 2017";
 		int student_id=1000005;
 		int coursesCompleted=dataAccessObject.studentDegreeStatus(student_id);
-		assertEquals(1, coursesCompleted);
+		assertEquals(6, coursesCompleted);
 	} 
 	
 	@Test
