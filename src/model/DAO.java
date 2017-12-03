@@ -316,7 +316,7 @@ public class DAO {
 	boolean feePaid;
 	boolean scheduleConflict;
 	boolean isCompleted;
-
+    boolean isDegreeCompleted;
 	public boolean addCourse(String studentId, int term_id, String course_details_id, String userType, String program,
 			String level, Integer courseId, String term) {
 		System.out.println("in getCourseIdlist");
@@ -335,6 +335,7 @@ public class DAO {
 		feePaid = false;
 		scheduleConflict = false;
 		isCompleted = false;
+		isDegreeCompleted=false;
 		try {
 
 			sqlQuery = "SELECT * ,CONCAT(instructor.first_name,' ',instructor.last_name) as instructor, course.id as course_id from  registration join course_details on  course_details.id=registration.course_details_id join"
@@ -400,6 +401,8 @@ public class DAO {
 			// int class_availability=getClassAvailability(course_details_id);
 			if (getClassAvailability(course_details_id) > 0)
 				availibility = true;
+			if(studentDegreeStatus(studentID)==11)
+				isDegreeCompleted=true;
 			if (isCourseCompleted(course_details_id, studentId) == true)
 				isCompleted = true;
 			System.out.println("is competed" + isCompleted);
@@ -471,9 +474,17 @@ public class DAO {
 				alert.setContentText("Not eligible for registered.Please pay to continue");
 				alert.showAndWait();
 			}
+			if (isDegreeCompleted == true) {
+
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Information Dialog");
+				alert.setHeaderText("Course Registeration");
+				alert.setContentText("Your degree is completed.Have fun.YOu are not authorized to do any course anymore");
+				alert.showAndWait();
+			}
 
 			if (alreadyExists == false && alreadyThree == false && sameProgram == true && availibility == true
-					&& feePaid == true && isCompleted == false) {
+					&& feePaid == true && isCompleted == false && isDegreeCompleted==false) {
 				sql = "INSERT INTO registration (student_id, course_details_id, status) \r\n" + "VALUES (" + "\""
 						+ studentId + "\"" + "," + "\"" + course_details_id + "\"" + "," + "\"" + enrolled + "\""
 						+ ") ON DUPLICATE KEY UPDATE status =" + "\"" + enrolled + "\"";
