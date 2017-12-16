@@ -1,0 +1,30 @@
+---------------------------------Installation Instructions---------------------
+
+
+Software requirement :
+Mysql server with ide workbench
+Eclipse with javafx
+
+Steps: 
+import database :database name : minisis
+Import project in eclipse and run the application :
+Main class file /application/main.java
+
+
+login Info: 
+
+student: 
+nidhi.arora@gmail.com
+karunsh1@gmail.com
+
+Admin:
+dir@gmail.com:
+halina@cs.concordia.ca
+
+Professor:
+Dssouli@encs.concordia.ca
+
+
+password : ab
+
+Data Base server password : root
