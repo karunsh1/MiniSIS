@@ -116,7 +116,7 @@ public void initialize(URL url, ResourceBundle rb)
 		studentID = Singleton.getInstance().getUserAcessID().getText();
 		System.out.println("student_id"+studentID);
 	}
-	if(userType.equals("2"))
+	if(userType.equals("2")||userType.equals("4"))
 	{
 		studentIdLabel.setVisible(true);
 		studentIdTextField.setVisible(true);
@@ -128,7 +128,7 @@ public void initialize(URL url, ResourceBundle rb)
 	if(studentID=="") {
 		if(userType.equals("1"))
 			studentID = Singleton.getInstance().getUserAcessID().getText();
-		else if(userType.equals("2")) {
+		else if(userType.equals("2")||userType.equals("4")) {
 			studentID=studentIdTextField.getText();
 			System.out.println("2nd tym" +"student_id"+studentID);
 		}
@@ -245,7 +245,7 @@ public String search() {
 	String start_time =null;
 	String end_time=null;
 	ArrayList<String> scheduleDay = new ArrayList<String>();
-	if(userType.equals("2"))
+	if(userType.equals("2")||userType.equals("4"))
 	{
 
 		studentID=studentIdTextField.getText(); 

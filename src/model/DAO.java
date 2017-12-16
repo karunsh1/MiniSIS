@@ -362,7 +362,8 @@ public class DAO {
 			System.out.println("program" + program);
 			System.out.println("subjct code" + subject_code);
 			System.out.println("user type" + userType);
-			if (program.equals(subject_code) || (userType == "2") || (userType == "4"))
+		
+			if (program.equals(subject_code) || (userType.equals("2")) || (userType.equals("4")))
 				sameProgram = true;
 			System.out.println("sameProgram" + sameProgram);
 			System.out.println("courses" + count_courses);

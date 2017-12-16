@@ -38,6 +38,7 @@ public class AddSecurityQuestionController implements Initializable {
 
 		boolean statusSetSecQue = dataAccess.addSecurityQueAnswer(oldPwd, setSecQue, secQueAns, email);
 		if (statusSetSecQue) {
+			reset();
 			lblError.setText("Congrats! You have updated the security Question  and its answer Successfully");
 		} else {
 			lblError.setText("Please enter correct password to update");
@@ -55,7 +56,7 @@ public class AddSecurityQuestionController implements Initializable {
 		if (statusSetSecQue) {
 			reset();
 			lblError.setText("Congrats! You have set the security Question Successfully");
-			
+
 		} else {
 			lblError.setText("Please enter correct password");
 		}

@@ -53,7 +53,7 @@ public class TestDAO {
 	
 	@Test
 	public void testIsCourseCompleted() {
-		String course_details_id="45";
+		String course_details_id="10";
 		String student_id="1000004";
 		boolean completed=dataAccessObject.isCourseCompleted(course_details_id, student_id);
 		assertEquals(true, completed);
@@ -71,7 +71,7 @@ public class TestDAO {
 		String term="Winter 2018";
 		String student_id="1000005";
 		double dueAmount=dataAccessObject. getDuePayment(term, student_id);
-		assertEquals(4000, dueAmount);
+		assertEquals(1900, dueAmount);
 	} 
 	
 	@Test
@@ -87,7 +87,7 @@ public class TestDAO {
 		String term="Summer 2017";
 		int student_id=1000005;
 		int coursesCompleted=dataAccessObject.studentDegreeStatus(student_id);
-		assertEquals(6, coursesCompleted);
+		assertEquals(5, coursesCompleted);
 	} 
 	
 	@Test
@@ -117,7 +117,7 @@ public class TestDAO {
 	public void testNegativeValidateStudentForGpa() {
 		int student_id=1000005;
 		boolean hasNoGrades=dataAccessObject.validateStudentForCGPA(student_id);
-		assertEquals(false, hasNoGrades);
+		assertEquals(true, hasNoGrades);
 	}
 	@Test
 	public void testValidateStudentForGpa() {

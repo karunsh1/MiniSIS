@@ -51,7 +51,7 @@ public class DropCourseController implements Initializable {
 	@FXML TableColumn<Course, String> ColumnTerm;
 	@FXML TableColumn<Course, String> ColumnDescription;
 	
-	String studentID = Singleton.getInstance().getUserAcessID().getText();
+	String studentID = null;
 	DAO dataAccess = new DAO();
 	@FXML Button DropCourseButton;
 	@FXML TableColumn ColumnInstructorName;
@@ -69,34 +69,36 @@ public class DropCourseController implements Initializable {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
 		labelStudentId.setVisible(false);
 		textFieldStudentId.setVisible(false);
-	/*studentID = Singleton.getInstance().getUserDataAccessID().getText();*/
-	userType = Singleton.getInstance().getUserType().getText();
-	System.out.println(userType);
-	if(userType.equals("1"))
-	{
-	   studentID = Singleton.getInstance().getUserAcessID().getText();
-	   System.out.println("student_id"+studentID);
-	}
-	if(userType.equals("2")||userType.equals("4"))
-	{
-		labelStudentId.setVisible(true);
-		textFieldStudentId.setVisible(true);
-	}
-	
-	else {
-		System.out.println("no match"+studentID);
-	}
-		if(studentID=="") {
+		/*studentID = Singleton.getInstance().getUserDataAccessID().getText();*/
+		userType = Singleton.getInstance().getUserType().getText();
+		System.out.println(userType);
+		if(userType.equals("1"))
+		{
+			studentID = Singleton.getInstance().getUserAcessID().getText();
+			System.out.println("student_id"+studentID);
+		}
+		if(userType.equals("2")||userType.equals("4"))
+		{
+			labelStudentId.setVisible(true);
+			textFieldStudentId.setVisible(true);
+			//studentID=textFieldStudentId.getText();
+		}
+
+		else {
+			System.out.println("no match"+studentID);
+		}
+		if(studentID==null) {
 			if(userType.equals("1"))
-					 studentID = Singleton.getInstance().getUserAcessID().getText();
+				studentID = Singleton.getInstance().getUserAcessID().getText();
 			else if(userType.equals("2")||userType.equals("4")) {
 				studentID=textFieldStudentId.getText();
-				System.out.println("2nd tym" +"student_id"+studentID);
+				System.out.println("2nd tym" +"student_id"+studentID+"test"+textFieldStudentId.getText());
+			}
 		}
-		}
+
+
 		ArrayList termListArray = dataAccess.termNames();
 		
 		ObservableList termlist = FXCollections.observableArrayList(termListArray);
@@ -108,6 +110,12 @@ public class DropCourseController implements Initializable {
 			{   
 				termDisplay=(String) TermCombobox.getSelectionModel().getSelectedItem();//0-Fall, 1-Winter
 				 term_id=dataAccess.getTermId(termDisplay);
+				 if(userType.equals("1"))
+						studentID = Singleton.getInstance().getUserAcessID().getText();
+					else if(userType.equals("2")) {
+						studentID=textFieldStudentId.getText();
+						System.out.println("2nd tym" +"student_id"+studentID+"test"+textFieldStudentId.getText());
+					}
 		        ArrayList data = new ArrayList();
 		      	      ColumnProgram.setCellValueFactory(new PropertyValueFactory<Course,String>("Program"));
 		      	      ColumnCourseTitle.setCellValueFactory(new PropertyValueFactory<Course,String>("CourseTitle"));

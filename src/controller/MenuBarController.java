@@ -51,7 +51,7 @@ public class MenuBarController implements Initializable {
 	@FXML
 	private MenuBar menuBar;
 	@FXML
-	private MenuItem mItemViewTranscript, mItemAddUser, mItemUpdateSequrityQue,mItemCourseDetail,mItemPreRequisite;
+	private MenuItem mItemViewTranscript, mItemAddUser, mItemUpdateSequrityQue, mItemCourseDetail, mItemPreRequisite;
 	@FXML
 	MenuItem menuitemPay;
 	@FXML
@@ -60,11 +60,11 @@ public class MenuBarController implements Initializable {
 	private MenuItem menuitemSearchCourse, mItemLogout, mItemViewGrade, mItemResetPassword, mItemAddTermDetail;
 	@FXML
 	private Menu mResult, mCourseDetail;
-    @FXML MenuItem menuItemWaiveOffPreRequisite;
-    
-    
-    @FXML
-	private void onAddPreReqisiteCourseDetail(){
+	@FXML
+	MenuItem menuItemWaiveOffPreRequisite;
+
+	@FXML
+	private void onAddPreReqisiteCourseDetail() {
 		showItemPane.getChildren().clear();
 		BorderPane newLoadedPane = null;
 
@@ -175,8 +175,6 @@ public class MenuBarController implements Initializable {
 		BorderPane newLoadedPane = null;
 		// if (!mItemViewCGPA.isDisable()) {
 
-
-
 		try {
 			newLoadedPane = FXMLLoader.load(getClass().getResource("/view/ViewTranscript.fxml"));
 		} catch (IOException e) { // TODO Auto-generated catch block
@@ -201,7 +199,6 @@ public class MenuBarController implements Initializable {
 			e.printStackTrace();
 		}
 
-		
 		showItemPane.getChildren().add(newLoadedPane);
 		// mItemViewCGPA.disableProperty().set(true);
 
@@ -316,14 +313,17 @@ public class MenuBarController implements Initializable {
 		}
 		if (userType.equals("4")) {
 			addGrades.visibleProperty().set(false);
-			mCourseDetail.visibleProperty().set(false);
-			mResult.visibleProperty().set(false);
+			mResult.visibleProperty().set(true);
 			menuItemWaiveOffPreRequisite.setVisible(true);
 			mItemPreRequisite.visibleProperty().set(false);
+			mItemCourseDetail.visibleProperty().set(true);
+			mItemAddTermDetail.visibleProperty().set(false);
+			mItemCourseDetail.visibleProperty().set(false);
 		}
 	}
+
 	@FXML
-	private void onAddCourseDetail(){
+	private void onAddCourseDetail() {
 		showItemPane.getChildren().clear();
 		BorderPane newLoadedPane = null;
 		try {
@@ -335,6 +335,7 @@ public class MenuBarController implements Initializable {
 		}
 
 	}
+
 	@FXML
 	public void OnClickPay(ActionEvent event) {
 		showItemPane.getChildren().clear();
@@ -351,8 +352,9 @@ public class MenuBarController implements Initializable {
 		showItemPane.getChildren().add(newLoadedPane);
 	}
 
-	@FXML public void onViewSchedule(ActionEvent event) {
-		
+	@FXML
+	public void onViewSchedule(ActionEvent event) {
+
 		showItemPane.getChildren().clear();
 		BorderPane newLoadedPane = null;
 
@@ -366,18 +368,18 @@ public class MenuBarController implements Initializable {
 		showItemPane.getChildren().add(newLoadedPane);
 	}
 
-	@FXML public void onWaiveOffCourse(ActionEvent event) {
-	showItemPane.getChildren().clear();
-	BorderPane newLoadedPane = null;
+	@FXML
+	public void onWaiveOffCourse(ActionEvent event) {
+		showItemPane.getChildren().clear();
+		BorderPane newLoadedPane = null;
 
-	try {
-		newLoadedPane = FXMLLoader.load(getClass().getResource("/view/WaiveOffCourse.fxml"));
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+		try {
+			newLoadedPane = FXMLLoader.load(getClass().getResource("/view/WaiveOffCourse.fxml"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		showItemPane.getChildren().add(newLoadedPane);
 	}
-
-	showItemPane.getChildren().add(newLoadedPane);
 }
-}
-

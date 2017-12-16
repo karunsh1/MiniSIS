@@ -154,6 +154,7 @@ public class PayFeesController implements Initializable {
 					}
 					
 	            }
+	            reset();
 
 	}
 	
@@ -193,7 +194,7 @@ public class PayFeesController implements Initializable {
 	
 	
 	public void disableAll() {
-		
+		LabelDebitCardNum.setVisible(false);
 		TextFieldDebitCardNum.setVisible(false);
 		MonthCombobox.setVisible(false);
 		YearCombobox.setVisible(false);
@@ -225,6 +226,16 @@ public class PayFeesController implements Initializable {
 		LabelAmountToPay.setVisible(true);
 		
 		
+	}
+	public void reset(){
+		TextFieldDebitCardNum.setText(" ");
+		MonthCombobox.getSelectionModel().clearSelection();
+		YearCombobox.getSelectionModel().clearSelection();
+		TextFieldCVV.setText(" ");
+	     TextFieldAmountDue.clear();
+		TextFieldPayAmount.clear();
+		ComboboxTerm.getSelectionModel().clearSelection();
+		messageLabel.setText("");
 	}
 
 }

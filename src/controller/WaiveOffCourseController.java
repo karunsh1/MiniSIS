@@ -120,12 +120,13 @@ public class WaiveOffCourseController implements Initializable {
 			alert.setContentText("There is a problem in waiving off the course");
 			alert.showAndWait();
 		}
-
+		reset();
 	}
 	
 	public void reset() {
 		textFieldStudentId.setText(" ");
 		comboBoxCourseIds.getSelectionModel().clearSelection();
+		labelProgramValue.setText(" ");
 	}
 	@FXML public void onSearch(ActionEvent event) {
 		labelProgram.setVisible(true);
