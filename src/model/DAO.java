@@ -99,6 +99,31 @@ public class DAO {
 		return termNameList;
 
 	}
+	public ArrayList<String> termNamesAllowed() {
+		String sql = null;
+		ArrayList<String> termNameList = new ArrayList<String>();
+
+		sql =  "\r\n" + "SELECT     term_info.term\r\n" + "FROM       term_info\r\n"
+				+ "WHERE      term_info.disc_date >=curdate() and term_info.registration_start<=curdate()";
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = obj.getConnection();
+		try {
+			PreparedStatement term = conn.prepareStatement(sql);
+			ResultSet result = term.executeQuery();
+
+			while (result.next()) {
+				for (int i = 1; i <= 1; i++) {
+					termNameList.add(result.getString("term"));
+				}
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return termNameList;
+		
+	}
 
 	/**
 	 * 
@@ -1848,6 +1873,8 @@ String student_course=studentId+"-" +course_details_id;
 		return term_id;
 
 	}
+	
+	
 
 	public ObservableList<Schedule> ViewSchedule(int studentID) {
 		MySQLAccess obj = new MySQLAccess();

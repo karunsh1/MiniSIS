@@ -98,9 +98,16 @@ public class DropCourseController implements Initializable {
 			}
 		}
 
-
-		ArrayList termListArray = dataAccess.termNames();
-		
+        
+		ArrayList termListArray = dataAccess.termNamesAllowed();
+		if(termListArray.isEmpty()) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Information Dialog");
+			alert.setHeaderText("Course Drop");
+			alert.setContentText("Sorryyy!! Disc deadline for possible terms has ended.You cannot drop course now.");
+			alert.showAndWait();
+			clear();
+		}
 		ObservableList termlist = FXCollections.observableArrayList(termListArray);
 		TermCombobox.setItems(termlist);
 		TermCombobox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
