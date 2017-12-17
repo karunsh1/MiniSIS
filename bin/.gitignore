@@ -1,7 +1,8 @@
-/test/
+/DTO/
+/application/
 /controller/
 /database/
 /model/
+/test/
 /util/
 /view/
-/application/

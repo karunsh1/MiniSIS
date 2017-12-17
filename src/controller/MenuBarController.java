@@ -139,6 +139,7 @@ public class MenuBarController implements Initializable {
 	MenuItem mViewSchedule;
 	@FXML
 	Menu mMenuPayFee;
+	@FXML MenuItem mViewPayHistory;
 
 	@FXML
 	private void onLogout() {
@@ -396,4 +397,30 @@ public class MenuBarController implements Initializable {
 
 		showItemPane.getChildren().add(newLoadedPane);
 	}
+
+	@FXML public void onViewPayHistory() {
+		showItemPane.getChildren().clear();
+		BorderPane newLoadedPane = null;
+
+		try {
+			newLoadedPane = FXMLLoader.load(getClass().getResource("/view/PaymentHistory.fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		showItemPane.getChildren().add(newLoadedPane);
+	}
+	
+
+//	@FXML public void onViewPayHistory(ActionEvent event) {
+//		showItemPane.getChildren().clear();
+//		BorderPane newLoadedPane = null;
+//
+//		try {
+//			newLoadedPane = FXMLLoader.load(getClass().getResource("/view/PaymentHistory.fxml"));
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//
+//	}
 }
