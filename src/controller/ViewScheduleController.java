@@ -87,7 +87,7 @@ public class ViewScheduleController implements Initializable {
 	}
 
 	@FXML public void onViewSchedule(ActionEvent event) {
-		 viewScheduleTableView.setItems(null);
+		    viewScheduleTableView.setItems(null);
 	        ArrayList data = new ArrayList();
 			ColumnCourse.setCellValueFactory(new PropertyValueFactory<>("course"));
 			ColumnDay.setCellValueFactory(new PropertyValueFactory<>("day"));

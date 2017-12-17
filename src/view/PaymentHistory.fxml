@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="paymentHistoryBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="452.0" prefWidth="511.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PaymentHistoryController">
+   <bottom>
+      <GridPane prefHeight="452.0" prefWidth="809.0" vgap="10.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="459.0" minWidth="10.0" prefWidth="103.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="459.0" minWidth="10.0" prefWidth="184.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="589.0" minWidth="0.0" prefWidth="38.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="589.0" minWidth="0.0" prefWidth="109.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="589.0" minWidth="0.0" prefWidth="0.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="589.0" minWidth="10.0" prefWidth="78.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="31.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="31.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="41.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label fx:id="labelPaymentHistory" alignment="CENTER" contentDisplay="CENTER" prefHeight="0.0" prefWidth="253.0" text="Payment History" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" GridPane.vgrow="NEVER">
+               <font>
+                  <Font size="29.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets top="10.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets right="20.0" />
+               </padding>
+            </Label>
+          <AnchorPane fx:id="paymentHistoryAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="231.0" prefWidth="928.0" GridPane.rowIndex="11">
+               <children>
+                  <TableView fx:id="paymentHistoryTable" layoutX="46.0" layoutY="-240.0" prefHeight="183.0" prefWidth="396.0">
+                    <columns>
+                      <TableColumn fx:id="ColumnSemester" prefWidth="219.0" text="Semester" />
+                      <TableColumn fx:id="ColumnDuePayment" prefWidth="167.0" text="Due payment" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+            <Button fx:id="ViewPaymentHistory" mnemonicParsing="false" onAction="#onViewPaymentHistory" prefHeight="26.0" prefWidth="190.0" text="View Payment History" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button fx:id="mPayFee" mnemonicParsing="false" onAction="#onPayFee" prefHeight="25.0" prefWidth="185.0" text="Go to pay" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </GridPane>
+   </bottom>
+</BorderPane>

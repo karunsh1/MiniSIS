@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -12,8 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 
-
-<BorderPane fx:id="BPaneMenuBar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="785.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MenuBarController">
+<BorderPane fx:id="BPaneMenuBar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="785.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MenuBarController">
    <top>
       <HBox prefHeight="32.0" prefWidth="1157.0" BorderPane.alignment="CENTER">
          <children>
@@ -56,6 +51,7 @@
                   <Menu fx:id="mMenuPayFee" mnemonicParsing="false" text="Pay fees">
                      <items>
                         <MenuItem fx:id="menuitemPay" mnemonicParsing="false" onAction="#OnClickPay" text="Pay" />
+                        <MenuItem fx:id="mViewPayHistory" mnemonicParsing="false" onAction="#onViewPayHistory" text="View Pay History" />
                      </items>
                   </Menu>
               </menus>

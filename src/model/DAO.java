@@ -20,6 +20,7 @@ import DTO.Admin;
 import DTO.Course;
 import DTO.GradesInfo;
 import DTO.Instructor;
+import DTO.PaymentHistory;
 import DTO.Schedule;
 import DTO.Student;
 import DTO.Term;
@@ -35,6 +36,7 @@ public class DAO {
 
 	private ArrayList<String> dataobSchedule;
 	private Schedule schedule;
+	private PaymentHistory paymentHistory;
 	private ArrayList<String> courseDetailIdsList = new ArrayList<String>();
 	boolean hasCourseList;
 
@@ -425,6 +427,14 @@ public class DAO {
 				alert.setContentText("You have already registered in this course:))");
 				alert.showAndWait();
 			}
+			else if (scheduleConflict == true) {
+				System.out.println("in schedule conflict true");
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Information Dialog");
+				alert.setHeaderText("Course Registeration");
+				alert.setContentText("Cannot register ::You have a conflict with another course");
+				alert.showAndWait();
+			}
 			if (isCompleted == true) {
 				System.out.println("is completed");
 				Alert alert = new Alert(AlertType.INFORMATION);
@@ -434,14 +444,7 @@ public class DAO {
 				alert.showAndWait();
 			}
 
-			if (scheduleConflict == true) {
-				System.out.println("in schedule conflict true");
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("Information Dialog");
-				alert.setHeaderText("Course Registeration");
-				alert.setContentText("Cannot register ::You have a conflict with another course");
-				alert.showAndWait();
-			}
+		
 			System.out.println("same program" + sameProgram);
 			if (alreadyThree == true) {
 
@@ -1906,6 +1909,46 @@ String student_course=studentId+"-" +course_details_id;
 				// course.getCourseId());
 				dataobSchedule.add(new Schedule(schedule.getCourse(), schedule.getDay(), schedule.getStart_time(),
 						schedule.getEnd_time(), schedule.getRoom_num(), schedule.getBuilding()));
+				System.out.println(" ----------------------------------  obdata   " + dataobSchedule);
+
+			}
+
+		} catch (Exception e) {
+			System.out.println("Something went wrong. Please contact system admin.");
+			System.err.println(e.getMessage());
+		}
+		return dataobSchedule;
+	}
+	
+	public ObservableList<PaymentHistory> ViewPaymentHistory(int studentID) {
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = null;
+		conn = obj.getConnection();
+
+		ObservableList<PaymentHistory> dataobSchedule = FXCollections.observableArrayList();
+		int studentId = studentID;
+        System.out.println("in func");
+		ArrayList enrollCourseList = null;
+		String sqlQuery = "";
+		try {
+
+			sqlQuery = "SELECT * from payment where  student_id="
+					+ "\"" + studentId + "\"" ;
+
+			System.out.println(sqlQuery);
+			PreparedStatement courseList = conn.prepareStatement(sqlQuery);
+
+			ResultSet result = courseList.executeQuery();
+			ArrayList Rows = new ArrayList();
+			while (result.next()) {
+
+				double paymentDue = Double.parseDouble(result.getString("amount_due"));
+				String semester = result.getString("term");
+				//System.out.println(result.getString("term"));
+				paymentHistory = new PaymentHistory(studentId, paymentDue, semester);
+				// System.out.println("------course id----" +
+				// course.getCourseId());
+				dataobSchedule.add(new PaymentHistory(paymentHistory.getStudentId(), paymentHistory.getPaymentDue(), paymentHistory.getSemester()));
 				System.out.println(" ----------------------------------  obdata   " + dataobSchedule);
 
 			}
