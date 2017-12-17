@@ -57,7 +57,7 @@ public class MenuBarController implements Initializable {
 	@FXML
 	MenuItem MenuItemDropCourse;
 	@FXML
-	private MenuItem menuitemSearchCourse, mItemLogout, mItemViewGrade, mItemResetPassword, mItemAddTermDetail;
+	private MenuItem menuitemSearchCourse, mItemLogout, mItemViewGrade, mItemResetPassword, mItemAddTermDetail,mItemAddSchedule;
 	@FXML
 	private Menu mResult, mCourseDetail;
 	@FXML
@@ -70,6 +70,19 @@ public class MenuBarController implements Initializable {
 
 		try {
 			newLoadedPane = FXMLLoader.load(getClass().getResource("/view/addPreRequisite.fxml"));
+		} catch (IOException e) { // TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		showItemPane.getChildren().add(newLoadedPane);
+	}
+	@FXML
+	private void clickOnAddSchedule() {
+		showItemPane.getChildren().clear();
+		BorderPane newLoadedPane = null;
+
+		try {
+			newLoadedPane = FXMLLoader.load(getClass().getResource("/view/AddSchedule.fxml"));
 		} catch (IOException e) { // TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -310,6 +323,7 @@ public class MenuBarController implements Initializable {
 			mItemAddTermDetail.visibleProperty().set(true);
 			mItemCourseDetail.visibleProperty().set(true);
 			mItemPreRequisite.visibleProperty().set(true);
+			mItemAddSchedule.visibleProperty().set(true);
 		}
 		if (userType.equals("4")) {
 			addGrades.visibleProperty().set(false);

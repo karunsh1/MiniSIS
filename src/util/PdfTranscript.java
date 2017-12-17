@@ -36,10 +36,8 @@ public class PdfTranscript {
 		studentInfo = dataAccess.studentProfile(studentID);
 
 		ViewCGPAModel getCGPAModel = new ViewCGPAModel();
-		float floatCgpa = getCGPAModel.getCGPA(studentID);
-		BigDecimal bdCGPA = new BigDecimal(Float.toString(floatCgpa));
-		bdCGPA = bdCGPA.setScale(1, BigDecimal.ROUND_HALF_UP);
-		String cGPA = bdCGPA.toString();
+		String cGPA = getCGPAModel.getCGPA(studentID);
+		
 		
 		String floatCgpaPreRqusite = getCGPAModel.getCGPAPreRequisite(studentID);
 		System.out.println("floatCgpaPreRqusite   "+floatCgpaPreRqusite);
@@ -216,10 +214,8 @@ public class PdfTranscript {
 		studentInfo = dataAccess.studentProfile(studentID);
 
 		ViewCGPAModel getCGPAModel = new ViewCGPAModel();
-		float floatCgpa = getCGPAModel.getCGPA(studentID);
-		BigDecimal bdCGPA = new BigDecimal(Float.toString(floatCgpa));
-		bdCGPA = bdCGPA.setScale(1, BigDecimal.ROUND_HALF_UP);
-		String cGPA = bdCGPA.toString();
+		String  cGPA = getCGPAModel.getCGPA(studentID);
+		
 		
 		String floatCgpaPreRqusite = getCGPAModel.getCGPAPreRequisite(studentID);
 		

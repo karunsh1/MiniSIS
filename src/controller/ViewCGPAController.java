@@ -65,16 +65,13 @@ public class ViewCGPAController implements Initializable {
 		if (accessData.validateStudentForCGPA(studentIDSearch)) {
 
 			hBoxCGPADetail.visibleProperty().set(true);
-			Float cGPA = getCGPAModel.getCGPA(studentIDSearch);
+			String cGPA = getCGPAModel.getCGPA(studentIDSearch);
 			
 			student = studentModel.selectStudent(studentIDSearch);
 			lblStudentName.setText(student.getFirst_name() + " " + student.getLast_name());
 			lblStudentCareer.setText(student.getCareer_Name());
-			lblStudentProgram.setText(student.getSubject_Name());
-			BigDecimal bdCGPA = new BigDecimal(Float.toString(cGPA));
-			bdCGPA = bdCGPA.setScale(1, BigDecimal.ROUND_HALF_UP);
-			System.out.println("Control value CGPA " + bdCGPA.floatValue());
-			lblStudentCGP.setText(bdCGPA.toString());
+			lblStudentProgram.setText(student.getSubject_Name());			
+			lblStudentCGP.setText(cGPA);
 			// txtSearchStudentID.setText(null);
 		} else {
 			hBoxCGPADetail.visibleProperty().set(false);
@@ -101,11 +98,9 @@ public class ViewCGPAController implements Initializable {
 				lblStudentName.setText(student.getFirst_name() + " " + student.getLast_name());
 				lblStudentCareer.setText(student.getCareer_Name());
 				lblStudentProgram.setText(student.getSubject_Name());
-				Float cGPA = getCGPAModel.getCGPA(Integer.parseInt(studentID));
-				BigDecimal bdCGPA = new BigDecimal(Float.toString(cGPA));
-				bdCGPA = bdCGPA.setScale(1, BigDecimal.ROUND_HALF_UP);
-				System.out.println("Control value CGPA " + bdCGPA.floatValue());
-				lblStudentCGP.setText(bdCGPA.toString());
+				String cGPA = getCGPAModel.getCGPA(Integer.parseInt(studentID));
+				
+				lblStudentCGP.setText(cGPA);
 
 			} else {
 				hBoxCGPADetail.visibleProperty().set(false);

@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import com.csvreader.CsvReader;
@@ -1246,8 +1247,8 @@ String student_course=studentId+"-" +course_details_id;
 	 * @param studentID
 	 * @return gpalist
 	 */
-	public ArrayList<Float> getStudentGPA(int studentID) {
-		ArrayList<Float> gpalist = new ArrayList<Float>();
+	public ArrayList<String> getStudentGPA(int studentID) {
+		ArrayList<String> gpalist = new ArrayList<String>();
 		String sql = "";
 
 		MySQLAccess obj = new MySQLAccess();
@@ -1261,7 +1262,7 @@ String student_course=studentId+"-" +course_details_id;
 			PreparedStatement gpaStatement = conn.prepareStatement(sql);
 			ResultSet result = gpaStatement.executeQuery();
 			while (result.next()) {
-				gpalist.add(result.getFloat("gpa"));
+				gpalist.add(result.getString("gpa"));
 			}
 
 		} catch (SQLException e) {
@@ -2359,4 +2360,250 @@ String student_course=studentId+"-" +course_details_id;
 		return completedCount;
 		
 	}
+	public ArrayList<String> selecctTerm_AddSchedule() {
+
+		String sql = null;
+		ArrayList<String> termNameList = new ArrayList<String>();
+
+		sql = "Select term from term_info where id in(select term_id from course_details);";
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = obj.getConnection();
+		try {
+			PreparedStatement term = conn.prepareStatement(sql);
+			ResultSet result = term.executeQuery();
+
+			while (result.next()) {
+				
+					termNameList.add(result.getString("term"));
+				
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return termNameList;
+
+	}
+	public ArrayList<String> selectCourseName_AddSchedule(String subjectName) {
+
+		String sql = "";
+		ArrayList<String> courseList = new ArrayList<>();
+
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = null;
+		conn = obj.getConnection();
+		sql = "select concat(course_code,'-',title) as courseName from course where   id in(select course_id from course_details) and subject_id in(select id from subject  where subject_code='"
+				+ subjectName + "')";
+		try {
+			PreparedStatement psSQue = conn.prepareStatement(sql);
+			ResultSet resultSubject = psSQue.executeQuery();
+			while (resultSubject.next()) {
+				courseList.add(resultSubject.getString("courseName"));
+
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return courseList;
+
+	}
+	public ArrayList<String> selectInstructorName_AddSchedule(String courseName) {
+
+		String sql = "";
+		ArrayList<String> instructorNameList = new ArrayList<>();
+
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = null;
+
+		conn = obj.getConnection();
+
+		sql = "SELECT concat(first_name,' ',last_name) as full_Name FROM instructor where id in(select instructor_id from course_details where  course_id in(select id from course where  concat(course_code,'-',title) = '"+courseName+"'));";
+		try {
+			PreparedStatement psSQue = conn.prepareStatement(sql);
+			ResultSet resultSubject = psSQue.executeQuery();
+			while (resultSubject.next()) {
+
+				instructorNameList.add(resultSubject.getString("full_Name"));
+
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return instructorNameList;
+
+	}
+	
+	public ArrayList<Time> selectStartTime_AddSchedule() {
+
+		String sql = "";
+		ArrayList<Time> startTimeList = new ArrayList<>();
+
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = null;
+
+		conn = obj.getConnection();
+
+		sql = "select distinct start_time from schedule";
+		try {
+			PreparedStatement psSQue = conn.prepareStatement(sql);
+			ResultSet resultSubject = psSQue.executeQuery();
+			while (resultSubject.next()) {
+
+				startTimeList.add(resultSubject.getTime("start_time"));
+
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return startTimeList;
+
+	}
+	public ArrayList<Time> selectEndTime_AddSchedule() {
+
+		String sql = "";
+		ArrayList<Time> startTimeList = new ArrayList<>();
+
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = null;
+
+		conn = obj.getConnection();
+
+		sql = "select distinct end_time from schedule";
+		try {
+			PreparedStatement psSQue = conn.prepareStatement(sql);
+			ResultSet resultSubject = psSQue.executeQuery();
+			while (resultSubject.next()) {
+
+				startTimeList.add(resultSubject.getTime("end_time"));
+
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return startTimeList;
+
+	}
+	public ArrayList<String> selectDay_AddSchedule() {
+
+		String sql = "";
+		ArrayList<String> startDayList = new ArrayList<>();
+
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = null;
+
+		conn = obj.getConnection();
+
+		sql = "select distinct day from schedule";
+		try {
+			PreparedStatement psSQue = conn.prepareStatement(sql);
+			ResultSet resultSubject = psSQue.executeQuery();
+			while (resultSubject.next()) {
+
+				startDayList.add(resultSubject.getString("day"));
+
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return startDayList;
+
+	}
+	public boolean addSchedule(String courseName, String TermName, String instructorName, String day,Time startTime,
+			Time endTime) {
+
+		boolean addStatus = false;
+		String sql = "";
+
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = null;
+		conn = obj.getConnection();
+
+		sql = "INSERT ignore INTO `minisis`.`course_schedule` (`course_detail_id`, `schedule_id`) "
+				+ "select minisis.course_details.id,minisis.schedule.id from minisis.course_details join minisis.schedule where "
+				+ "schedule.day ='"+day+"' and schedule.end_time ='"+endTime+"' and schedule.start_time= '"+startTime+"' and "
+				+ "course_details.term_id in(select id from minisis.term_info where term = '"+TermName+"') and "
+				+ "course_details.course_id in(select id from minisis.course where "
+				+ " concat(course_code,'-',title) = '"+courseName+"') and course_details.instructor_id in "
+				+ "(select id from minisis.instructor where concat(first_name,' ',last_name) = '"+instructorName+"')";
+
+		Statement addCourseDetail;
+
+		try {
+			if (isUniqeSchedule(courseName,TermName,instructorName,day,startTime,endTime)) {
+
+				addCourseDetail = conn.createStatement();
+				int result = addCourseDetail.executeUpdate(sql);
+				System.out.println("result insert"+ result);
+				if (result == 1) {
+					addStatus = true;
+				} else {
+					addStatus = false;
+				}
+			} else {
+				addStatus = false;
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return addStatus;
+
+	}
+
+	public boolean isUniqeSchedule(String courseName, String TermName, String instructorName, String day,Time startTime,
+			Time endTime) {
+
+		boolean addStatus = false;
+		String sql = "";
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = null;
+		conn = obj.getConnection();
+		int count = 0;
+		sql = "select count(id) as count from course_schedule where schedule_id in("
+				+ "Select id from schedule where day ='"+day+"' and end_time ='"+endTime+"' and start_time= '"+startTime+"' ) "
+				+ "and course_detail_id in( select id from course_details where term_id in("
+				+ "select id from term_info where term = '"+TermName+"') and course_id in("
+				+ "select id from course where  concat(course_code,'-',title) = '"+courseName+"') and "
+				+ "instructor_id in (select id from instructor where "
+				+ "concat(first_name,' ',last_name) = '"+instructorName+"'))";
+
+		try {
+			PreparedStatement psemailvalid = conn.prepareStatement(sql);
+			ResultSet result = psemailvalid.executeQuery();
+			System.out.println(psemailvalid);
+
+			while (result.next()) {
+				count = result.getInt("count");
+				System.out.println("course detail" + count);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (count == 0) {
+			addStatus = true;
+		}
+
+		return addStatus;
+
+	}
+	
 }
