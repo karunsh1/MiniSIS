@@ -137,7 +137,7 @@ public void initialize(URL url, ResourceBundle rb)
 	AddCourseButton.setVisible(false);
 	titledPane.setExpanded(false);
 
-	ArrayList termListArray = dataAccess.termNames();
+	ArrayList termListArray = dataAccess.termNamesAllowed();
 	ArrayList deptListArray = dataAccess.departmentNames();
 	List<String> levelListArray= new ArrayList();
 	List<String> courseIdListArray= new ArrayList();
