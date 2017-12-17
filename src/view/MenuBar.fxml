@@ -8,11 +8,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 
-<<<<<<< HEAD
-<BorderPane fx:id="BPaneMenuBar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="785.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MenuBarController">
-=======
+
 <BorderPane fx:id="BPaneMenuBar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="785.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MenuBarController">
->>>>>>> 623fcb82970c633ea9a2fdba4e46ad58ebcc72b9
+
    <top>
       <HBox prefHeight="32.0" prefWidth="1157.0" BorderPane.alignment="CENTER">
          <children>

@@ -63,6 +63,7 @@ public class MenuBarController implements Initializable {
 	@FXML
 	MenuItem menuItemWaiveOffPreRequisite;
 
+	
 	@FXML
 	private void onAddPreReqisiteCourseDetail() {
 		showItemPane.getChildren().clear();
