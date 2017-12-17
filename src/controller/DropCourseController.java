@@ -99,7 +99,7 @@ public class DropCourseController implements Initializable {
 		}
 
         
-		ArrayList termListArray = dataAccess.termNamesAllowed();
+		ArrayList termListArray = dataAccess.termNamesAllowedForDropping();
 		if(termListArray.isEmpty()) {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Information Dialog");

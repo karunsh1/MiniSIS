@@ -99,7 +99,7 @@ public class DAO {
 		return termNameList;
 
 	}
-	public ArrayList<String> termNamesAllowed() {
+	public ArrayList<String> termNamesAllowedForReg() {
 		String sql = null;
 		ArrayList<String> termNameList = new ArrayList<String>();
 
@@ -122,6 +122,55 @@ public class DAO {
 		}
 
 		return termNameList;
+		
+	}
+	public ArrayList<String> termNamesAllowedForDropping() {
+		String sql = null;
+		ArrayList<String> termNameList = new ArrayList<String>();
+
+		sql =  "\r\n" + "SELECT     term_info.term\r\n" + "FROM       term_info\r\n"
+				+ "WHERE      term_info.dne_date >=curdate() and term_info.registration_start<=curdate()";
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = obj.getConnection();
+		try {
+			PreparedStatement term = conn.prepareStatement(sql);
+			ResultSet result = term.executeQuery();
+
+			while (result.next()) {
+				for (int i = 1; i <= 1; i++) {
+					termNameList.add(result.getString("term"));
+				}
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return termNameList;
+		
+	}
+	
+	public boolean dropAfterDiscDeadline() {
+		String sql = null;
+		boolean dropAfterDeadline=false;
+
+		sql =  "\r\n" + "SELECT     term_info.term\r\n" + "FROM       term_info\r\n"
+				+ "WHERE      term_info.dne_date >=curdate() and term_info.disc_date<=curdate()";
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = obj.getConnection();
+		try {
+			PreparedStatement term = conn.prepareStatement(sql);
+			ResultSet result = term.executeQuery();
+
+			while (result.next()) {
+				dropAfterDeadline=true;
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+      System.out.println("drop after deadline"+dropAfterDeadline);
+		return dropAfterDeadline;
 		
 	}
 
@@ -452,6 +501,15 @@ public class DAO {
 				alert.setContentText("You have already registered in this course:))");
 				alert.showAndWait();
 			}
+			else if (alreadyThree == true) {
+
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Information Dialog");
+				alert.setHeaderText("Course Registeration");
+				alert.setContentText("You have already registered in three courses");
+				alert.showAndWait();
+			}
+
 			else if (scheduleConflict == true) {
 				System.out.println("in schedule conflict true");
 				Alert alert = new Alert(AlertType.INFORMATION);
@@ -471,14 +529,7 @@ public class DAO {
 
 		
 			System.out.println("same program" + sameProgram);
-			if (alreadyThree == true) {
-
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("Information Dialog");
-				alert.setHeaderText("Course Registeration");
-				alert.setContentText("You have already registered in three courses");
-				alert.showAndWait();
-			}
+			
 			if (sameProgram == false) {
 
 				Alert alert = new Alert(AlertType.INFORMATION);
@@ -637,12 +688,19 @@ String student_course=studentId+"-" +course_details_id;
 		String sql1 = null;
 		String sql2 = null;
 		String dropped = "dropped";
+		String disc="disc";
 		int class_availability = getClassAvailability(course_details_id);
 		String course_id = getCourseId(course_details_id).toString();
 		String student_course=studentId+"-" +course_details_id;
+		if(dropAfterDiscDeadline())
+			{sql = sql = "INSERT INTO registration (student_id, course_details_id, status,student_course) \r\n" + "VALUES (" + "\""
+					+ studentId + "\"" + "," + "\"" + course_details_id + "\"" + "," + "\"" + disc + "\""
+					  + "," + "\"" + student_course + "\""+") ON DUPLICATE KEY UPDATE status =" + "\"" + disc + "\"";}
+		else
+		{
 		sql = sql = "INSERT INTO registration (student_id, course_details_id, status,student_course) \r\n" + "VALUES (" + "\""
 				+ studentId + "\"" + "," + "\"" + course_details_id + "\"" + "," + "\"" + dropped + "\""
-				  + "," + "\"" + student_course + "\""+") ON DUPLICATE KEY UPDATE status =" + "\"" + dropped + "\"";
+				  + "," + "\"" + student_course + "\""+") ON DUPLICATE KEY UPDATE status =" + "\"" + dropped + "\"";}
 
 		sql1 = "DELETE FROM grade where course_id=" + "\"" + course_id + "\"";
 
@@ -669,6 +727,8 @@ String student_course=studentId+"-" +course_details_id;
 		return false;
 
 	}
+	
+	
 
 	/**
 	 * 
