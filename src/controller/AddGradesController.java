@@ -217,12 +217,12 @@ public class AddGradesController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 
 		// download template term
-		ArrayList termListArray = dataAccess.termNames(Integer.parseInt(instructorID));
+		ArrayList termListArray = dataAccess.termNamesAllowedForDropping();
 		ObservableList termlist = FXCollections.observableArrayList(termListArray);
 		cbSelectTerm.setItems(termlist);
 
 		// Upload template term
-		ArrayList termListArrayUpload = dataAccess.termNames(Integer.parseInt(instructorID));
+		ArrayList termListArrayUpload = dataAccess.termNamesAllowedForDropping();//termNames(Integer.parseInt(instructorID));
 		ObservableList termlistUpload = FXCollections.observableArrayList(termListArrayUpload);
 		cbSelectTermUpload.setItems(termlistUpload);
 

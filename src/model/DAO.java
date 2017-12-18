@@ -100,11 +100,12 @@ public class DAO {
 		return termNameList;
 
 	}
+
 	public ArrayList<String> termNamesAllowedForReg() {
 		String sql = null;
 		ArrayList<String> termNameList = new ArrayList<String>();
 
-		sql =  "\r\n" + "SELECT     term_info.term\r\n" + "FROM       term_info\r\n"
+		sql = "\r\n" + "SELECT     term_info.term\r\n" + "FROM       term_info\r\n"
 				+ "WHERE      term_info.disc_date >=curdate() and term_info.registration_start<=curdate()";
 		MySQLAccess obj = new MySQLAccess();
 		Connection conn = obj.getConnection();
@@ -123,13 +124,14 @@ public class DAO {
 		}
 
 		return termNameList;
-		
+
 	}
+
 	public ArrayList<String> termNamesAllowedForDropping() {
 		String sql = null;
 		ArrayList<String> termNameList = new ArrayList<String>();
 
-		sql =  "\r\n" + "SELECT     term_info.term\r\n" + "FROM       term_info\r\n"
+		sql = "\r\n" + "SELECT     term_info.term\r\n" + "FROM       term_info\r\n"
 				+ "WHERE      term_info.dne_date >=curdate() and term_info.registration_start<=curdate()";
 		MySQLAccess obj = new MySQLAccess();
 		Connection conn = obj.getConnection();
@@ -148,14 +150,14 @@ public class DAO {
 		}
 
 		return termNameList;
-		
+
 	}
-	
+
 	public boolean dropAfterDiscDeadline() {
 		String sql = null;
-		boolean dropAfterDeadline=false;
+		boolean dropAfterDeadline = false;
 
-		sql =  "\r\n" + "SELECT     term_info.term\r\n" + "FROM       term_info\r\n"
+		sql = "\r\n" + "SELECT     term_info.term\r\n" + "FROM       term_info\r\n"
 				+ "WHERE      term_info.dne_date >=curdate() and term_info.disc_date<=curdate()";
 		MySQLAccess obj = new MySQLAccess();
 		Connection conn = obj.getConnection();
@@ -164,15 +166,15 @@ public class DAO {
 			ResultSet result = term.executeQuery();
 
 			while (result.next()) {
-				dropAfterDeadline=true;
+				dropAfterDeadline = true;
 
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-      System.out.println("drop after deadline"+dropAfterDeadline);
+		System.out.println("drop after deadline" + dropAfterDeadline);
 		return dropAfterDeadline;
-		
+
 	}
 
 	/**
@@ -393,7 +395,8 @@ public class DAO {
 	boolean feePaid;
 	boolean scheduleConflict;
 	boolean isCompleted;
-    boolean isDegreeCompleted;
+	boolean isDegreeCompleted;
+
 	public boolean addCourse(String studentId, int term_id, String course_details_id, String userType, String program,
 			String level, Integer courseId, String term) {
 		System.out.println("in getCourseIdlist");
@@ -412,7 +415,7 @@ public class DAO {
 		feePaid = false;
 		scheduleConflict = false;
 		isCompleted = false;
-		isDegreeCompleted=false;
+		isDegreeCompleted = false;
 		try {
 
 			sqlQuery = "SELECT * ,CONCAT(instructor.first_name,' ',instructor.last_name) as instructor, course.id as course_id from  registration join course_details on  course_details.id=registration.course_details_id join"
@@ -430,7 +433,7 @@ public class DAO {
 				count_courses++;
 				// course_id = result.getString("course_id");
 				System.out.println("course_details_id" + course_details_id);
-				
+
 				courseDetailIdsList.add(result.getString("course_details_id"));
 			}
 			program = getProgramOfCourse(course_details_id);
@@ -439,7 +442,7 @@ public class DAO {
 			System.out.println("program" + program);
 			System.out.println("subjct code" + subject_code);
 			System.out.println("user type" + userType);
-		
+
 			if (program.equals(subject_code) || (userType.equals("2")) || (userType.equals("4")))
 				sameProgram = true;
 			System.out.println("sameProgram" + sameProgram);
@@ -480,8 +483,8 @@ public class DAO {
 			// int class_availability=getClassAvailability(course_details_id);
 			if (getClassAvailability(course_details_id) > 0)
 				availibility = true;
-			if(studentDegreeStatus(studentID)==11)
-				isDegreeCompleted=true;
+			if (studentDegreeStatus(studentID) == 11)
+				isDegreeCompleted = true;
 			if (isCourseCompleted(course_details_id, studentId) == true)
 				isCompleted = true;
 			System.out.println("is competed" + isCompleted);
@@ -501,8 +504,7 @@ public class DAO {
 				alert.setHeaderText("Course Registeration");
 				alert.setContentText("You have already registered in this course:))");
 				alert.showAndWait();
-			}
-			else if (alreadyThree == true) {
+			} else if (alreadyThree == true) {
 
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Information Dialog");
@@ -528,9 +530,8 @@ public class DAO {
 				alert.showAndWait();
 			}
 
-		
 			System.out.println("same program" + sameProgram);
-			
+
 			if (sameProgram == false) {
 
 				Alert alert = new Alert(AlertType.INFORMATION);
@@ -561,15 +562,17 @@ public class DAO {
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Information Dialog");
 				alert.setHeaderText("Course Registeration");
-				alert.setContentText("Your degree is completed.Have fun.YOu are not authorized to do any course anymore");
+				alert.setContentText(
+						"Your degree is completed.Have fun.YOu are not authorized to do any course anymore");
 				alert.showAndWait();
 			}
-String student_course=studentId+"-" +course_details_id;
+			String student_course = studentId + "-" + course_details_id;
 			if (alreadyExists == false && alreadyThree == false && sameProgram == true && availibility == true
-					&& feePaid == true && isCompleted == false && isDegreeCompleted==false) {
-				sql = "INSERT INTO registration (student_id, course_details_id, status,student_course) \r\n" + "VALUES (" + "\""
-						+ studentId + "\"" + "," + "\"" + course_details_id + "\"" + "," + "\"" + enrolled + "\""
-						 + "," + "\"" + student_course + "\""+ " ) ON DUPLICATE KEY UPDATE status =" + "\"" + enrolled + "\"";
+					&& feePaid == true && isCompleted == false && isDegreeCompleted == false) {
+				sql = "INSERT INTO registration (student_id, course_details_id, status,student_course) \r\n"
+						+ "VALUES (" + "\"" + studentId + "\"" + "," + "\"" + course_details_id + "\"" + "," + "\""
+						+ enrolled + "\"" + "," + "\"" + student_course + "\"" + " ) ON DUPLICATE KEY UPDATE status ="
+						+ "\"" + enrolled + "\"";
 
 				sql1 = "INSERT INTO grade (course_id, student_id, term_id)" + "VALUES (" + "\"" + course_id + "\"" + ","
 						+ "\"" + studentId + "\"" + "," + "\"" + termId + "\"" + ")";
@@ -607,14 +610,12 @@ String student_course=studentId+"-" +course_details_id;
 
 	}
 
-
-
 	public String getProgramOfCourse(String course_details_id) {
 		String subject_code = null;
 		String sql = null;
-		//ArrayList courseList = new ArrayList();
-		sql = "SELECT subject.subject_code FROM course_details join course on course.id=course_details.course_id join subject on subject.id =course.subject_id where course_details.id=" 
-		+ "\""+ course_details_id + "\"";
+		// ArrayList courseList = new ArrayList();
+		sql = "SELECT subject.subject_code FROM course_details join course on course.id=course_details.course_id join subject on subject.id =course.subject_id where course_details.id="
+				+ "\"" + course_details_id + "\"";
 		System.out.println(sql);
 		MySQLAccess obj = new MySQLAccess();
 		Connection conn = obj.getConnection();
@@ -633,13 +634,13 @@ String student_course=studentId+"-" +course_details_id;
 		}
 		System.out.println("course belongs to" + subject_code);
 		return subject_code;
-		
+
 	}
 
 	public String getSubjectCode(String studentId) {
 		String subject_code = null;
 		String sql = null;
-		//ArrayList courseList = new ArrayList();
+		// ArrayList courseList = new ArrayList();
 		sql = "select subject_code from subject join student on subject.id=student.subject_id where student.id=" + "\""
 				+ studentId + "\"";
 		System.out.println(sql);
@@ -689,19 +690,21 @@ String student_course=studentId+"-" +course_details_id;
 		String sql1 = null;
 		String sql2 = null;
 		String dropped = "dropped";
-		String disc="disc";
+		String disc = "disc";
 		int class_availability = getClassAvailability(course_details_id);
 		String course_id = getCourseId(course_details_id).toString();
-		String student_course=studentId+"-" +course_details_id;
-		if(dropAfterDiscDeadline())
-			{sql = sql = "INSERT INTO registration (student_id, course_details_id, status,student_course) \r\n" + "VALUES (" + "\""
-					+ studentId + "\"" + "," + "\"" + course_details_id + "\"" + "," + "\"" + disc + "\""
-					  + "," + "\"" + student_course + "\""+") ON DUPLICATE KEY UPDATE status =" + "\"" + disc + "\"";}
-		else
-		{
-		sql = sql = "INSERT INTO registration (student_id, course_details_id, status,student_course) \r\n" + "VALUES (" + "\""
-				+ studentId + "\"" + "," + "\"" + course_details_id + "\"" + "," + "\"" + dropped + "\""
-				  + "," + "\"" + student_course + "\""+") ON DUPLICATE KEY UPDATE status =" + "\"" + dropped + "\"";}
+		String student_course = studentId + "-" + course_details_id;
+		if (dropAfterDiscDeadline()) {
+			sql = sql = "INSERT INTO registration (student_id, course_details_id, status,student_course) \r\n"
+					+ "VALUES (" + "\"" + studentId + "\"" + "," + "\"" + course_details_id + "\"" + "," + "\"" + disc
+					+ "\"" + "," + "\"" + student_course + "\"" + ") ON DUPLICATE KEY UPDATE status =" + "\"" + disc
+					+ "\"";
+		} else {
+			sql = sql = "INSERT INTO registration (student_id, course_details_id, status,student_course) \r\n"
+					+ "VALUES (" + "\"" + studentId + "\"" + "," + "\"" + course_details_id + "\"" + "," + "\""
+					+ dropped + "\"" + "," + "\"" + student_course + "\"" + ") ON DUPLICATE KEY UPDATE status =" + "\""
+					+ dropped + "\"";
+		}
 
 		sql1 = "DELETE FROM grade where course_id=" + "\"" + course_id + "\"";
 
@@ -728,8 +731,6 @@ String student_course=studentId+"-" +course_details_id;
 		return false;
 
 	}
-	
-	
 
 	/**
 	 * 
@@ -842,10 +843,10 @@ String student_course=studentId+"-" +course_details_id;
 				status = result.getString("status");
 				if (status.equals("completed"))
 					return true;
-				else 
+				else
 					return false;
 			}
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1286,22 +1287,25 @@ String student_course=studentId+"-" +course_details_id;
 			while (csvGPAFile.readRecord()) {
 				studentID = csvGPAFile.get("Student_ID").trim();
 				studentGPA = csvGPAFile.get("GPA");
+				studentGPA = gpaScalePoint(studentGPA);
 				System.out.println("gpa " + studentGPA);
 
-				updateSQL = "UPDATE ignore grade SET `gpa`='" + studentGPA + "' WHERE `student_id`='" + studentID
+				updateSQL = "UPDATE ignore grade SET `gpa`='" + studentGPA + "',`status`='completed' WHERE `gpa` is null and `student_id`='" + studentID
 						+ "' and course_id in(" + "select course_id from course_details where instructor_id="
 						+ instructorID + " and  course_id in(" + "select  course_id from course where course_code = "
 						+ course_Code + " and title = '" + course_title + "' and subject_id in("
 						+ "select id from subject where subject_code='" + subject_code + "')) and term_id in("
 						+ "select id from term_info where term = '" + term + "' ))";
-				
-				String updatedCourseStatusSQL = "UPDATE `registration` SET `status`='completed' WHERE student_id = '"+studentID+"' and course_details_id =("
-						+ "select id from course_details where instructor_id ='"+instructorID+"' and term_id in("
-						+ "select id from term_info where term ='"+term+"') and course_id in("
-						+ "select  id from minisis.course where course_code ='"+course_Code+"' and title = '"+course_title+"'))";
+
+				String updatedCourseStatusSQL = "UPDATE `registration` SET `status`='completed' WHERE student_id = '"
+						+ studentID + "' and course_details_id =("
+						+ "select id from course_details where instructor_id ='" + instructorID + "' and term_id in("
+						+ "select id from term_info where term ='" + term + "') and course_id in("
+						+ "select  id from minisis.course where course_code ='" + course_Code + "' and title = '"
+						+ course_title + "'))";
 
 				PreparedStatement selectStatement = conn.prepareStatement(updateSQL);
-				
+
 				PreparedStatement psChangeSCourseStatus = conn.prepareStatement(updatedCourseStatusSQL);
 
 				result = selectStatement.executeUpdate();
@@ -1309,7 +1313,7 @@ String student_course=studentId+"-" +course_details_id;
 					uploadStatus = true;
 					System.out.println("Updated" + studentID);
 					float gpaFloat = Float.parseFloat(studentGPA);
-					if(gpaFloat>=3.0){
+					if (gpaFloat >= 2.0) {
 						result = psChangeSCourseStatus.executeUpdate();
 					}
 				} else {
@@ -1328,6 +1332,32 @@ String student_course=studentId+"-" +course_details_id;
 		}
 		return uploadStatus;
 
+	}
+
+	private String gpaScalePoint(String studentGPA) {
+		if (!studentGPA.equals(null)) {
+			float floatStudentGpa = Float.parseFloat(studentGPA);
+			if (floatStudentGpa < 2.0) {
+				floatStudentGpa = 0.0f;
+
+			} else if (floatStudentGpa < 2.7) {
+				floatStudentGpa = 2.0f;
+			} else if (floatStudentGpa < 3.0) {
+				floatStudentGpa = 2.7f;
+			} else if (floatStudentGpa < 3.3) {
+				floatStudentGpa = 3.0f;
+			} else if (floatStudentGpa < 3.7) {
+				floatStudentGpa = 3.3f;
+			} else if (floatStudentGpa < 4.0) {
+				floatStudentGpa = 3.7f;
+			} else if (floatStudentGpa >= 4.3) {
+				floatStudentGpa = 4.3f;
+			} else {
+				studentGPA = "";
+			}
+			studentGPA = String.valueOf(floatStudentGpa);
+		}
+		return studentGPA;
 	}
 
 	/**
@@ -1482,11 +1512,11 @@ String student_course=studentId+"-" +course_details_id;
 		String sql = null;
 		ObservableList<GradesInfo> oblGradeInfo = FXCollections.observableArrayList();
 
-		sql = "SELECT  subject.subject_code,course.course_code,course.title,course.units,grade.gpa  FROM "
+		sql = "SELECT  subject.subject_code,course.course_code,course.title,course.units,grade.gpa, grade.status FROM "
 				+ "subject inner join  course inner join grade on "
 				+ "course.subject_id = subject.id  and course.id = grade.course_id " + "and  grade.term_id in ("
 				+ "select term_info.id from minisis.term_info where term_info.term = '" + term
-				+ "' ) and grade.student_id= " + studentID;
+				+ "' ) and grade.student_id= " + studentID + " and not grade.status = 'dropped'";
 		MySQLAccess obj = new MySQLAccess();
 		Connection conn = obj.getConnection();
 		try {
@@ -1503,14 +1533,22 @@ String student_course=studentId+"-" +course_details_id;
 
 				float attempted = result.getFloat("units");
 				String gpa = result.getString(("gpa"));
+				String courseStatus = result.getString("status");
 
 				System.out.println("Float value" + gpa);
+				System.out.println("courseStatus" + courseStatus);
 
 				String grade = "";
 
-				if (result.wasNull()) {
-					gpa = "-";
-					grade = "-";
+				if (courseStatus.equals("disc")|| courseStatus.equals("enrolled")) {
+					if (courseStatus.equals("disc")) {
+						gpa = "-";
+						grade = "DISC";
+
+					} else {
+						gpa = "-";
+						grade = "-";
+					}
 
 				} else {
 					grade = calGrades(Float.parseFloat(gpa));
@@ -1532,16 +1570,16 @@ String student_course=studentId+"-" +course_details_id;
 
 	private String calGrades(float gpa) {
 		String grade;
-		if (gpa <= 2.0) {
+		if (gpa < 2.0) {
 			grade = "F";
 
-		} else if (gpa <= 2.7) {
+		} else if (gpa < 2.7) {
 
 			grade = "C";
 		} else if (gpa < 3.0) {
 
 			grade = "B-";
-		} else if (gpa < 3.4) {
+		} else if (gpa < 3.3) {
 
 			grade = "B";
 		} else if (gpa < 3.7) {
@@ -1550,7 +1588,10 @@ String student_course=studentId+"-" +course_details_id;
 		} else if (gpa < 4) {
 
 			grade = "A-";
-		} else if (gpa == 4) {
+		} else if (gpa < 4.3) {
+
+			grade = "A";
+		} else if (gpa == 4.3) {
 
 			grade = "A+";
 		} else {
@@ -1934,8 +1975,6 @@ String student_course=studentId+"-" +course_details_id;
 		return term_id;
 
 	}
-	
-	
 
 	public ObservableList<Schedule> ViewSchedule(int studentID) {
 		MySQLAccess obj = new MySQLAccess();
@@ -2007,7 +2046,7 @@ String student_course=studentId+"-" +course_details_id;
 		}
 		return dataobSchedule;
 	}
-	
+
 	public ObservableList<PaymentHistory> ViewPaymentHistory(int studentID) {
 		MySQLAccess obj = new MySQLAccess();
 		Connection conn = null;
@@ -2015,13 +2054,12 @@ String student_course=studentId+"-" +course_details_id;
 
 		ObservableList<PaymentHistory> dataobSchedule = FXCollections.observableArrayList();
 		int studentId = studentID;
-        System.out.println("in func");
+		System.out.println("in func");
 		ArrayList enrollCourseList = null;
 		String sqlQuery = "";
 		try {
 
-			sqlQuery = "SELECT * from payment where  student_id="
-					+ "\"" + studentId + "\"" ;
+			sqlQuery = "SELECT * from payment where  student_id=" + "\"" + studentId + "\"";
 
 			System.out.println(sqlQuery);
 			PreparedStatement courseList = conn.prepareStatement(sqlQuery);
@@ -2032,11 +2070,12 @@ String student_course=studentId+"-" +course_details_id;
 
 				double paymentDue = Double.parseDouble(result.getString("amount_due"));
 				String semester = result.getString("term");
-				//System.out.println(result.getString("term"));
+				// System.out.println(result.getString("term"));
 				paymentHistory = new PaymentHistory(studentId, paymentDue, semester);
 				// System.out.println("------course id----" +
 				// course.getCourseId());
-				dataobSchedule.add(new PaymentHistory(paymentHistory.getStudentId(), paymentHistory.getPaymentDue(), paymentHistory.getSemester()));
+				dataobSchedule.add(new PaymentHistory(paymentHistory.getStudentId(), paymentHistory.getPaymentDue(),
+						paymentHistory.getSemester()));
 				System.out.println(" ----------------------------------  obdata   " + dataobSchedule);
 
 			}
@@ -2312,9 +2351,10 @@ String student_course=studentId+"-" +course_details_id;
 		conn = obj.getConnection();
 		int count = 0;
 		sql = "SELECT count(course_id) as count FROM minisis.course_details where course_id in("
-				+ "select id from minisis.course where concat(course_code,'-',title) ='"+courseName+"' ) and instructor_id in("
-				+ "select id from minisis.instructor where concat(first_name,' ',last_name) ='"+instructorName+"') and term_id in("
-				+ "select id from minisis.term_info where term ='"+TermName+"')";
+				+ "select id from minisis.course where concat(course_code,'-',title) ='" + courseName
+				+ "' ) and instructor_id in("
+				+ "select id from minisis.instructor where concat(first_name,' ',last_name) ='" + instructorName
+				+ "') and term_id in(" + "select id from minisis.term_info where term ='" + TermName + "')";
 
 		try {
 			PreparedStatement psemailvalid = conn.prepareStatement(sql);
@@ -2456,8 +2496,9 @@ String student_course=studentId+"-" +course_details_id;
 		return term_id;
 
 	}
-	public int studentDegreeStatus(int studentID){
-		
+
+	public int studentDegreeStatus(int studentID) {
+
 		String sql = "";
 		int completedCount = 0;
 
@@ -2466,11 +2507,11 @@ String student_course=studentId+"-" +course_details_id;
 
 		conn = obj.getConnection();
 
-
 		sql = "select count(id) as count from minisis.registration where status ='completed' and course_details_id  not in ( "
 				+ "select id from minisis.course_details where course_id in ("
 				+ "select id from minisis.course where concat(course_code,program) in("
-				+ "select concat(course_code,program) from minisis.pre_requisite where student_id='"+studentID+"')))";
+				+ "select concat(course_code,program) from minisis.pre_requisite where student_id='" + studentID
+				+ "')))";
 
 		try {
 			PreparedStatement psSQue = conn.prepareStatement(sql);
@@ -2485,11 +2526,11 @@ String student_course=studentId+"-" +course_details_id;
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
 		return completedCount;
-		
+
 	}
+
 	public ArrayList<String> selecctTerm_AddSchedule() {
 
 		String sql = null;
@@ -2503,9 +2544,8 @@ String student_course=studentId+"-" +course_details_id;
 			ResultSet result = term.executeQuery();
 
 			while (result.next()) {
-				
-					termNameList.add(result.getString("term"));
-				
+
+				termNameList.add(result.getString("term"));
 
 			}
 		} catch (SQLException e) {
@@ -2515,6 +2555,7 @@ String student_course=studentId+"-" +course_details_id;
 		return termNameList;
 
 	}
+
 	public ArrayList<String> selectCourseName_AddSchedule(String subjectName) {
 
 		String sql = "";
@@ -2541,6 +2582,7 @@ String student_course=studentId+"-" +course_details_id;
 		return courseList;
 
 	}
+
 	public ArrayList<String> selectInstructorName_AddSchedule(String courseName) {
 
 		String sql = "";
@@ -2551,7 +2593,8 @@ String student_course=studentId+"-" +course_details_id;
 
 		conn = obj.getConnection();
 
-		sql = "SELECT concat(first_name,' ',last_name) as full_Name FROM instructor where id in(select instructor_id from course_details where  course_id in(select id from course where  concat(course_code,'-',title) = '"+courseName+"'));";
+		sql = "SELECT concat(first_name,' ',last_name) as full_Name FROM instructor where id in(select instructor_id from course_details where  course_id in(select id from course where  concat(course_code,'-',title) = '"
+				+ courseName + "'));";
 		try {
 			PreparedStatement psSQue = conn.prepareStatement(sql);
 			ResultSet resultSubject = psSQue.executeQuery();
@@ -2569,7 +2612,7 @@ String student_course=studentId+"-" +course_details_id;
 		return instructorNameList;
 
 	}
-	
+
 	public ArrayList<Time> selectStartTime_AddSchedule() {
 
 		String sql = "";
@@ -2598,6 +2641,7 @@ String student_course=studentId+"-" +course_details_id;
 		return startTimeList;
 
 	}
+
 	public ArrayList<Time> selectEndTime_AddSchedule() {
 
 		String sql = "";
@@ -2626,6 +2670,7 @@ String student_course=studentId+"-" +course_details_id;
 		return startTimeList;
 
 	}
+
 	public ArrayList<String> selectDay_AddSchedule() {
 
 		String sql = "";
@@ -2654,7 +2699,8 @@ String student_course=studentId+"-" +course_details_id;
 		return startDayList;
 
 	}
-	public boolean addSchedule(String courseName, String TermName, String instructorName, String day,Time startTime,
+
+	public boolean addSchedule(String courseName, String TermName, String instructorName, String day, Time startTime,
 			Time endTime) {
 
 		boolean addStatus = false;
@@ -2666,20 +2712,21 @@ String student_course=studentId+"-" +course_details_id;
 
 		sql = "INSERT ignore INTO `minisis`.`course_schedule` (`course_detail_id`, `schedule_id`) "
 				+ "select minisis.course_details.id,minisis.schedule.id from minisis.course_details join minisis.schedule where "
-				+ "schedule.day ='"+day+"' and schedule.end_time ='"+endTime+"' and schedule.start_time= '"+startTime+"' and "
-				+ "course_details.term_id in(select id from minisis.term_info where term = '"+TermName+"') and "
-				+ "course_details.course_id in(select id from minisis.course where "
-				+ " concat(course_code,'-',title) = '"+courseName+"') and course_details.instructor_id in "
-				+ "(select id from minisis.instructor where concat(first_name,' ',last_name) = '"+instructorName+"')";
+				+ "schedule.day ='" + day + "' and schedule.end_time ='" + endTime + "' and schedule.start_time= '"
+				+ startTime + "' and " + "course_details.term_id in(select id from minisis.term_info where term = '"
+				+ TermName + "') and " + "course_details.course_id in(select id from minisis.course where "
+				+ " concat(course_code,'-',title) = '" + courseName + "') and course_details.instructor_id in "
+				+ "(select id from minisis.instructor where concat(first_name,' ',last_name) = '" + instructorName
+				+ "')";
 
 		Statement addCourseDetail;
 
 		try {
-			if (isUniqeSchedule(courseName,TermName,instructorName,day,startTime,endTime)) {
+			if (isUniqeSchedule(courseName, TermName, instructorName, day, startTime, endTime)) {
 
 				addCourseDetail = conn.createStatement();
 				int result = addCourseDetail.executeUpdate(sql);
-				System.out.println("result insert"+ result);
+				System.out.println("result insert" + result);
 				if (result == 1) {
 					addStatus = true;
 				} else {
@@ -2698,8 +2745,8 @@ String student_course=studentId+"-" +course_details_id;
 
 	}
 
-	public boolean isUniqeSchedule(String courseName, String TermName, String instructorName, String day,Time startTime,
-			Time endTime) {
+	public boolean isUniqeSchedule(String courseName, String TermName, String instructorName, String day,
+			Time startTime, Time endTime) {
 
 		boolean addStatus = false;
 		String sql = "";
@@ -2708,12 +2755,12 @@ String student_course=studentId+"-" +course_details_id;
 		conn = obj.getConnection();
 		int count = 0;
 		sql = "select count(id) as count from course_schedule where schedule_id in("
-				+ "Select id from schedule where day ='"+day+"' and end_time ='"+endTime+"' and start_time= '"+startTime+"' ) "
-				+ "and course_detail_id in( select id from course_details where term_id in("
-				+ "select id from term_info where term = '"+TermName+"') and course_id in("
-				+ "select id from course where  concat(course_code,'-',title) = '"+courseName+"') and "
-				+ "instructor_id in (select id from instructor where "
-				+ "concat(first_name,' ',last_name) = '"+instructorName+"'))";
+				+ "Select id from schedule where day ='" + day + "' and end_time ='" + endTime + "' and start_time= '"
+				+ startTime + "' ) " + "and course_detail_id in( select id from course_details where term_id in("
+				+ "select id from term_info where term = '" + TermName + "') and course_id in("
+				+ "select id from course where  concat(course_code,'-',title) = '" + courseName + "') and "
+				+ "instructor_id in (select id from instructor where " + "concat(first_name,' ',last_name) = '"
+				+ instructorName + "'))";
 
 		try {
 			PreparedStatement psemailvalid = conn.prepareStatement(sql);
@@ -2735,5 +2782,5 @@ String student_course=studentId+"-" +course_details_id;
 		return addStatus;
 
 	}
-	
+
 }
