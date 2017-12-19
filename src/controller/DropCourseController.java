@@ -57,7 +57,7 @@ public class DropCourseController implements Initializable {
 	@FXML TableColumn ColumnInstructorName;
 	@FXML BorderPane searchCourseBorderPane;
 	@FXML ComboBox TermCombobox;
-    int term_id;
+    Integer term_id;
     String termDisplay=null;
     String term_from_view,  program_from_view,level_from_view;
     Integer course_id_from_view;
@@ -146,10 +146,11 @@ public class DropCourseController implements Initializable {
 	@FXML public void onDropCourse(ActionEvent event) {
 		String course_details_id=null;
 		 DAO dataAccess = new DAO();
+		 System.out.println("----------all things debugggg-----------");
 		 System.out.println(course_id_from_view);
 		 System.out.println(term_from_view);
 		 System.out.println(program_from_view);
-		 System.out.println(term_from_view);
+		 System.out.println(level_from_view);
 		 
 			ResultSet rs = dataAccess.CourseInfo(course_id_from_view,term_from_view,program_from_view,level_from_view);
          System.out.println("resultset" +rs);
@@ -157,9 +158,9 @@ public class DropCourseController implements Initializable {
 				while(rs.next())
 				{
 				 course_details_id=rs.getString("course_details_id");
-					
+					System.out.println("course details id"+ course_details_id);
 				}
-				Boolean success=dataAccess.dropCourse(studentID,course_details_id);
+				Boolean success=dataAccess.dropCourse(studentID,course_details_id,term_id.toString());
 				clear();
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Information Dialog");

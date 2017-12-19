@@ -153,18 +153,19 @@ public class DAO {
 
 	}
 
-	public boolean dropAfterDiscDeadline() {
+	public boolean dropAfterDiscDeadline(String term_id) {
 		String sql = null;
 		boolean dropAfterDeadline = false;
 
 		sql = "\r\n" + "SELECT     term_info.term\r\n" + "FROM       term_info\r\n"
-				+ "WHERE      term_info.dne_date >=curdate() and term_info.disc_date<=curdate()";
+				+ "WHERE      term_info.dne_date >=curdate() and term_info.disc_date<=curdate() and term_info.id="+ "\"" + term_id + "\"";
 		MySQLAccess obj = new MySQLAccess();
 		Connection conn = obj.getConnection();
 		try {
 			PreparedStatement term = conn.prepareStatement(sql);
 			ResultSet result = term.executeQuery();
 
+			
 			while (result.next()) {
 				dropAfterDeadline = true;
 
@@ -322,7 +323,7 @@ public class DAO {
 				+ "				term_info on  course_details.term_id= term_info.id join instructor on instructor.id"
 				+ "=course_details.instructor_id join room on room_id=room.id join course_schedule on course_details.id=course_schedule.course_detail_id join schedule on schedule.id=course_schedule.schedule_id "
 				+ "where course_code= " + "\"" + course_code + "\"" + "and program=" + "\"" + program + "\""
-				+ "and level=" + "\"" + level + "\"" + "and term=" + "\"" + term + "\"";
+				+ " and level=" + "\"" + level + "\"" + "and term=" + "\"" + term + "\"";
 
 		System.out.println(sql);
 		MySQLAccess obj = new MySQLAccess();
@@ -568,7 +569,7 @@ public class DAO {
 			}
 			String student_course = studentId + "-" + course_details_id;
 			if (alreadyExists == false && alreadyThree == false && sameProgram == true && availibility == true
-					&& feePaid == true && isCompleted == false && isDegreeCompleted == false) {
+					&& feePaid == true && isCompleted == false && isDegreeCompleted == false && scheduleConflict==false) {
 				sql = "INSERT INTO registration (student_id, course_details_id, status,student_course) \r\n"
 						+ "VALUES (" + "\"" + studentId + "\"" + "," + "\"" + course_details_id + "\"" + "," + "\""
 						+ enrolled + "\"" + "," + "\"" + student_course + "\"" + " ) ON DUPLICATE KEY UPDATE status ="
@@ -685,16 +686,19 @@ public class DAO {
 
 	}
 
-	public boolean dropCourse(String studentId, String course_details_id) {
+	public boolean dropCourse(String studentId, String course_details_id,String term_id) {
 		String sql = null;
 		String sql1 = null;
 		String sql2 = null;
 		String dropped = "dropped";
 		String disc = "disc";
+		System.out.println("-----------------bugggggggggggggggggggggggggggggggggg");
+		System.out.println(course_details_id);
+		System.out.println(term_id);
 		int class_availability = getClassAvailability(course_details_id);
 		String course_id = getCourseId(course_details_id).toString();
 		String student_course = studentId + "-" + course_details_id;
-		if (dropAfterDiscDeadline()) {
+		if (dropAfterDiscDeadline(term_id)) {
 			sql = sql = "INSERT INTO registration (student_id, course_details_id, status,student_course) \r\n"
 					+ "VALUES (" + "\"" + studentId + "\"" + "," + "\"" + course_details_id + "\"" + "," + "\"" + disc
 					+ "\"" + "," + "\"" + student_course + "\"" + ") ON DUPLICATE KEY UPDATE status =" + "\"" + disc
