@@ -2194,7 +2194,7 @@ public class DAO {
 	}
 
 	public boolean addtermDetail(String term, LocalDate termStartDate, LocalDate termEndDate,
-			LocalDate termRegStartDate) {
+			LocalDate termRegStartDate ,LocalDate termDNEDate, LocalDate termDISCDate) {
 
 		boolean addTermStatus = false;
 		String sql = "";
@@ -2205,8 +2205,8 @@ public class DAO {
 
 		Statement forgetPwd;
 		try {
-			sql = "INSERT ignore INTO `term_info` (`term`, `start_date`, `end_date`, `registration_start`) VALUES ('"
-					+ term + "', '" + termStartDate + "', '" + termEndDate + "', '" + termRegStartDate + "');";
+			sql = "INSERT ignore INTO `term_info` (`term`, `start_date`, `end_date`, `registration_start`,`dne_date`,`disc_date`) VALUES ('"
+					+ term + "', '" + termStartDate + "', '" + termEndDate + "', '" + termRegStartDate + "', '" + termDNEDate+"', '" + termDISCDate + "')";
 			forgetPwd = conn.createStatement();
 			int result = forgetPwd.executeUpdate(sql);
 			if (result == 1) {

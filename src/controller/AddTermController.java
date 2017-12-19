@@ -17,7 +17,7 @@ import model.DAO;
 public class AddTermController implements Initializable {
 
 	@FXML
-	private DatePicker dateTermEnd, dateTermStart, dateRegStart;
+	private DatePicker dateTermEnd, dateTermStart, dateRegStart,dateDNE,dateDISC;
 	@FXML
 	private ComboBox<String> cbSelectYear, cbSelectSession;
 	@FXML
@@ -26,7 +26,7 @@ public class AddTermController implements Initializable {
 	private Button btnSave, btnReset;
 	@FXML
 	private Label lblError;
-	public LocalDate termStartDate = null, termEndDate = null, regStartDate = null, regEndDate = null;
+	public LocalDate termStartDate = null, termEndDate = null, regStartDate = null, regEndDate = null,dneDate = null, discDate = null ;
 	public String term = null, termYear = null, termSession = null;
 	public DAO dataAccess = new DAO();
 
@@ -41,13 +41,22 @@ public class AddTermController implements Initializable {
 		termSession = cbSelectSession.getSelectionModel().getSelectedItem();
 
 	}
+	@FXML
+	private void selectDNEDate(){
+		dneDate = dateDNE.getValue();
+	}
+	@FXML
+	private void selectDISCDate(){
+		discDate = dateDISC.getValue();
+		
+	}
 
 	@FXML
 	private void clickOnSaveButton() {
 		if (!(termSession.equals(null) && termYear.equals(null))) {
 			term = termSession + " " + termYear;
 			if (!(termStartDate.equals(null) && termEndDate.equals(null) && regStartDate.equals(null))) {
-				boolean addTermStatus = dataAccess.addtermDetail(term, termStartDate, termEndDate, regStartDate);
+				boolean addTermStatus = dataAccess.addtermDetail(term, termStartDate, termEndDate, regStartDate ,dneDate, discDate );
 				if (addTermStatus) {
 					reset();
 					lblError.setText("Term has been added successfully!");
