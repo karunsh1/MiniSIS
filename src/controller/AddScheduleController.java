@@ -35,12 +35,17 @@ public class AddScheduleController implements Initializable {
 	@FXML
 	private void selectTerm() {
 		slectedTerm = cbTerm.getSelectionModel().getSelectedItem();
+		System.out.println("termm name " + slectedTerm);
+		ArrayList<String> programNamelist = dataAccess.selectDept_AddSchedule(slectedTerm);
+		ObservableList<String> obprogramList = FXCollections.observableArrayList(programNamelist);
+		cbProgram.setItems(obprogramList);
 	}
 
 	@FXML
 	private void selectPogram() {
 		selectProgramName = cbProgram.getSelectionModel().getSelectedItem();
-		ArrayList<String> courseNamelist = dataAccess.selectCourseName_AddSchedule(selectProgramName);
+
+		ArrayList<String> courseNamelist = dataAccess.selectCourseName_AddSchedule(selectProgramName, slectedTerm);
 		ObservableList<String> obCourseNameList = FXCollections.observableArrayList(courseNamelist);
 		cbCourseName.setItems(obCourseNameList);
 	}
@@ -48,7 +53,8 @@ public class AddScheduleController implements Initializable {
 	@FXML
 	private void SelectCourseName() {
 		selectCourseName = cbCourseName.getSelectionModel().getSelectedItem();
-		ArrayList<String> instructorNamelist = dataAccess.selectInstructorName_AddSchedule(selectCourseName);
+		ArrayList<String> instructorNamelist = dataAccess.selectInstructorName_AddSchedule(selectCourseName,
+				slectedTerm);
 		ObservableList<String> obInstructorNameList = FXCollections.observableArrayList(instructorNamelist);
 		cbInstructorName.setItems(obInstructorNameList);
 
@@ -64,10 +70,14 @@ public class AddScheduleController implements Initializable {
 		ObservableList<Time> obStartTimeList = FXCollections.observableArrayList(startTimelist);
 		cbStartTime.setItems(obStartTimeList);
 
-		ArrayList<Time> endTimelist = dataAccess.selectEndTime_AddSchedule();
+	}
+
+	@FXML
+	private void selectStartTime() {
+		selectStartTime = cbStartTime.getSelectionModel().getSelectedItem();
+		ArrayList<Time> endTimelist = dataAccess.selectEndTime_AddSchedule(selectStartTime);
 		ObservableList<Time> obEndTimeList = FXCollections.observableArrayList(endTimelist);
 		cbEndTime.setItems(obEndTimeList);
-
 		ArrayList<String> daylist = dataAccess.selectDay_AddSchedule();
 		ObservableList<String> obDayList = FXCollections.observableArrayList(daylist);
 		cbDay.setItems(obDayList);
@@ -75,15 +85,9 @@ public class AddScheduleController implements Initializable {
 	}
 
 	@FXML
-	private void selectStartTime() {
-		selectStartTime = cbStartTime.getSelectionModel().getSelectedItem();
-
-	}
-
-	@FXML
 	private void SelectEndTime() {
 		selectEndTime = cbEndTime.getSelectionModel().getSelectedItem();
-		
+
 	}
 
 	@FXML
@@ -103,13 +107,16 @@ public class AddScheduleController implements Initializable {
 
 		if (!(slectedTerm.equals(null) && selectCourseName.equals(null) && selectDay.equals(null)
 				&& selectStartTime.equals(null) && selectEndTime.equals(null) && instructorName.equals(null))) {
-			boolean addScheduleStatus = dataAccess.addSchedule(selectCourseName, slectedTerm, instructorName, selectDay, selectStartTime, selectEndTime);
-			if(addScheduleStatus){
+			boolean addScheduleStatus = dataAccess.addSchedule(selectCourseName, slectedTerm, instructorName, selectDay,
+					selectStartTime, selectEndTime);
+			if (addScheduleStatus) {
+				reset();
 				lblError.setText("Course shcedule has been added successfully!");
-			}else {
+			} else {
+				
 				lblError.setText("Selected shcedule detail is already exist!");
 			}
-		}else{
+		} else {
 			lblError.setText("");
 			lblError.setText("Please select all fields");
 		}
@@ -119,9 +126,6 @@ public class AddScheduleController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		ArrayList<String> programNamelist = dataAccess.departmentNames();
-		ObservableList<String> obprogramList = FXCollections.observableArrayList(programNamelist);
-		cbProgram.setItems(obprogramList);
 
 		ArrayList<String> termNameList = dataAccess.selecctTerm_AddSchedule();
 		ObservableList<String> obTermList = FXCollections.observableArrayList(termNameList);

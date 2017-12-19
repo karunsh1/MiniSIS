@@ -2556,7 +2556,7 @@ public class DAO {
 
 	}
 
-	public ArrayList<String> selectCourseName_AddSchedule(String subjectName) {
+	public ArrayList<String> selectCourseName_AddSchedule(String subjectName , String termName) {
 
 		String sql = "";
 		ArrayList<String> courseList = new ArrayList<>();
@@ -2564,7 +2564,7 @@ public class DAO {
 		MySQLAccess obj = new MySQLAccess();
 		Connection conn = null;
 		conn = obj.getConnection();
-		sql = "select concat(course_code,'-',title) as courseName from course where   id in(select course_id from course_details) and subject_id in(select id from subject  where subject_code='"
+		sql = "select concat(course_code,'-',title) as courseName from course where   id in(select course_id from course_details where term_id in( select id from minisis.term_info where term ='"+termName+"')) and subject_id in(select id from subject  where subject_code='"
 				+ subjectName + "')";
 		try {
 			PreparedStatement psSQue = conn.prepareStatement(sql);
@@ -2583,7 +2583,7 @@ public class DAO {
 
 	}
 
-	public ArrayList<String> selectInstructorName_AddSchedule(String courseName) {
+	public ArrayList<String> selectInstructorName_AddSchedule(String courseName , String termName) {
 
 		String sql = "";
 		ArrayList<String> instructorNameList = new ArrayList<>();
@@ -2594,7 +2594,7 @@ public class DAO {
 		conn = obj.getConnection();
 
 		sql = "SELECT concat(first_name,' ',last_name) as full_Name FROM instructor where id in(select instructor_id from course_details where  course_id in(select id from course where  concat(course_code,'-',title) = '"
-				+ courseName + "'));";
+				+ courseName + "') and term_id in( select id from minisis.term_info where term ='"+termName+"') );";
 		try {
 			PreparedStatement psSQue = conn.prepareStatement(sql);
 			ResultSet resultSubject = psSQue.executeQuery();
@@ -2642,7 +2642,7 @@ public class DAO {
 
 	}
 
-	public ArrayList<Time> selectEndTime_AddSchedule() {
+	public ArrayList<Time> selectEndTime_AddSchedule( Time startTime) {
 
 		String sql = "";
 		ArrayList<Time> startTimeList = new ArrayList<>();
@@ -2652,7 +2652,7 @@ public class DAO {
 
 		conn = obj.getConnection();
 
-		sql = "select distinct end_time from schedule";
+		sql = "select distinct end_time from minisis.schedule where end_time > addtime('"+startTime+"','2:00:00') and end_time < addtime('"+startTime+"','3:00:00');";
 		try {
 			PreparedStatement psSQue = conn.prepareStatement(sql);
 			ResultSet resultSubject = psSQue.executeQuery();
@@ -2710,23 +2710,23 @@ public class DAO {
 		Connection conn = null;
 		conn = obj.getConnection();
 
-		sql = "INSERT ignore INTO `minisis`.`course_schedule` (`course_detail_id`, `schedule_id`) "
-				+ "select minisis.course_details.id,minisis.schedule.id from minisis.course_details join minisis.schedule where "
+		sql = "INSERT ignore INTO `course_schedule` (`course_detail_id`, `schedule_id`) "
+				+ "select course_details.id,minisis.schedule.id from course_details join schedule where "
 				+ "schedule.day ='" + day + "' and schedule.end_time ='" + endTime + "' and schedule.start_time= '"
 				+ startTime + "' and " + "course_details.term_id in(select id from minisis.term_info where term = '"
-				+ TermName + "') and " + "course_details.course_id in(select id from minisis.course where "
+				+ TermName + "') and " + "course_details.course_id in(select id from course where "
 				+ " concat(course_code,'-',title) = '" + courseName + "') and course_details.instructor_id in "
-				+ "(select id from minisis.instructor where concat(first_name,' ',last_name) = '" + instructorName
+				+ "(select id from instructor where concat(first_name,' ',last_name) = '" + instructorName
 				+ "')";
 
-		Statement addCourseDetail;
+		PreparedStatement addCourseDetail;
 
 		try {
 			if (isUniqeSchedule(courseName, TermName, instructorName, day, startTime, endTime)) {
 
-				addCourseDetail = conn.createStatement();
-				int result = addCourseDetail.executeUpdate(sql);
-				System.out.println("result insert" + result);
+				addCourseDetail = conn.prepareStatement(sql);
+				int result = addCourseDetail.executeUpdate();
+				System.out.println("result query   " + addCourseDetail);
 				if (result == 1) {
 					addStatus = true;
 				} else {
@@ -2769,7 +2769,7 @@ public class DAO {
 
 			while (result.next()) {
 				count = result.getInt("count");
-				System.out.println("course detail" + count);
+				System.out.println("course count   " + count);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -2778,8 +2778,35 @@ public class DAO {
 		if (count == 0) {
 			addStatus = true;
 		}
-
+		System.out.println("unique status   " + addStatus);
 		return addStatus;
+
+	}
+	public ArrayList<String> selectDept_AddSchedule(String termName) {
+
+		String sql = null;
+		ArrayList<String> DeptNameList = new ArrayList<String>();
+
+		sql = "select subject_code from subject where id in(select subject_id from course where course.id in( "
+				+ "select course_id from course_details where term_id in("
+				+ " select id from term_info where term ='"+termName+"')))";
+		MySQLAccess obj = new MySQLAccess();
+		Connection conn = obj.getConnection();
+		try {
+			PreparedStatement term = conn.prepareStatement(sql);
+			System.out.println("term  query  "+term);
+			ResultSet result = term.executeQuery();
+
+			while (result.next()) {
+
+				DeptNameList.add(result.getString("subject_code"));
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return DeptNameList;
 
 	}
 
