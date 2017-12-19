@@ -159,7 +159,7 @@ public class DropCourseController implements Initializable {
 				 course_details_id=rs.getString("course_details_id");
 					
 				}
-				Boolean success=dataAccess.dropCourse(studentID,course_details_id);
+				Boolean success=dataAccess.dropCourse(studentID,course_details_id,term_id);
 				clear();
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Information Dialog");
