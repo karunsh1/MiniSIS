@@ -575,11 +575,13 @@ public class DAO {
 						+ enrolled + "\"" + "," + "\"" + student_course + "\"" + " ) ON DUPLICATE KEY UPDATE status ="
 						+ "\"" + enrolled + "\"";
 
-				sql1 = "INSERT INTO grade (course_id, student_id, term_id)" + "VALUES (" + "\"" + course_id + "\"" + ","
-						+ "\"" + studentId + "\"" + "," + "\"" + termId + "\"" + ")";
+				sql1 = "INSERT INTO grade (course_id, student_id, term_id, status,student_course)" + "VALUES (" + "\"" + course_id + "\"" + ","
+						+ "\"" + studentId + "\"" + "," + "\"" + termId + "\"" + "," + "\""
+						+ enrolled + "\""+ "," + "\"" + student_course + "\""+ ") ON DUPLICATE KEY UPDATE status="
+						+ "\"" + enrolled + "\"";
 
-				sql1 = "INSERT INTO grade (course_id, student_id, term_id)" + "VALUES (" + "\"" + course_id + "\"" + ","
-						+ "\"" + studentId + "\"" + "," + "\"" + termId + "\"" + ")";
+//				sql1 = "INSERT INTO grade (course_id, student_id, term_id)" + "VALUES (" + "\"" + course_id + "\"" + ","
+//						+ "\"" + studentId + "\"" + "," + "\"" + termId + "\"" + ")";
 
 				sql2 = "update course_details set class_availability=" + "\""
 						+ (getClassAvailability(course_details_id) - 1) + "\"" + "where id=" + "\"" + course_details_id
@@ -703,14 +705,25 @@ public class DAO {
 					+ "VALUES (" + "\"" + studentId + "\"" + "," + "\"" + course_details_id + "\"" + "," + "\"" + disc
 					+ "\"" + "," + "\"" + student_course + "\"" + ") ON DUPLICATE KEY UPDATE status =" + "\"" + disc
 					+ "\"";
+			
+			sql1 =  "INSERT INTO grade (course_id, student_id, status,student_course,term_id)" + "VALUES (" + "\"" + course_id + "\"" + ","
+					+ "\"" + studentId + "\"" +  "," + "\""
+					+ disc + "\""+ "," + "\"" + student_course + "\""+  "," + "\"" + term_id + "\""+ ") ON DUPLICATE KEY UPDATE status="
+					+ "\"" + disc + "\"";
 		} else {
 			sql = sql = "INSERT INTO registration (student_id, course_details_id, status,student_course) \r\n"
 					+ "VALUES (" + "\"" + studentId + "\"" + "," + "\"" + course_details_id + "\"" + "," + "\""
 					+ dropped + "\"" + "," + "\"" + student_course + "\"" + ") ON DUPLICATE KEY UPDATE status =" + "\""
 					+ dropped + "\"";
+			
+			
+			sql1 =  "INSERT INTO grade (course_id, student_id, status,student_course,term_id)" + "VALUES (" + "\"" + course_id + "\"" + ","
+					+ "\"" + studentId + "\"" +  "," + "\""
+					+ dropped + "\""+ "," + "\"" + student_course + "\""+  "," + "\"" + term_id + "\""+ ") ON DUPLICATE KEY UPDATE status="
+					+ "\"" + dropped + "\"";
 		}
 
-		sql1 = "DELETE FROM grade where course_id=" + "\"" + course_id + "\"";
+
 
 		sql2 = "update course_details set class_availability=" + "\"" + (class_availability + 1) + "\"" + "where id="
 				+ "\"" + course_details_id + "\"";
