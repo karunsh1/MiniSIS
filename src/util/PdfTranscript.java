@@ -37,18 +37,20 @@ public class PdfTranscript {
 
 		ViewCGPAModel getCGPAModel = new ViewCGPAModel();
 		String cGPA = getCGPAModel.getCGPA(studentID);
+		float floatCgpa = Float.parseFloat(cGPA);
 		
 		
 		String floatCgpaPreRqusite = getCGPAModel.getCGPAPreRequisite(studentID);
 		System.out.println("floatCgpaPreRqusite   "+floatCgpaPreRqusite);
 		
 		int courseCompletedCount = dataAccess.studentDegreeStatus(studentID);
+		System.out.println("courseCompletedCount   "+courseCompletedCount);
 		String degreeStatus = "";
-		if(courseCompletedCount==11){
+		if(courseCompletedCount>=11 && floatCgpa > 2.9 ){
 			degreeStatus = "Completed";
 			
 		}else{
-			degreeStatus ="Continue";
+			degreeStatus ="In Progress";
 			
 		}
 		
@@ -225,11 +227,12 @@ public class PdfTranscript {
 		}
 		int courseCompletedCount = dataAccess.studentDegreeStatus(studentID);
 		String degreeStatus = "";
-		if(courseCompletedCount==11){
+		float floatCgpa = Float.parseFloat(cGPA);
+		if(courseCompletedCount>=11 && floatCgpa > 2.9){
 			degreeStatus = "Completed";
 			
 		}else{
-			degreeStatus ="Continue";
+			degreeStatus ="In Progress";
 			
 			
 		}

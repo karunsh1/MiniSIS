@@ -1388,7 +1388,7 @@ public class DAO {
 
 		MySQLAccess obj = new MySQLAccess();
 		Connection conn = obj.getConnection();
-		sql = "SELECT gpa FROM grade where student_id = " + studentID + " and gpa is not NULL and  course_id  not in("
+		sql = "SELECT gpa FROM grade where student_id = " + studentID + " and gpa is not NULL  and status = 'completed' and  course_id  not in("
 				+ "select course_id from minisis.course_details where course_id in(select id from minisis.course where course_code in("
 				+ "select course_code  from minisis.pre_requisite  where student_id = " + studentID
 				+ " and program in (" + "select subject_code from minisis.subject ))))";
@@ -1415,13 +1415,14 @@ public class DAO {
 		MySQLAccess obj = new MySQLAccess();
 		Connection conn = obj.getConnection();
 
-		sql = "SELECT gpa FROM grade where student_id = " + studentID + "  and  course_id in("
+		sql = "SELECT gpa FROM grade where student_id = " + studentID + " and status = 'completed'  and  course_id in("
 				+ "select course_id from course_details where course_id in(select id from course where course_code in("
 				+ "select course_code  from pre_requisite  where student_id = " + studentID + " and program in ("
 				+ "select subject_code from subject ))))";
 
 		try {
 			PreparedStatement gpaStatement = conn.prepareStatement(sql);
+			System.out.println("-----    gpaStatement : " +gpaStatement);
 			ResultSet result = gpaStatement.executeQuery();
 			while (result.next()) {
 				gpalist.add(result.getString("gpa"));
@@ -1431,6 +1432,7 @@ public class DAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println("-----    gpalist : " +gpalist);
 
 		return gpalist;
 	}
@@ -1443,7 +1445,7 @@ public class DAO {
 		MySQLAccess obj = new MySQLAccess();
 		Connection conn = obj.getConnection();
 
-		sql = "SELECT count(course_id) as count FROM grade where student_id = " + studentID + "  and  course_id in("
+		sql = "SELECT count(course_id) as count FROM grade where student_id = " + studentID + " and not  status = 'dropped'   and  course_id in("
 				+ "select course_id from course_details where course_id in(select id from course where course_code in("
 				+ "select course_code  from pre_requisite  where student_id = " + studentID + " and program in ("
 				+ "select subject_code from subject ))))";
@@ -1608,7 +1610,7 @@ public class DAO {
 		} else if (gpa < 4.3) {
 
 			grade = "A";
-		} else if (gpa == 4.3) {
+		} else if (gpa < 4.4) {
 
 			grade = "A+";
 		} else {

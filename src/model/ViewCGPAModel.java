@@ -87,7 +87,7 @@ public class ViewCGPAModel {
 		listGPA = accessData.getStudentGPAofPrerequisite(studentID);
 		int count = accessData.studentGPAofPrerequisiteStatus(studentID);
 		System.out.println("count        "+count);
-		if (count <1) {
+		if (count >0) {
 			for (String gpa : listGPA) {
 				if (gpa.equals(null)) {
 					CGPAwithNull = studentCGPA + "-NA";

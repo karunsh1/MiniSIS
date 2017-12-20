@@ -53,7 +53,7 @@ public class TestDAO {
 	
 	@Test
 	public void testIsCourseCompleted() {
-		String course_details_id="10";
+		String course_details_id="27";
 		String student_id="1000004";
 		boolean completed=dataAccessObject.isCourseCompleted(course_details_id, student_id);
 		assertEquals(true, completed);
